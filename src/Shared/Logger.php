@@ -13,8 +13,8 @@ class Logger extends AbstractShared implements LoggerInterface
     /**
      * @inheritDoc
      *
-     * @param array<int|string,mixed> $context
-     * @param array<string,mixed> $options
+     * @param mixed[] $context
+     * @param mixed[] $options
      */
     public function emergency(string|Stringable $message, array $context = [], array $options = []): void
     {
@@ -24,8 +24,8 @@ class Logger extends AbstractShared implements LoggerInterface
     /**
      * @inheritDoc
      *
-     * @param array<int|string,mixed> $context
-     * @param array<string,mixed> $options
+     * @param mixed[] $context
+     * @param mixed[] $options
      */
     public function alert(string|Stringable $message, array $context = [], array $options = []): void
     {
@@ -35,8 +35,8 @@ class Logger extends AbstractShared implements LoggerInterface
     /**
      * @inheritDoc
      *
-     * @param array<int|string,mixed> $context
-     * @param array<string,mixed> $options
+     * @param mixed[] $context
+     * @param mixed[] $options
      */
     public function critical(string|Stringable $message, array $context = [], array $options = []): void
     {
@@ -46,8 +46,8 @@ class Logger extends AbstractShared implements LoggerInterface
     /**
      * @inheritDoc
      *
-     * @param array<int|string,mixed> $context
-     * @param array<string,mixed> $options
+     * @param mixed[] $context
+     * @param mixed[] $options
      */
     public function error(string|Stringable $message, array $context = [], array $options = []): void
     {
@@ -57,8 +57,8 @@ class Logger extends AbstractShared implements LoggerInterface
     /**
      * @inheritDoc
      *
-     * @param array<int|string,mixed> $context
-     * @param array<string,mixed> $options
+     * @param mixed[] $context
+     * @param mixed[] $options
      */
     public function warning(string|Stringable $message, array $context = [], array $options = []): void
     {
@@ -68,8 +68,8 @@ class Logger extends AbstractShared implements LoggerInterface
     /**
      * @inheritDoc
      *
-     * @param array<int|string,mixed> $context
-     * @param array<string,mixed> $options
+     * @param mixed[] $context
+     * @param mixed[] $options
      */
     public function notice(string|Stringable $message, array $context = [], array $options = []): void
     {
@@ -79,8 +79,8 @@ class Logger extends AbstractShared implements LoggerInterface
     /**
      * @inheritDoc
      *
-     * @param array<int|string,mixed> $context
-     * @param array<string,mixed> $options
+     * @param mixed[] $context
+     * @param mixed[] $options
      */
     public function info(string|Stringable $message, array $context = [], array $options = []): void
     {
@@ -90,8 +90,8 @@ class Logger extends AbstractShared implements LoggerInterface
     /**
      * @inheritDoc
      *
-     * @param array<int|string,mixed> $context
-     * @param array<string,mixed> $options
+     * @param mixed[] $context
+     * @param mixed[] $options
      */
     public function debug(string|Stringable $message, array $context = [], array $options = []): void
     {
@@ -101,8 +101,8 @@ class Logger extends AbstractShared implements LoggerInterface
     /**
      * @inheritDoc
      *
-     * @param array<int|string,mixed> $context
-     * @param array<string,mixed> $options
+     * @param mixed[] $context
+     * @param mixed[] $options
      */
     public function log(mixed $level, string|Stringable $message, array $context = [], array $options = []): void
     {

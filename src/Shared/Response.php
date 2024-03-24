@@ -17,7 +17,7 @@ class Response extends AbstractShared
     /**
      * Process and output native template.
      *
-     * @param array<int|string,mixed>|object|null $context
+     * @param mixed[]|object|null $context
      *
      * @throws LogicException
      * @throws TemplaterException
@@ -36,7 +36,7 @@ class Response extends AbstractShared
     /**
      * Process and output twig template.
      *
-     * @param array<int|string,mixed>|object|null $context
+     * @param mixed[]|object|null $context
      *
      * @throws LogicException
      * @throws TemplaterException
@@ -55,7 +55,7 @@ class Response extends AbstractShared
     /**
      * Process and output xslt template.
      *
-     * @param array<int|string,mixed>|object|null $context
+     * @param mixed[]|object|null $context
      *
      * @throws LogicException
      * @throws TemplaterException
@@ -74,7 +74,7 @@ class Response extends AbstractShared
     /**
      * Process and output template.
      *
-     * @param array<int|string,mixed>|object|null $context
+     * @param mixed[]|object|null $context
      *
      * @throws LogicException
      * @throws TemplaterException
@@ -93,7 +93,7 @@ class Response extends AbstractShared
     /**
      * Base method for template transformation.
      *
-     * @param array<int|string,mixed>|object|null $context
+     * @param mixed[]|object|null $context
      *
      * @throws LogicException
      * @throws TemplaterException

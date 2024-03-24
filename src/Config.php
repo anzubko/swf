@@ -64,7 +64,7 @@ class Config extends AbstractConfig
     /**
      * Mysql settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see MysqlDatabaser
      */
@@ -83,7 +83,7 @@ class Config extends AbstractConfig
     /**
      * Pgsql settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see PgsqlDatabaser
      */
@@ -127,7 +127,7 @@ class Config extends AbstractConfig
     /**
      * Apc settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see ApcCacher
      */
@@ -139,7 +139,7 @@ class Config extends AbstractConfig
     /**
      * Memcached settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see MemCacher
      */
@@ -153,7 +153,7 @@ class Config extends AbstractConfig
     /**
      * Redis settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see RedisCacher
      */
@@ -172,7 +172,7 @@ class Config extends AbstractConfig
     /**
      * Native settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see NativeTemplater
      */
@@ -184,7 +184,7 @@ class Config extends AbstractConfig
     /**
      * Twig settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see TwigTemplater
      */
@@ -197,7 +197,7 @@ class Config extends AbstractConfig
     /**
      * Xslt settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see XsltTemplater
      */
@@ -210,7 +210,7 @@ class Config extends AbstractConfig
     /**
      * Mailer settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see SimpleMailer
      */
@@ -224,7 +224,7 @@ class Config extends AbstractConfig
     /**
      * Assets merger settings.
      *
-     * @var array<string,mixed>
+     * @var mixed[]
      *
      * @see AssetsMerger
      */
