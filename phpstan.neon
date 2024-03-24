@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    paths:
+        - src
+    bootstrapFiles:
+        - .bootstrap.php
+    reportUnmatchedIgnoredErrors: false
+    treatPhpDocTypesAsCertain: false
+    universalObjectCratesClasses:
+        - App\Shared\Registry

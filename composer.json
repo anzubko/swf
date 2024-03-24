@@ -1,0 +1,48 @@
+{
+    "name": "anzubko/swf",
+    "description": "Simplest framework",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andrian Zubko",
+            "email": "ondr@mail.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "ext-curl": "*",
+        "ext-gd": "*",
+        "ext-intl": "*",
+        "ext-mbstring": "*",
+        "ext-zlib": "*",
+        "anzubko/swf-core": "^0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^10.2"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "scripts": {
+        "cleanup": [
+            "rm -rf var/cache"
+        ],
+        "post-create-project-cmd": [
+            "@php fixes.php"
+        ],
+        "post-install-cmd": [
+            "@cleanup"
+        ],
+        "post-update-cmd": [
+            "@cleanup"
+        ]
+    }
+}

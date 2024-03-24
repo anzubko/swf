@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% if not registry.robots %}
+      <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+    <title>{% block title %}{% endblock %}</title>
+    <base href="{{ registry.url }}">
+    <link rel="stylesheet" type="text/css" href="{{ registry.merged['all.css'] }}">
+    <link rel="shortcut icon" href="/.media/favicon.ico">
+  </head>
+  <body>
+    <div>
+      {% block contents %}{% endblock %}
+    </div>
+    <script src="{{ registry.merged['all.js'] }}"></script>
+  </body>
+</html>
