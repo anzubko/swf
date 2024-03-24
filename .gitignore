@@ -1,7 +1,5 @@
 /var/
 /vendor/
-/.docker/
 /.idea/
 /.env.php
 /.env.*.php
-/docker-compose.yml
