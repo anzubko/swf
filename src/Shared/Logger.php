@@ -116,10 +116,7 @@ class Logger extends AbstractShared implements LoggerInterface
      */
     public function dbSlowQuery(float $timer, array $queries): void
     {
-        if (
-            null === $this->s(Config::class)->dbSlowQueryLog
-            || $timer <= $this->s(Config::class)->dbSlowQueryMin
-        ) {
+        if (null === $this->s(Config::class)->dbSlowQueryLog || $timer <= $this->s(Config::class)->dbSlowQueryMin) {
             return;
         }
 
