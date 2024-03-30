@@ -6,8 +6,5 @@ use SWF\AbstractRunner;
 
 class Runner extends AbstractRunner
 {
-    public function __construct()
-    {
-        parent::__construct(new Config());
-    }
+    protected string $config = Config::class;
 }

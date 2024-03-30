@@ -15,11 +15,11 @@ use SWF\AbstractShared;
 
         $this->remoteAddr = (string) ($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
 
-        $this->routerType = (string) ($_SERVER['ROUTER_TYPE'] ?? '');
+        $this->routerType = null === $_SERVER['ROUTER_TYPE'] ? null : (string) $_SERVER['ROUTER_TYPE'];
 
-        $this->routerAction = (string) ($_SERVER['ROUTER_ACTION'] ?? '');
+        $this->routerAction = null === $_SERVER['ROUTER_ACTION'] ? null : (string) $_SERVER['ROUTER_ACTION'];
 
-        $this->routerAlias = (string) ($_SERVER['ROUTER_ALIAS'] ?? '');
+        $this->routerAlias = null === $_SERVER['ROUTER_ALIAS'] ? null : (string) $_SERVER['ROUTER_ALIAS'];
 
         $this->robots = $this->s(Config::class)->robots;
 

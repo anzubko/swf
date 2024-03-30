@@ -277,11 +277,6 @@ class Config extends AbstractConfig
     public int $fileMode = 0666;
 
     /**
-     * Lock files pattern.
-     */
-    public string $lockFile = APP_DIR . '/var/locks/{KEY}.lock';
-
-    /**
      * Additional errors log file.
      */
     public ?string $errorLog = APP_DIR . '/var/log/errors.log';

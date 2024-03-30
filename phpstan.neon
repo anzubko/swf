@@ -2,6 +2,8 @@ parameters:
     level: 8
     paths:
         - src
+        - tests
+        - vendor/anzubko
     bootstrapFiles:
         - .bootstrap.php
     reportUnmatchedIgnoredErrors: false

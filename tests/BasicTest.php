@@ -18,13 +18,10 @@ class BasicTest extends TestCase
      */
     public function testClassesInclude(): void
     {
-        $runner = new Runner();
-        $s = (new ReflectionClass($runner))->getMethod('s');
+        $app = new Runner();
+        $dir = APP_DIR . '/src';
 
-        /** @var Dir $sDir */
-        $sDir = $s->invoke($runner, Dir::class);
-
-        foreach ($sDir->scan(APP_DIR . '/src', true, true) as $file) {
+        foreach ($app->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.php')) {
                 continue;
             }
@@ -40,16 +37,10 @@ class BasicTest extends TestCase
      */
     public function testNativeTemplatesSyntax(): void
     {
-        $runner = new Runner();
-        $s = (new ReflectionClass($runner))->getMethod('s');
+        $app = new Runner();
+        $dir = $app->s(Config::class)->templateNative['dir'];
 
-        /** @var Dir $sDir */
-        $sDir = $s->invoke($runner, Dir::class);
-
-        /** @var Config $sConfig */
-        $sConfig = $s->invoke($runner, Config::class);
-
-        foreach ($sDir->scan($sConfig->templateNative['dir'], true, true) as $file) {
+        foreach ($app->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.php')) {
                 continue;
             }
@@ -67,32 +58,27 @@ class BasicTest extends TestCase
      */
     public function testTwigTemplatesSyntax(): void
     {
-        $runner = new Runner();
-        $s = (new ReflectionClass($runner))->getMethod('s');
-
-        /** @var Dir $sDir */
-        $sDir = $s->invoke($runner, Dir::class);
-
-        /** @var File $sFile */
-        $sFile = $s->invoke($runner, File::class);
-
-        /** @var Config $sConfig */
-        $sConfig = $s->invoke($runner, Config::class);
+        $app = new Runner();
+        $dir = $app->s(Config::class)->templateTwig['dir'];
 
         try {
-            $loader = new TwigFilesystemLoader($sConfig->templateTwig['dir']);
+            $loader = new TwigFilesystemLoader($dir);
         } catch (Throwable) {
             return;
         }
 
         $twig = new TwigEnvironment($loader);
-        foreach ($sDir->scan($sConfig->templateTwig['dir'], true, true) as $file) {
+        foreach ($app->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.twig')) {
                 continue;
             }
 
             try {
-                $twig->parse($twig->tokenize(new TwigSource($sFile->get($file), basename($file), $file)));
+                $twig->parse(
+                    $twig->tokenize(
+                        new TwigSource($app->s(File::class)->get($file), basename($file), $file),
+                    ),
+                );
                 $this->assertTrue(true);
             } catch (Throwable $e) {
                 $this->fail(sprintf('%s in %s:%d', $e->getMessage(), $e->getFile(), $e->getLine()));
@@ -107,32 +93,26 @@ class BasicTest extends TestCase
      */
     public function testXslTemplatesSyntax(): void
     {
-        $runner = new Runner();
-        $s = (new ReflectionClass($runner))->getMethod('s');
+        if (!extension_loaded('libxml') || !extension_loaded('dom') || !extension_loaded('xsl')) {
+            return;
+        }
 
-        /** @var Dir $sDir */
-        $sDir = $s->invoke($runner, Dir::class);
+        $app = new Runner();
+        $dir = $app->s(Config::class)->templateXslt['dir'];
 
-        /** @var Config $sConfig */
-        $sConfig = $s->invoke($runner, Config::class);
-
-        foreach ($sDir->scan($sConfig->templateXslt['dir'], true, true) as $file) {
+        foreach ($app->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.xsl')) {
                 continue;
             }
 
-            if (extension_loaded('libxml') && extension_loaded('dom') && extension_loaded('xsl')) {
-                $doc = new DOMDocument();
-                $success = $doc->load($file, LIBXML_NOCDATA);
-                $this->assertNotFalse($success);
-                if (false === $success) {
-                    continue;
-                }
-                $success = (new XSLTProcessor())->importStylesheet($doc);
-                $this->assertNotFalse($success);
-            } else {
-                $this->fail('For XSL tests your need extensions: LIBXML, DOM and XSL');
-            }
+            $doc = new DOMDocument();
+            $this->assertNotFalse(
+                $doc->load($file, LIBXML_NOCDATA)
+            );
+            $processor = new XSLTProcessor();
+            $this->assertNotFalse(
+                $processor->importStylesheet($doc)
+            );
         }
     }
 }
