@@ -112,7 +112,7 @@ class Response extends AbstractShared
         $mime ??= $processor->getMime();
 
         if ('text/html' === $mime) {
-            $timer = gettimeofday(true) - $_SERVER['STARTED_TIME'];
+            $timer = gettimeofday(true) - APP_STARTED;
             $contents .= sprintf(
                 '<!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->',
                 $timer - $this->s(Db::class)->getTimer() - $processor->getTimer(),

@@ -1,10 +1,10 @@
 <?php
 
-use App\Runner;
 use App\Shared\Config;
 use App\Shared\Dir;
 use App\Shared\File;
 use PHPUnit\Framework\TestCase;
+use SWF\Runner;
 use Twig\Environment as TwigEnvironment;
 use Twig\Loader\FilesystemLoader as TwigFilesystemLoader;
 use Twig\Source as TwigSource;
@@ -18,10 +18,9 @@ class BasicTest extends TestCase
      */
     public function testClassesInclude(): void
     {
-        $app = new Runner();
         $dir = APP_DIR . '/src';
 
-        foreach ($app->s(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.php')) {
                 continue;
             }
@@ -37,17 +36,16 @@ class BasicTest extends TestCase
      */
     public function testNativeTemplatesSyntax(): void
     {
-        $app = new Runner();
-        $dir = $app->s(Config::class)->templateNative['dir'];
+        $dir = Runner::getInstance()->s(Config::class)->templateNative['dir'];
 
-        foreach ($app->s(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.php')) {
                 continue;
             }
 
-            exec(sprintf('php -l %s', $file), result_code: $result);
+            exec(sprintf('php -l %s', $file), result_code: $code);
 
-            $this->assertSame(0, $result);
+            $this->assertSame(0, $code);
         }
     }
 
@@ -58,8 +56,7 @@ class BasicTest extends TestCase
      */
     public function testTwigTemplatesSyntax(): void
     {
-        $app = new Runner();
-        $dir = $app->s(Config::class)->templateTwig['dir'];
+        $dir = Runner::getInstance()->s(Config::class)->templateTwig['dir'];
 
         try {
             $loader = new TwigFilesystemLoader($dir);
@@ -68,21 +65,22 @@ class BasicTest extends TestCase
         }
 
         $twig = new TwigEnvironment($loader);
-        foreach ($app->s(Dir::class)->scan($dir, true, true) as $file) {
+
+        foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.twig')) {
                 continue;
             }
 
             try {
-                $twig->parse(
-                    $twig->tokenize(
-                        new TwigSource($app->s(File::class)->get($file), basename($file), $file),
-                    ),
-                );
-                $this->assertTrue(true);
+                $raw = Runner::getInstance()->s(File::class)->get($file);
+                $source = new TwigSource($raw, basename($file), $file);
+                $stream = $twig->tokenize($source);
+                $twig->parse($stream);
             } catch (Throwable $e) {
                 $this->fail(sprintf('%s in %s:%d', $e->getMessage(), $e->getFile(), $e->getLine()));
             }
+
+            $this->assertTrue(true);
         }
     }
 
@@ -97,22 +95,18 @@ class BasicTest extends TestCase
             return;
         }
 
-        $app = new Runner();
-        $dir = $app->s(Config::class)->templateXslt['dir'];
+        $dir = Runner::getInstance()->s(Config::class)->templateXslt['dir'];
 
-        foreach ($app->s(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.xsl')) {
                 continue;
             }
 
             $doc = new DOMDocument();
-            $this->assertNotFalse(
-                $doc->load($file, LIBXML_NOCDATA)
-            );
+            $this->assertNotFalse($doc->load($file, LIBXML_NOCDATA));
+
             $processor = new XSLTProcessor();
-            $this->assertNotFalse(
-                $processor->importStylesheet($doc)
-            );
+            $this->assertNotFalse($processor->importStylesheet($doc));
         }
     }
 }
