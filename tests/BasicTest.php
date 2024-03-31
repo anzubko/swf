@@ -72,10 +72,11 @@ class BasicTest extends TestCase
             }
 
             try {
-                $raw = Runner::getInstance()->s(File::class)->get($file);
-                $source = new TwigSource($raw, basename($file), $file);
-                $stream = $twig->tokenize($source);
-                $twig->parse($stream);
+                $twig->parse(
+                    $twig->tokenize(
+                        new TwigSource(Runner::getInstance()->s(File::class)->get($file), basename($file), $file),
+                    ),
+                );
             } catch (Throwable $e) {
                 $this->fail(sprintf('%s in %s:%d', $e->getMessage(), $e->getFile(), $e->getLine()));
             }

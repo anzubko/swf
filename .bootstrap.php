@@ -1,10 +1,9 @@
 <?php
 
 define('APP_STARTED', gettimeofday(true));
+define('APP_DIR', __DIR__);
 
 require __DIR__ . '/vendor/autoload.php';
-
-const APP_DIR = __DIR__;
 
 ini_set('display_errors', 'cli' === PHP_SAPI);
 ini_set('error_reporting', E_ALL);

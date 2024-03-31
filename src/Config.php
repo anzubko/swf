@@ -280,9 +280,4 @@ class Config extends AbstractConfig
      * Additional errors log file.
      */
     public ?string $errorLog = APP_DIR . '/var/log/errors.log';
-
-    /**
-     * System cache directory.
-     */
-    public string $sysCacheDir = APP_DIR . '/var/cache/system';
 }
