@@ -2,29 +2,66 @@
 
 namespace App\Listener;
 
+use App\Event\DbSlowQueryEvent;
+use App\Shared\Config;
 use App\Shared\Logger;
 use App\Shared\Merger;
 use App\Shared\Registry;
+use App\Shared\Text;
 use SWF\AbstractBase;
 use SWF\Attribute\AsListener;
 use SWF\Event\BeforeControllerEvent;
+use SWF\Event\LogEvent;
 use SWF\Event\TransactionFailEvent;
 
 class CommonListener extends AbstractBase
 {
-    #[AsListener]
+    #[AsListener(disposable: true)]
     public function assetsMerge(BeforeControllerEvent $event): void
     {
         $this->s(Registry::class)->merged = $this->s(Merger::class)->merge();
     }
 
     #[AsListener(persistent: true)]
+    public function customErrorLog(LogEvent $event): void
+    {
+        if (null === $this->s(Config::class)->errorLog) {
+            return;
+        }
+
+        $this->s(Logger::class)->customLog($this->s(Config::class)->errorLog, $event->getComplexMessage());
+    }
+
+    #[AsListener(persistent: true)]
     public function transactionFail(TransactionFailEvent $event): void
     {
-        $this->s(Logger::class)->transactionFail(
-            $event->getLevel(),
-            $event->getException()->getSqlState(),
-            $event->getRetry(),
-        );
+        if (null === $this->s(Config::class)->transactionFailLog) {
+            return;
+        }
+
+        $host = idn_to_utf8($_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
+
+        $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetries(), $host);
+
+        $this->s(Logger::class)->customLog($this->s(Config::class)->transactionFailLog, $message);
+    }
+
+    #[AsListener(persistent: true)]
+    public function dbSlowQuery(DbSlowQueryEvent $event): void
+    {
+        if (null === $this->s(Config::class)->dbSlowQueryLog) {
+            return;
+        }
+
+        $queries = [];
+        foreach ($event->getQueries() as $query) {
+            $queries[] = $this->s(Text::class)->fTrim($query);
+        }
+
+        $host = idn_to_utf8($_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
+
+        $message = sprintf("[%.2f] %s\n\t%s\n", $event->getTimer(), $host, implode("\n\t", $queries));
+
+        $this->s(Logger::class)->customLog($this->s(Config::class)->dbSlowQueryLog, $message);
     }
 }

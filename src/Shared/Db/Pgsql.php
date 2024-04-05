@@ -2,8 +2,9 @@
 
 namespace App\Shared\Db;
 
+use App\Event\DbSlowQueryEvent;
 use App\Shared\Config;
-use App\Shared\Logger;
+use App\Shared\Dispatcher;
 use SWF\AbstractShared;
 use SWF\Interface\DatabaserInterface;
 use SWF\PgsqlDatabaser;
@@ -17,7 +18,13 @@ class Pgsql extends AbstractShared
     {
         $db = new PgsqlDatabaser(...$this->s(Config::class)->dbPgsql);
 
-        $db->setProfiler($this->s(Logger::class)->dbSlowQuery(...));
+        $db->setProfiler(
+            function (float $timer, array $queries): void {
+                if ($timer > $this->s(Config::class)->dbSlowQueryMin) {
+                    $this->s(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
+                }
+            }
+        );
 
         return $db;
     }

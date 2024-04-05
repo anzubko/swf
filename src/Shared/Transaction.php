@@ -21,7 +21,13 @@ class Transaction extends AbstractShared
      */
     public function mysql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
-        TransactionRunner::getInstance()->run($this->s(Mysql::class), $body, $isolation, $retryAt);
+        TransactionRunner::getInstance()->run(
+            $this->s(Mysql::class),
+            $body,
+            $isolation,
+            $retryAt,
+            $this->s(Config::class)->transactionRetries,
+        );
 
         return $this;
     }
@@ -36,7 +42,13 @@ class Transaction extends AbstractShared
      */
     public function pgsql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
-        TransactionRunner::getInstance()->run($this->s(Pgsql::class), $body, $isolation, $retryAt);
+        TransactionRunner::getInstance()->run(
+            $this->s(Pgsql::class),
+            $body,
+            $isolation,
+            $retryAt,
+            $this->s(Config::class)->transactionRetries,
+        );
 
         return $this;
     }
@@ -51,7 +63,13 @@ class Transaction extends AbstractShared
      */
     public function run(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
-        TransactionRunner::getInstance()->run($this->s(Db::class), $body, $isolation, $retryAt);
+        TransactionRunner::getInstance()->run(
+            $this->s(Db::class),
+            $body,
+            $isolation,
+            $retryAt,
+            $this->s(Config::class)->transactionRetries,
+        );
 
         return $this;
     }
