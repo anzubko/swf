@@ -111,23 +111,23 @@ class Response extends AbstractShared
 
         $mime ??= $processor->getMime();
         if ('text/html' === $mime) {
-            $contents .= $this->prepareStats($processor);
+            $contents .= $this->prepareStats();
         }
 
         $this->inline($contents, $mime, $code, $expire, null, $exit);
     }
 
-    private function prepareStats(TemplaterInterface $processor): string
+    private function prepareStats(): string
     {
         $timer = gettimeofday(true) - APP_STARTED;
 
         return sprintf(
             '<!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->',
-            $timer - $this->s(Db::class)->getTimer() - $processor->getTimer(),
+            $timer - $this->s(Db::class)->getTimer() - $this->s(Template::class)->getTimer(),
             $this->s(Db::class)->getCounter(),
             $this->s(Db::class)->getTimer(),
-            $processor->getCounter(),
-            $processor->getTimer(),
+            $this->s(Template::class)->getCounter(),
+            $this->s(Template::class)->getTimer(),
             $timer,
         );
     }
