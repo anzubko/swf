@@ -110,21 +110,26 @@ class Response extends AbstractShared
         $contents = $processor->transform($filename, $context);
 
         $mime ??= $processor->getMime();
-
         if ('text/html' === $mime) {
-            $timer = gettimeofday(true) - APP_STARTED;
-            $contents .= sprintf(
-                '<!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->',
-                $timer - $this->s(Db::class)->getTimer() - $processor->getTimer(),
-                $this->s(Db::class)->getCounter(),
-                $this->s(Db::class)->getTimer(),
-                $processor->getCounter(),
-                $processor->getTimer(),
-                $timer,
-            );
+            $contents .= $this->prepareStats($processor);
         }
 
         $this->inline($contents, $mime, $code, $expire, null, $exit);
+    }
+
+    private function prepareStats(TemplaterInterface $processor): string
+    {
+        $timer = gettimeofday(true) - APP_STARTED;
+
+        return sprintf(
+            '<!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->',
+            $timer - $this->s(Db::class)->getTimer() - $processor->getTimer(),
+            $this->s(Db::class)->getCounter(),
+            $this->s(Db::class)->getTimer(),
+            $processor->getCounter(),
+            $processor->getTimer(),
+            $timer,
+        );
     }
 
     /**
@@ -140,14 +145,13 @@ class Response extends AbstractShared
         int $expire = 0,
         bool $exit = true,
     ): void {
-        $contents = (string) json_encode(
-            $contents,
-            $pretty
-                ? JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
-                : JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE,
-        );
+        if ($pretty) {
+            $contents = json_encode($contents, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        } else {
+            $contents = json_encode($contents, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
+        }
 
-        ResponseManager::getInstance()->output('inline', $contents, 'application/json', $code, $expire, null, $exit);
+        $this->output('inline', (string) $contents, 'application/json', $code, $expire, null, $exit);
     }
 
     /**
@@ -163,7 +167,7 @@ class Response extends AbstractShared
         ?string $filename = null,
         bool $exit = true,
     ): void {
-        ResponseManager::getInstance()->output('inline', $contents, $mime, $code, $expire, $filename, $exit);
+        $this->output('inline', $contents, $mime, $code, $expire, $filename, $exit);
     }
 
     /**
@@ -179,7 +183,29 @@ class Response extends AbstractShared
         ?string $filename = null,
         bool $exit = true,
     ): void {
-        ResponseManager::getInstance()->output('attachment', $contents, $mime, $code, $expire, $filename, $exit);
+        $this->output('attachment', $contents, $mime, $code, $expire, $filename, $exit);
+    }
+
+    private function output(
+        string $disposition,
+        string $contents,
+        string $mime = 'text/plain',
+        int $code = 200,
+        int $expire = 0,
+        ?string $filename = null,
+        bool $exit = true,
+    ): void {
+        ResponseManager::getInstance()->output(
+            $disposition,
+            $contents,
+            $mime,
+            $code,
+            $expire,
+            $filename,
+            $this->s(Config::class)->compressMimes,
+            $this->s(Config::class)->compressMin,
+            $exit,
+        );
     }
 
     /**

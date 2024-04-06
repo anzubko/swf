@@ -11,7 +11,8 @@ use App\Shared\Text;
 use SWF\AbstractBase;
 use SWF\Attribute\AsListener;
 use SWF\Event\BeforeControllerEvent;
-use SWF\Event\LogEvent;
+use SWF\Event\LoggerEvent;
+use SWF\Event\ResponseErrorEvent;
 use SWF\Event\TransactionFailEvent;
 
 class CommonListener extends AbstractBase
@@ -23,13 +24,27 @@ class CommonListener extends AbstractBase
     }
 
     #[AsListener(persistent: true)]
-    public function customErrorLog(LogEvent $event): void
+    public function errorLog(LoggerEvent $event): void
     {
         if (null === $this->s(Config::class)->errorLog) {
             return;
         }
 
         $this->s(Logger::class)->customLog($this->s(Config::class)->errorLog, $event->getComplexMessage());
+    }
+
+    #[AsListener(persistent: true)]
+    public function errorDocument(ResponseErrorEvent $event): void
+    {
+        $errorDocument = $this->s(Config::class)->errorDocument;
+        if (null === $errorDocument) {
+            return;
+        }
+
+        $errorDocument = str_replace('{CODE}', (string) $event->getCode(), $errorDocument);
+        if (is_file($errorDocument)) {
+            include $errorDocument;
+        }
     }
 
     #[AsListener(persistent: true)]

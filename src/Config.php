@@ -250,11 +250,6 @@ class Config extends AbstractConfig
     ];
 
     /**
-     * Optional error document file.
-     */
-    public ?string $errorDocument = APP_DIR . '/public/.bin/errors/{CODE}.html.php';
-
-    /**
      * Compress output if size more this value in bytes.
      */
     public int $compressMin = 32 * 1024;
@@ -275,6 +270,11 @@ class Config extends AbstractConfig
         'application/rss+xml',
         'application/xml',
     ];
+
+    /**
+     * Optional error document file.
+     */
+    public ?string $errorDocument = APP_DIR . '/public/.bin/errors/{CODE}.html.php';
 
     /**
      * Additional errors log file.
