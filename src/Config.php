@@ -47,6 +47,16 @@ class Config extends AbstractConfig
     public string $timezone = 'UTC';
 
     /**
+     * Default mode for new directories.
+     */
+    public int $dirMode = 0777;
+
+    /**
+     * Default mode for new/updated files.
+     */
+    public int $fileMode = 0666;
+
+    /**
      * Allow robots.
      */
     #[Env('APP_ROBOTS')] public bool $robots = false;
@@ -265,16 +275,6 @@ class Config extends AbstractConfig
         'application/rss+xml',
         'application/xml',
     ];
-
-    /**
-     * Default mode for new directories.
-     */
-    public int $dirMode = 0777;
-
-    /**
-     * Default mode for new/updated files.
-     */
-    public int $fileMode = 0666;
 
     /**
      * Additional errors log file.
