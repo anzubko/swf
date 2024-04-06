@@ -1,8 +1,9 @@
 <?php
 
-return [
+return $_SERVER + [
     'APP_ENV' => 'dev',
     'APP_DEBUG' => false,
+    'APP_STRICT' => true,
     'APP_URL' => null,
     'APP_ROBOTS' => false,
 
@@ -32,6 +33,4 @@ return [
         'recipients' => null,
         'replies' => null,
     ],
-
-    ...$_SERVER,
 ];

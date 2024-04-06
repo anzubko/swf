@@ -34,7 +34,7 @@ class Config extends AbstractConfig
     /**
      * Treats errors except deprecations and notices as fatal.
      */
-    public bool $strict = true;
+    #[Env('APP_STRICT')] public bool $strict = true;
 
     /**
      * Basic url (autodetect if null).
