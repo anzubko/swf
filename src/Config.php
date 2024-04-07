@@ -3,21 +3,17 @@
 namespace App;
 
 use App\Shared\Cache\Apc;
+use App\Shared\Cache\Memcached;
+use App\Shared\Cache\Redis;
 use App\Shared\Db\Mysql;
+use App\Shared\Db\Pgsql;
+use App\Shared\Mailer;
+use App\Shared\Merger;
 use App\Shared\Template\Native;
+use App\Shared\Template\Twig;
+use App\Shared\Template\Xslt;
 use SWF\AbstractConfig;
-use SWF\ApcCacher;
-use SWF\AssetsMerger;
 use SWF\Attribute\Env;
-use SWF\Databaser;
-use SWF\MemCacher;
-use SWF\MysqlDatabaser;
-use SWF\NativeTemplater;
-use SWF\PgsqlDatabaser;
-use SWF\RedisCacher;
-use SWF\SimpleMailer;
-use SWF\TwigTemplater;
-use SWF\XsltTemplater;
 
 class Config extends AbstractConfig
 {
@@ -74,40 +70,16 @@ class Config extends AbstractConfig
     /**
      * Mysql settings.
      *
-     * @var mixed[]
-     *
-     * @see MysqlDatabaser
+     * @var mixed[] {@see Mysql}
      */
-    #[Env('APP_DB_MYSQL')] public array $dbMysql = [
-        'host' => 'localhost',
-        'port' => 3306,
-        'db' => null,
-        'user' => null,
-        'pass' => null,
-        'persistent' => false,
-        'charset' => 'utf8mb4',
-        'camelize' => true,
-        'mode' => Databaser::ASSOC,
-    ];
+    #[Env('APP_DB_MYSQL')] public array $dbMysql = ['host' => 'localhost', 'port' => 3306, 'db' => null, 'user' => null, 'pass' => null];
 
     /**
      * Pgsql settings.
      *
-     * @var mixed[]
-     *
-     * @see PgsqlDatabaser
+     * @var mixed[] {@see Pgsql}
      */
-    #[Env('APP_DB_PGSQL')] public array $dbPgsql = [
-        'host' => 'localhost',
-        'port' => 5432,
-        'db' => null,
-        'user' => null,
-        'pass' => null,
-        'persistent' => false,
-        'charset' => 'utf-8',
-        'camelize' => true,
-        'mode' => Databaser::ASSOC,
-    ];
+    #[Env('APP_DB_PGSQL')] public array $dbPgsql = ['host' => 'localhost', 'port' => 5432, 'db' => null, 'user' => null, 'pass' => null];
 
     /**
      * Log slow queries.
@@ -137,42 +109,23 @@ class Config extends AbstractConfig
     /**
      * Apc settings.
      *
-     * @var mixed[]
-     *
-     * @see ApcCacher
+     * @var mixed[] {@see Apc}
      */
-    public array $cacheApc = [
-        'ttl' => 3600,
-        'ns' => null,
-    ];
+    public array $cacheApc = ['ns' => null, 'ttl' => 3600];
 
     /**
      * Memcached settings.
      *
-     * @var mixed[]
-     *
-     * @see MemCacher
+     * @var mixed[] {@see Memcached}
      */
-    public array $cacheMemcached = [
-        'ttl' => 3600,
-        'ns' => null,
-        'servers' => [['127.0.0.1', 11211]],
-        'options' => [],
-    ];
+    public array $cacheMemcached = ['ns' => null, 'ttl' => 3600, 'servers' => [['127.0.0.1', 11211]]];
 
     /**
      * Redis settings.
      *
-     * @var mixed[]
-     *
-     * @see RedisCacher
+     * @var mixed[] {@see Redis}
      */
-    public array $cacheRedis = [
-        'ttl' => 3600,
-        'ns' => null,
-        'connect' => ['127.0.0.1', 6379, 2.5],
-        'options' => [],
-    ];
+    public array $cacheRedis = ['ns' => null, 'ttl' => 3600, 'connect' => ['127.0.0.1', 6379, 2.5]];
 
     /**
      * Default template.
@@ -182,47 +135,28 @@ class Config extends AbstractConfig
     /**
      * Native settings.
      *
-     * @var mixed[]
-     *
-     * @see NativeTemplater
+     * @var mixed[] {@see Native}
      */
-    public array $templateNative = [
-        'dir' => APP_DIR . '/templates',
-        'minify' => false,
-    ];
+    public array $templateNative = ['dir' => APP_DIR . '/templates', 'minify' => false];
 
     /**
      * Twig settings.
      *
-     * @var mixed[]
-     *
-     * @see TwigTemplater
+     * @var mixed[] {@see Twig}
      */
-    public array $templateTwig = [
-        'dir' => APP_DIR . '/templates',
-        'cache' => APP_DIR . '/var/cache/twig',
-        'strict' => true,
-    ];
+    public array $templateTwig = ['dir' => APP_DIR . '/templates', 'cache' => APP_DIR . '/var/cache/twig'];
 
     /**
      * Xslt settings.
      *
-     * @var mixed[]
-     *
-     * @see XsltTemplater
+     * @var mixed[] {@see Xslt}
      */
-    public array $templateXslt = [
-        'dir' => APP_DIR . '/templates',
-        'root' => 'root',
-        'item' => 'item',
-    ];
+    public array $templateXslt = ['dir' => APP_DIR . '/templates'];
 
     /**
      * Mailer settings.
      *
-     * @var mixed[]
-     *
-     * @see SimpleMailer
+     * @var mixed[] {@see Mailer}
      */
     #[Env('APP_MAILER')] public array $mailer = [
         'enabled' => false,
@@ -234,9 +168,7 @@ class Config extends AbstractConfig
     /**
      * Assets merger settings.
      *
-     * @var mixed[]
-     *
-     * @see AssetsMerger
+     * @var mixed[] {@see Merger}
      */
     public array $merger = [
         'location' => '/.merged',
@@ -259,17 +191,7 @@ class Config extends AbstractConfig
      *
      * @var string[]
      */
-    public array $compressMimes = [
-        'text/html',
-        'text/plain',
-        'text/xml',
-        'text/css',
-        'application/x-javascript',
-        'application/javascript',
-        'application/ecmascript',
-        'application/rss+xml',
-        'application/xml',
-    ];
+    public array $compressMimes = ['text/html', 'text/plain', 'application/json'];
 
     /**
      * Optional error document file.

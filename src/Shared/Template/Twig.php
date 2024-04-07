@@ -24,6 +24,7 @@ class Twig extends AbstractShared
         $parameters = $this->s(Config::class)->templateTwig;
 
         $parameters['debug'] = $this->s(Config::class)->debug;
+        $parameters['strict'] = $this->s(Config::class)->strict;
         $parameters['reload'] = 'prod' !== $this->s(Config::class)->env;
 
         $parameters['globals'] = [

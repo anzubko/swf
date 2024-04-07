@@ -7,23 +7,9 @@ return $_SERVER + [
     'APP_URL' => null,
     'APP_ROBOTS' => false,
 
-    'APP_DB_MYSQL' => [
-        'host' => 'localhost',
-        'port' => 3306,
-        'db' => null,
-        'user' => null,
-        'pass' => null,
-        'persistent' => false,
-    ],
+    'APP_DB_MYSQL' => ['host' => 'localhost', 'port' => 3306, 'db' => null, 'user' => null, 'pass' => null],
 
-    'APP_DB_PGSQL' => [
-        'host' => 'localhost',
-        'port' => 5432,
-        'db' => null,
-        'user' => null,
-        'pass' => null,
-        'persistent' => false,
-    ],
+    'APP_DB_PGSQL' => ['host' => 'localhost', 'port' => 5432, 'db' => null, 'user' => null, 'pass' => null],
 
     'APP_DEFAULT_CACHE' => App\Shared\Cache\Apc::class,
 
