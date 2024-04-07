@@ -28,7 +28,7 @@ class Config extends AbstractConfig
     #[Env('APP_DEBUG')] public bool $debug = false;
 
     /**
-     * Treats errors except deprecations and notices as fatal.
+     * Treats errors except deprecations and notices as fatal and sets Twig to strict mode.
      */
     #[Env('APP_STRICT')] public bool $strict = true;
 
@@ -43,12 +43,12 @@ class Config extends AbstractConfig
     public string $timezone = 'UTC';
 
     /**
-     * Default mode for new directories.
+     * Default mode for created directories.
      */
     public int $dirMode = 0777;
 
     /**
-     * Default mode for new/updated files.
+     * Default mode for created/updated files.
      */
     public int $fileMode = 0666;
 

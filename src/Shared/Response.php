@@ -6,7 +6,6 @@ use App\Shared\Template\Native;
 use App\Shared\Template\Twig;
 use App\Shared\Template\Xslt;
 use JsonException;
-use LogicException;
 use SWF\AbstractShared;
 use SWF\Interface\TemplaterInterface;
 use SWF\ResponseManager;
@@ -17,125 +16,114 @@ class Response extends AbstractShared
     /**
      * Process and output native template.
      *
-     * @param mixed[]|object|null $context
+     * @param mixed[]|null $data
      *
-     * @throws LogicException
      * @throws TemplaterException
      */
     public function native(
         string $filename,
-        array|object|null $context = null,
+        ?array $data = null,
         ?string $mime = null,
         int $code = 200,
         int $expire = 0,
         bool $exit = true,
     ): void {
-        $this->transform($this->s(Native::class), $filename, $context, $mime, $code, $expire, $exit);
+        $this->transform($this->s(Native::class), $filename, $data, $mime, $code, $expire, $exit);
     }
 
     /**
      * Process and output twig template.
      *
-     * @param mixed[]|object|null $context
+     * @param mixed[]|null $data
      *
-     * @throws LogicException
      * @throws TemplaterException
      */
     public function twig(
         string $filename,
-        array|object|null $context = null,
+        ?array $data = null,
         ?string $mime = null,
         int $code = 200,
         int $expire = 0,
         bool $exit = true,
     ): void {
-        $this->transform($this->s(Twig::class), $filename, $context, $mime, $code, $expire, $exit);
+        $this->transform($this->s(Twig::class), $filename, $data, $mime, $code, $expire, $exit);
     }
 
     /**
      * Process and output xslt template.
      *
-     * @param mixed[]|object|null $context
+     * @param mixed[]|null $data
      *
-     * @throws LogicException
      * @throws TemplaterException
      */
     public function xslt(
         string $filename,
-        array|object|null $context = null,
+        ?array $data = null,
         ?string $mime = null,
         int $code = 200,
         int $expire = 0,
         bool $exit = true,
     ): void {
-        $this->transform($this->s(Xslt::class), $filename, $context, $mime, $code, $expire, $exit);
+        $this->transform($this->s(Xslt::class), $filename, $data, $mime, $code, $expire, $exit);
     }
 
     /**
      * Process and output template.
      *
-     * @param mixed[]|object|null $context
+     * @param mixed[]|null $data
      *
-     * @throws LogicException
      * @throws TemplaterException
      */
     public function template(
         string $filename,
-        array|object|null $context = null,
+        ?array $data = null,
         ?string $mime = null,
         int $code = 200,
         int $expire = 0,
         bool $exit = true,
     ): void {
-        $this->transform($this->s(Template::class), $filename, $context, $mime, $code, $expire, $exit);
+        $this->transform($this->s(Template::class), $filename, $data, $mime, $code, $expire, $exit);
     }
 
     /**
      * Base method for template transformation.
      *
-     * @param mixed[]|object|null $context
+     * @param mixed[]|null $data
      *
-     * @throws LogicException
      * @throws TemplaterException
      */
     protected function transform(
         TemplaterInterface $processor,
         string $filename,
-        array|object|null $context,
+        ?array $data,
         ?string $mime,
         int $code,
         int $expire,
         bool $exit = true,
     ): void {
-        $contents = $processor->transform($filename, $context);
+        $contents = $processor->transform($filename, $data);
 
         $mime ??= $processor->getMime();
         if ('text/html' === $mime) {
-            $contents .= $this->prepareStats();
+            $timer = gettimeofday(true) - APP_STARTED;
+
+            $contents .= sprintf(
+                '<!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->',
+                $timer - $this->s(Db::class)->getTimer() - $processor->getTimer(),
+                $this->s(Db::class)->getCounter(),
+                $this->s(Db::class)->getTimer(),
+                $processor->getCounter(),
+                $processor->getTimer(),
+                $timer,
+            );
         }
 
         $this->inline($contents, $mime, $code, $expire, null, $exit);
     }
 
-    private function prepareStats(): string
-    {
-        $timer = gettimeofday(true) - APP_STARTED;
-
-        return sprintf(
-            '<!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->',
-            $timer - $this->s(Db::class)->getTimer() - $this->s(Template::class)->getTimer(),
-            $this->s(Db::class)->getCounter(),
-            $this->s(Db::class)->getTimer(),
-            $this->s(Template::class)->getCounter(),
-            $this->s(Template::class)->getTimer(),
-            $timer,
-        );
-    }
-
     /**
      * Output json as inline.
      *
-     * @throws LogicException
      * @throws JsonException
      */
     public function json(
@@ -156,8 +144,6 @@ class Response extends AbstractShared
 
     /**
      * Output contents as inline.
-     *
-     * @throws LogicException
      */
     public function inline(
         string $contents,
@@ -172,8 +158,6 @@ class Response extends AbstractShared
 
     /**
      * Output contents as attachment.
-     *
-     * @throws LogicException
      */
     public function attachment(
         string $contents,
@@ -189,11 +173,11 @@ class Response extends AbstractShared
     private function output(
         string $disposition,
         string $contents,
-        string $mime = 'text/plain',
-        int $code = 200,
-        int $expire = 0,
-        ?string $filename = null,
-        bool $exit = true,
+        string $mime,
+        int $code,
+        int $expire,
+        ?string $filename,
+        bool $exit,
     ): void {
         ResponseManager::getInstance()->output(
             $disposition,
@@ -210,8 +194,6 @@ class Response extends AbstractShared
 
     /**
      * Redirect.
-     *
-     * @throws LogicException
      */
     public function redirect(string $uri, int $code = 302, bool $exit = true): void
     {
