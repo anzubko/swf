@@ -15,9 +15,9 @@ class Mailer extends AbstractShared
      */
     public function create(bool $strict = false): SimpleMailer
     {
-        $parameters = $this->s(Config::class)->mailer;
-
-        $parameters['strict'] = $strict;
+        $parameters = $this->s(Config::class)->mailer + [
+            'strict' => $strict,
+        ];
 
         return new SimpleMailer(...$parameters);
     }
