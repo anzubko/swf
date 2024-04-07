@@ -92,7 +92,7 @@ class Response extends AbstractShared
      *
      * @throws TemplaterException
      */
-    protected function transform(
+    private function transform(
         TemplaterInterface $processor,
         string $filename,
         ?array $data,
@@ -139,7 +139,7 @@ class Response extends AbstractShared
             $contents = json_encode($contents, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
         }
 
-        $this->output('inline', (string) $contents, 'application/json', $code, $expire, null, $exit);
+        $this->inline((string) $contents, 'application/json', $code, $expire, null, $exit);
     }
 
     /**
@@ -153,7 +153,17 @@ class Response extends AbstractShared
         ?string $filename = null,
         bool $exit = true,
     ): void {
-        $this->output('inline', $contents, $mime, $code, $expire, $filename, $exit);
+        ResponseManager::getInstance()->output(
+            'inline',
+            $contents,
+            $mime,
+            $code,
+            $expire,
+            $filename,
+            $this->s(Config::class)->compressMimes,
+            $this->s(Config::class)->compressMin,
+            $exit,
+        );
     }
 
     /**
@@ -167,20 +177,8 @@ class Response extends AbstractShared
         ?string $filename = null,
         bool $exit = true,
     ): void {
-        $this->output('attachment', $contents, $mime, $code, $expire, $filename, $exit);
-    }
-
-    private function output(
-        string $disposition,
-        string $contents,
-        string $mime,
-        int $code,
-        int $expire,
-        ?string $filename,
-        bool $exit,
-    ): void {
         ResponseManager::getInstance()->output(
-            $disposition,
+            'attachment',
             $contents,
             $mime,
             $code,
