@@ -191,7 +191,7 @@ class Response extends AbstractShared
     }
 
     /**
-     * Redirect.
+     * Redirects to specified url.
      */
     public function redirect(string $uri, int $code = 302, bool $exit = true): void
     {
