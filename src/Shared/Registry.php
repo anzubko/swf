@@ -9,17 +9,17 @@ use SWF\AbstractShared;
 {
     public function __construct()
     {
-        $this->url = (string) $_SERVER['USER_URL'];
+        $this->url = $_SERVER['USER_URL'];
 
-        $this->requestMethod = (string) ($_SERVER['REQUEST_METHOD'] ?? 'GET');
+        $this->requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
-        $this->remoteAddr = (string) ($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+        $this->remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 
-        $this->routerType = null === $_SERVER['ROUTER_TYPE'] ? null : (string) $_SERVER['ROUTER_TYPE'];
+        $this->routerType = $_SERVER['ROUTER_TYPE'] ?? null;
 
-        $this->routerAction = null === $_SERVER['ROUTER_ACTION'] ? null : (string) $_SERVER['ROUTER_ACTION'];
+        $this->routerAction = $_SERVER['ROUTER_ACTION'] ?? null;
 
-        $this->routerAlias = null === $_SERVER['ROUTER_ALIAS'] ? null : (string) $_SERVER['ROUTER_ALIAS'];
+        $this->routerAlias = $_SERVER['ROUTER_ALIAS'] ?? null;
 
         $this->robots = $this->s(Config::class)->robots;
 
