@@ -12,6 +12,6 @@ class Cache extends AbstractShared
 {
     protected function getInstance(): CacherInterface
     {
-        return $this->s($this->s(Config::class)->defaultCache);
+        return $this->s($this->s(Config::class)->get('cache', 'default'));
     }
 }

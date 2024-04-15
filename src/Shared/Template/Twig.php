@@ -21,10 +21,10 @@ class Twig extends AbstractShared
      */
     protected function getInstance(): TemplaterInterface
     {
-        $parameters = $this->s(Config::class)->templateTwig + [
-            'strict' => $this->s(Config::class)->strict,
-            'debug' => $this->s(Config::class)->debug,
-            'reload' => 'prod' !== $this->s(Config::class)->env,
+        $parameters = $this->s(Config::class)->get('template', 'twig') + [
+            'strict' => $this->s(Config::class)->get('system', 'strict'),
+            'debug' => $this->s(Config::class)->get('system', 'debug'),
+            'reload' => 'prod' !== $this->s(Config::class)->get('system', 'env'),
             'globals' => [
                 'registry' => $this->s(Registry::class),
             ],

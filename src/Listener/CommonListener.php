@@ -26,17 +26,17 @@ class CommonListener extends AbstractBase
     #[AsListener(persistent: true)]
     public function errorLog(LoggerEvent $event): void
     {
-        if (null === $this->s(Config::class)->errorLog) {
+        if (null === $this->s(Config::class)->get('common', 'errorLog')) {
             return;
         }
 
-        $this->s(Logger::class)->customLog($this->s(Config::class)->errorLog, $event->getComplexMessage());
+        $this->s(Logger::class)->customLog($this->s(Config::class)->get('common', 'errorLog'), $event->getComplexMessage());
     }
 
     #[AsListener(persistent: true)]
     public function errorDocument(ResponseErrorEvent $event): void
     {
-        $errorDocument = $this->s(Config::class)->errorDocument;
+        $errorDocument = $this->s(Config::class)->get('common', 'errorDocument');
         if (null === $errorDocument) {
             return;
         }
@@ -50,7 +50,7 @@ class CommonListener extends AbstractBase
     #[AsListener(persistent: true)]
     public function transactionFail(TransactionFailEvent $event): void
     {
-        if (null === $this->s(Config::class)->transactionFailLog) {
+        if (null === $this->s(Config::class)->get('transaction', 'failLog')) {
             return;
         }
 
@@ -58,13 +58,13 @@ class CommonListener extends AbstractBase
 
         $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetries(), $host);
 
-        $this->s(Logger::class)->customLog($this->s(Config::class)->transactionFailLog, $message);
+        $this->s(Logger::class)->customLog($this->s(Config::class)->get('transaction', 'failLog'), $message);
     }
 
     #[AsListener(persistent: true)]
     public function dbSlowQuery(DbSlowQueryEvent $event): void
     {
-        if (null === $this->s(Config::class)->dbSlowQueryLog) {
+        if (null === $this->s(Config::class)->get('db', 'slowQueryLog')) {
             return;
         }
 
@@ -77,6 +77,6 @@ class CommonListener extends AbstractBase
 
         $message = sprintf("[%.2f] %s\n\t%s\n", $event->getTimer(), $host, implode("\n\t", $queries));
 
-        $this->s(Logger::class)->customLog($this->s(Config::class)->dbSlowQueryLog, $message);
+        $this->s(Logger::class)->customLog($this->s(Config::class)->get('db', 'slowQueryLog'), $message);
     }
 }

@@ -16,11 +16,11 @@ class Mysql extends AbstractShared
 {
     protected function getInstance(): DatabaserInterface
     {
-        $db = new MysqlDatabaser(...$this->s(Config::class)->dbMysql);
+        $db = new MysqlDatabaser(...$this->s(Config::class)->get('db', 'mysql'));
 
         $db->setProfiler(
             function (float $timer, array $queries): void {
-                if ($timer > $this->s(Config::class)->dbSlowQueryMin) {
+                if ($timer > $this->s(Config::class)->get('db', 'slowQueryMin')) {
                     $this->s(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
                 }
             }

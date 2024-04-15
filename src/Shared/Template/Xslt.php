@@ -15,7 +15,7 @@ class Xslt extends AbstractShared
 {
     protected function getInstance(): TemplaterInterface
     {
-        $parameters = $this->s(Config::class)->templateXslt + [
+        $parameters = $this->s(Config::class)->get('template', 'xslt') + [
             'globals' => [
                 'registry' => $this->s(Registry::class),
             ],

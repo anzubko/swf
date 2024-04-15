@@ -26,7 +26,7 @@ class Transaction extends AbstractShared
             $body,
             $isolation,
             $retryAt,
-            $this->s(Config::class)->transactionRetries,
+            $this->s(Config::class)->get('transaction', 'retries'),
         );
 
         return $this;
@@ -47,7 +47,7 @@ class Transaction extends AbstractShared
             $body,
             $isolation,
             $retryAt,
-            $this->s(Config::class)->transactionRetries,
+            $this->s(Config::class)->get('transaction', 'retries'),
         );
 
         return $this;
@@ -68,7 +68,7 @@ class Transaction extends AbstractShared
             $body,
             $isolation,
             $retryAt,
-            $this->s(Config::class)->transactionRetries,
+            $this->s(Config::class)->get('transaction', 'retries'),
         );
 
         return $this;

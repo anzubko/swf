@@ -12,6 +12,6 @@ class Merger extends AbstractShared
 {
     protected function getInstance(): AssetsMerger
     {
-        return new AssetsMerger(...$this->s(Config::class)->merger);
+        return new AssetsMerger(...$this->s(Config::class)->get('common', 'merger'));
     }
 }

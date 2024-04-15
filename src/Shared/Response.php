@@ -160,8 +160,8 @@ class Response extends AbstractShared
             $code,
             $expire,
             $filename,
-            $this->s(Config::class)->compressMimes,
-            $this->s(Config::class)->compressMin,
+            $this->s(Config::class)->get('common', 'compressMimes'),
+            $this->s(Config::class)->get('common', 'compressMin'),
             $exit,
         );
     }
@@ -184,8 +184,8 @@ class Response extends AbstractShared
             $code,
             $expire,
             $filename,
-            $this->s(Config::class)->compressMimes,
-            $this->s(Config::class)->compressMin,
+            $this->s(Config::class)->get('common', 'compressMimes'),
+            $this->s(Config::class)->get('common', 'compressMin'),
             $exit,
         );
     }

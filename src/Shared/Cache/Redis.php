@@ -18,6 +18,6 @@ class Redis extends AbstractShared
      */
     protected function getInstance(): CacherInterface
     {
-        return  new RedisCacher(...$this->s(Config::class)->cacheRedis);
+        return  new RedisCacher(...$this->s(Config::class)->get('cache', 'redis'));
     }
 }

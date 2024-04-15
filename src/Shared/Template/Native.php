@@ -17,8 +17,8 @@ class Native extends AbstractShared
 {
     protected function getInstance(): TemplaterInterface
     {
-        $parameters = $this->s(Config::class)->templateNative + [
-            'debug' => $this->s(Config::class)->debug,
+        $parameters = $this->s(Config::class)->get('template', 'native') + [
+            'debug' => $this->s(Config::class)->get('system', 'debug'),
             'globals' => [
                 'registry' => $this->s(Registry::class),
             ],

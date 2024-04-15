@@ -2,18 +2,16 @@
 
 namespace App\Shared;
 
-use App\Config as AppConfig;
-use SWF\AbstractConfig;
 use SWF\AbstractShared;
-use SWF\ConfigHolder;
+use SWF\ConfigGetter;
 
 /**
- * @mixin AppConfig
+ * @mixin ConfigGetter
  */
 class Config extends AbstractShared
 {
-    protected function getInstance(): AbstractConfig
+    protected function getInstance(): ConfigGetter
     {
-        return ConfigHolder::get();
+        return ConfigGetter::getInstance();
     }
 }

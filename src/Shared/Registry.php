@@ -21,9 +21,9 @@ use SWF\AbstractShared;
 
         $this->routerAlias = $_SERVER['ROUTER_ALIAS'] ?? null;
 
-        $this->robots = $this->s(Config::class)->robots;
+        $this->robots = $this->s(Config::class)->get('common', 'robots');
 
-        $this->name = $this->s(Config::class)->name;
+        $this->name = $this->s(Config::class)->get('common', 'name');
 
         $this->merged = [];
     }

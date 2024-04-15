@@ -14,6 +14,6 @@ class Apc extends AbstractShared
 {
     protected function getInstance(): CacherInterface
     {
-        return new ApcCacher(...$this->s(Config::class)->cacheApc);
+        return new ApcCacher(...$this->s(Config::class)->get('cache', 'apc'));
     }
 }

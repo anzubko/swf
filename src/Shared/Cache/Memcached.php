@@ -14,6 +14,6 @@ class Memcached extends AbstractShared
 {
     protected function getInstance(): CacherInterface
     {
-        return new MemCacher(...$this->s(Config::class)->cacheMemcached);
+        return new MemCacher(...$this->s(Config::class)->get('cache', 'memcached'));
     }
 }

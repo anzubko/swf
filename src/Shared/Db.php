@@ -12,6 +12,6 @@ class Db extends AbstractShared
 {
     protected function getInstance(): DatabaserInterface
     {
-        return $this->s($this->s(Config::class)->defaultDb);
+        return $this->s($this->s(Config::class)->get('db', 'default'));
     }
 }

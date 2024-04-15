@@ -13,8 +13,6 @@ class IndexController extends AbstractBase
     {
         $phrase = 'Hello! This is Simplest framework :)';
 
-        $this->s(Response::class)->template('regular.index.html', [
-            'phrase' => $phrase,
-        ]);
+        $this->s(Response::class)->template('regular.index.html', ['phrase' => $phrase]);
     }
 }
