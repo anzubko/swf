@@ -6,6 +6,7 @@ use App\Shared\Db\Mysql;
 use App\Shared\Db\Pgsql;
 use SWF\AbstractShared;
 use SWF\Exception\DatabaserException;
+use SWF\InstanceHolder;
 use SWF\TransactionRunner;
 use Throwable;
 
@@ -21,7 +22,7 @@ class Transaction extends AbstractShared
      */
     public function mysql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
-        TransactionRunner::getInstance()->run(
+        InstanceHolder::get(TransactionRunner::class)->run(
             $this->s(Mysql::class),
             $body,
             $isolation,
@@ -42,7 +43,7 @@ class Transaction extends AbstractShared
      */
     public function pgsql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
-        TransactionRunner::getInstance()->run(
+        InstanceHolder::get(TransactionRunner::class)->run(
             $this->s(Pgsql::class),
             $body,
             $isolation,
@@ -63,7 +64,7 @@ class Transaction extends AbstractShared
      */
     public function run(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
-        TransactionRunner::getInstance()->run(
+        InstanceHolder::get(TransactionRunner::class)->run(
             $this->s(Db::class),
             $body,
             $isolation,

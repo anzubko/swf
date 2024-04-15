@@ -3,15 +3,15 @@
 namespace App\Shared;
 
 use SWF\AbstractShared;
-use SWF\ConfigGetter;
+use SWF\ConfigProvider;
 
-/**
- * @mixin ConfigGetter
- */
 class Config extends AbstractShared
 {
-    protected function getInstance(): ConfigGetter
+    /**
+     * Gets some value by config name and key.
+     */
+    public function get(string $configName, string $key, mixed $default = null): mixed
     {
-        return ConfigGetter::getInstance();
+        return ConfigProvider::get($configName, $key, $default);
     }
 }

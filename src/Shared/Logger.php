@@ -4,6 +4,7 @@ namespace App\Shared;
 
 use SWF\AbstractShared;
 use SWF\CommonLogger;
+use SWF\InstanceHolder;
 
 /**
  * @mixin CommonLogger
@@ -12,6 +13,6 @@ class Logger extends AbstractShared
 {
     protected function getInstance(): CommonLogger
     {
-        return CommonLogger::getInstance();
+        return InstanceHolder::get(CommonLogger::class);
     }
 }

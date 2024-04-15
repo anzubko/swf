@@ -36,7 +36,7 @@ class BasicTest extends TestCase
      */
     public function testNativeTemplatesSyntax(): void
     {
-        $dir = Runner::getInstance()->s(Config::class)->templateNative['dir'];
+        $dir = Runner::getInstance()->s(Config::class)->get('template', 'native')['dir'];
 
         foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.php')) {
@@ -56,7 +56,7 @@ class BasicTest extends TestCase
      */
     public function testTwigTemplatesSyntax(): void
     {
-        $dir = Runner::getInstance()->s(Config::class)->templateTwig['dir'];
+        $dir = Runner::getInstance()->s(Config::class)->get('template', 'twig')['dir'];
 
         try {
             $loader = new TwigFilesystemLoader($dir);
@@ -96,7 +96,7 @@ class BasicTest extends TestCase
             return;
         }
 
-        $dir = Runner::getInstance()->s(Config::class)->templateXslt['dir'];
+        $dir = Runner::getInstance()->s(Config::class)->get('template', 'xslt')['dir'];
 
         foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.xsl')) {

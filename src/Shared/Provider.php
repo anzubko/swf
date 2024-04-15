@@ -3,6 +3,7 @@
 namespace App\Shared;
 
 use SWF\AbstractShared;
+use SWF\InstanceHolder;
 use SWF\ListenerProvider;
 
 /**
@@ -12,6 +13,6 @@ class Provider extends AbstractShared
 {
     protected function getInstance(): ListenerProvider
     {
-        return ListenerProvider::getInstance();
+        return InstanceHolder::get(ListenerProvider::class);
     }
 }

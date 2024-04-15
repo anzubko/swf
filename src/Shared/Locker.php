@@ -3,6 +3,7 @@
 namespace App\Shared;
 
 use SWF\AbstractShared;
+use SWF\InstanceHolder;
 use SWF\ProcessLocker;
 
 /**
@@ -12,6 +13,6 @@ class Locker extends AbstractShared
 {
     protected function getInstance(): ProcessLocker
     {
-        return ProcessLocker::getInstance();
+        return InstanceHolder::get(ProcessLocker::class);
     }
 }
