@@ -12,6 +12,6 @@ class Template extends AbstractShared
 {
     protected function getInstance(): TemplaterInterface
     {
-        return $this->s($this->s(Config::class)->get('template', 'default'));
+        return shared(config('template')->get('default'));
     }
 }

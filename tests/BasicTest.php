@@ -1,10 +1,8 @@
 <?php
 
-use App\Shared\Config;
 use App\Shared\Dir;
 use App\Shared\File;
 use PHPUnit\Framework\TestCase;
-use SWF\Runner;
 use Twig\Environment as TwigEnvironment;
 use Twig\Loader\FilesystemLoader as TwigFilesystemLoader;
 use Twig\Source as TwigSource;
@@ -20,7 +18,7 @@ class BasicTest extends TestCase
     {
         $dir = APP_DIR . '/src';
 
-        foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (shared(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.php')) {
                 continue;
             }
@@ -36,9 +34,9 @@ class BasicTest extends TestCase
      */
     public function testNativeTemplatesSyntax(): void
     {
-        $dir = Runner::getInstance()->s(Config::class)->get('template', 'native')['dir'];
+        $dir = config('template')->get('native')['dir'];
 
-        foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (shared(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.php')) {
                 continue;
             }
@@ -56,7 +54,7 @@ class BasicTest extends TestCase
      */
     public function testTwigTemplatesSyntax(): void
     {
-        $dir = Runner::getInstance()->s(Config::class)->get('template', 'twig')['dir'];
+        $dir = config('template')->get('twig')['dir'];
 
         try {
             $loader = new TwigFilesystemLoader($dir);
@@ -66,7 +64,7 @@ class BasicTest extends TestCase
 
         $twig = new TwigEnvironment($loader);
 
-        foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (shared(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.twig')) {
                 continue;
             }
@@ -74,7 +72,7 @@ class BasicTest extends TestCase
             try {
                 $twig->parse(
                     $twig->tokenize(
-                        new TwigSource(Runner::getInstance()->s(File::class)->get($file), basename($file), $file),
+                        new TwigSource((string) shared(File::class)->get($file), basename($file), $file),
                     ),
                 );
             } catch (Throwable $e) {
@@ -96,9 +94,9 @@ class BasicTest extends TestCase
             return;
         }
 
-        $dir = Runner::getInstance()->s(Config::class)->get('template', 'xslt')['dir'];
+        $dir = config('template')->get('xslt')['dir'];
 
-        foreach (Runner::getInstance()->s(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (shared(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.xsl')) {
                 continue;
             }

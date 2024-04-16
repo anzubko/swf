@@ -1,8 +1,5 @@
 <?php
 
-use App\Shared\Mailer;
-use App\Shared\Merger;
-
 return [
     /**
      * Allow robots.
@@ -49,7 +46,7 @@ return [
     /**
      * Mailer settings.
      *
-     * mixed[] {@see Mailer}
+     * mixed[] {@see App\Shared\Mailer}
      */
     'mailer' => [
         'enabled' => env('APP_MAILER_ENABLED', true),
@@ -61,7 +58,7 @@ return [
     /**
      * Assets merger settings.
      *
-     * mixed[] {@see Merger}
+     * mixed[] {@see App\Shared\Merger}
      */
     'merger' => [
         'location' => '/.merged',

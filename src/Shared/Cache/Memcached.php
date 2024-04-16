@@ -2,7 +2,6 @@
 
 namespace App\Shared\Cache;
 
-use App\Shared\Config;
 use SWF\AbstractShared;
 use SWF\Interface\CacherInterface;
 use SWF\MemCacher;
@@ -14,6 +13,6 @@ class Memcached extends AbstractShared
 {
     protected function getInstance(): CacherInterface
     {
-        return new MemCacher(...$this->s(Config::class)->get('cache', 'memcached'));
+        return new MemCacher(...config('cache')->get('memcached'));
     }
 }

@@ -29,7 +29,7 @@ class Response extends AbstractShared
         int $expire = 0,
         bool $exit = true,
     ): void {
-        $this->transform($this->s(Native::class), $filename, $data, $mime, $code, $expire, $exit);
+        $this->transform(shared(Native::class), $filename, $data, $mime, $code, $expire, $exit);
     }
 
     /**
@@ -47,7 +47,7 @@ class Response extends AbstractShared
         int $expire = 0,
         bool $exit = true,
     ): void {
-        $this->transform($this->s(Twig::class), $filename, $data, $mime, $code, $expire, $exit);
+        $this->transform(shared(Twig::class), $filename, $data, $mime, $code, $expire, $exit);
     }
 
     /**
@@ -65,7 +65,7 @@ class Response extends AbstractShared
         int $expire = 0,
         bool $exit = true,
     ): void {
-        $this->transform($this->s(Xslt::class), $filename, $data, $mime, $code, $expire, $exit);
+        $this->transform(shared(Xslt::class), $filename, $data, $mime, $code, $expire, $exit);
     }
 
     /**
@@ -83,7 +83,7 @@ class Response extends AbstractShared
         int $expire = 0,
         bool $exit = true,
     ): void {
-        $this->transform($this->s(Template::class), $filename, $data, $mime, $code, $expire, $exit);
+        $this->transform(shared(Template::class), $filename, $data, $mime, $code, $expire, $exit);
     }
 
     /**
@@ -110,9 +110,9 @@ class Response extends AbstractShared
 
             $contents .= sprintf(
                 '<!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->',
-                $timer - $this->s(Db::class)->getTimer() - $processor->getTimer(),
-                $this->s(Db::class)->getCounter(),
-                $this->s(Db::class)->getTimer(),
+                $timer - shared(Db::class)->getTimer() - $processor->getTimer(),
+                shared(Db::class)->getCounter(),
+                shared(Db::class)->getTimer(),
                 $processor->getCounter(),
                 $processor->getTimer(),
                 $timer,
@@ -161,8 +161,8 @@ class Response extends AbstractShared
             $code,
             $expire,
             $filename,
-            $this->s(Config::class)->get('common', 'compressMimes'),
-            $this->s(Config::class)->get('common', 'compressMin'),
+            config('common')->get('compressMimes'),
+            config('common')->get('compressMin'),
             $exit,
         );
     }
@@ -185,8 +185,8 @@ class Response extends AbstractShared
             $code,
             $expire,
             $filename,
-            $this->s(Config::class)->get('common', 'compressMimes'),
-            $this->s(Config::class)->get('common', 'compressMin'),
+            config('common')->get('compressMimes'),
+            config('common')->get('compressMin'),
             $exit,
         );
     }

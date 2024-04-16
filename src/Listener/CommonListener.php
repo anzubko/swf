@@ -3,40 +3,38 @@
 namespace App\Listener;
 
 use App\Event\DbSlowQueryEvent;
-use App\Shared\Config;
 use App\Shared\Logger;
 use App\Shared\Merger;
 use App\Shared\Registry;
 use App\Shared\Text;
-use SWF\AbstractBase;
 use SWF\Attribute\AsListener;
 use SWF\Event\BeforeControllerEvent;
 use SWF\Event\LoggerEvent;
 use SWF\Event\ResponseErrorEvent;
 use SWF\Event\TransactionFailEvent;
 
-class CommonListener extends AbstractBase
+class CommonListener
 {
     #[AsListener(disposable: true)]
     public function assetsMerge(BeforeControllerEvent $event): void
     {
-        $this->s(Registry::class)->merged = $this->s(Merger::class)->merge();
+        shared(Registry::class)->merged = shared(Merger::class)->merge();
     }
 
     #[AsListener(persistent: true)]
     public function errorLog(LoggerEvent $event): void
     {
-        if (null === $this->s(Config::class)->get('common', 'errorLog')) {
+        if (null === config('common')->get('errorLog')) {
             return;
         }
 
-        $this->s(Logger::class)->customLog($this->s(Config::class)->get('common', 'errorLog'), $event->getComplexMessage());
+        shared(Logger::class)->customLog(config('common')->get('errorLog'), $event->getComplexMessage());
     }
 
     #[AsListener(persistent: true)]
     public function errorDocument(ResponseErrorEvent $event): void
     {
-        $errorDocument = $this->s(Config::class)->get('common', 'errorDocument');
+        $errorDocument = config('common')->get('errorDocument');
         if (null === $errorDocument) {
             return;
         }
@@ -50,7 +48,7 @@ class CommonListener extends AbstractBase
     #[AsListener(persistent: true)]
     public function transactionFail(TransactionFailEvent $event): void
     {
-        if (null === $this->s(Config::class)->get('transaction', 'failLog')) {
+        if (null === config('transaction')->get('failLog')) {
             return;
         }
 
@@ -58,25 +56,25 @@ class CommonListener extends AbstractBase
 
         $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetries(), $host);
 
-        $this->s(Logger::class)->customLog($this->s(Config::class)->get('transaction', 'failLog'), $message);
+        shared(Logger::class)->customLog(config('transaction')->get('failLog'), $message);
     }
 
     #[AsListener(persistent: true)]
     public function dbSlowQuery(DbSlowQueryEvent $event): void
     {
-        if (null === $this->s(Config::class)->get('db', 'slowQueryLog')) {
+        if (null === config('db')->get('slowQueryLog')) {
             return;
         }
 
         $queries = [];
         foreach ($event->getQueries() as $query) {
-            $queries[] = $this->s(Text::class)->fTrim($query);
+            $queries[] = shared(Text::class)->fTrim($query);
         }
 
         $host = idn_to_utf8($_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
 
         $message = sprintf("[%.2f] %s\n\t%s\n", $event->getTimer(), $host, implode("\n\t", $queries));
 
-        $this->s(Logger::class)->customLog($this->s(Config::class)->get('db', 'slowQueryLog'), $message);
+        shared(Logger::class)->customLog(config('db')->get('slowQueryLog'), $message);
     }
 }

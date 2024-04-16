@@ -1,33 +1,29 @@
 <?php
 
-use App\Shared\Template\Native;
-use App\Shared\Template\Twig;
-use App\Shared\Template\Xslt;
-
 return [
     /**
      * Default template.
      */
-    'default' => Native::class,
+    'default' => App\Shared\Template\Native::class,
 
     /**
      * Native settings.
      *
-     * mixed[] {@see Native}
+     * mixed[] {@see App\Shared\Template\Native}
      */
     'native' => ['dir' => APP_DIR . '/templates', 'minify' => false],
 
     /**
      * Twig settings.
      *
-     * mixed[] {@see Twig}
+     * mixed[] {@see App\Shared\Template\Twig}
      */
     'twig' => ['dir' => APP_DIR . '/templates', 'cache' => APP_DIR . '/var/cache/twig'],
 
     /**
      * Xslt settings.
      *
-     * mixed[] {@see Xslt}
+     * mixed[] {@see App\Shared\Template\Xslt}
      */
     'xslt' => ['dir' => APP_DIR . '/templates'],
 ];

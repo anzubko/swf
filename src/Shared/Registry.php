@@ -22,9 +22,9 @@ class Registry extends AbstractShared
 
         $this->routerAlias = $_SERVER['ROUTER_ALIAS'] ?? null;
 
-        $this->robots = $this->s(Config::class)->get('common', 'robots');
+        $this->robots = config('common')->get('robots');
 
-        $this->name = $this->s(Config::class)->get('common', 'name');
+        $this->name = config('common')->get('name');
 
         $this->merged = [];
     }

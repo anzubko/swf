@@ -2,7 +2,6 @@
 
 namespace App\Shared\Template;
 
-use App\Shared\Config;
 use App\Shared\Registry;
 use SWF\AbstractShared;
 use SWF\Interface\TemplaterInterface;
@@ -15,11 +14,9 @@ class Xslt extends AbstractShared
 {
     protected function getInstance(): TemplaterInterface
     {
-        $parameters = $this->s(Config::class)->get('template', 'xslt') + [
-            'globals' => [
-                'registry' => $this->s(Registry::class),
-            ],
-        ];
+        $parameters = config('template')->get('xslt');
+
+        $parameters['globals']['registry'] = shared(Registry::class);
 
         return new XsltTemplater(...$parameters);
     }

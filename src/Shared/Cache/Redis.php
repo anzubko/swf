@@ -2,7 +2,6 @@
 
 namespace App\Shared\Cache;
 
-use App\Shared\Config;
 use SWF\AbstractShared;
 use SWF\Exception\CacherException;
 use SWF\Interface\CacherInterface;
@@ -18,6 +17,6 @@ class Redis extends AbstractShared
      */
     protected function getInstance(): CacherInterface
     {
-        return  new RedisCacher(...$this->s(Config::class)->get('cache', 'redis'));
+        return  new RedisCacher(...config('cache')->get('redis'));
     }
 }

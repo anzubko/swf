@@ -20,6 +20,6 @@ class Router extends AbstractShared
      */
     public function genAbsoluteUrl(string $action, string|int|float|null ...$params): string
     {
-        return $this->s(Registry::class)->url . ControllerRouter::getInstance()->genUrl($action, ...$params);
+        return shared(Registry::class)->url . ControllerRouter::getInstance()->genUrl($action, ...$params);
     }
 }

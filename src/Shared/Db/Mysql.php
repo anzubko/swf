@@ -3,7 +3,6 @@
 namespace App\Shared\Db;
 
 use App\Event\DbSlowQueryEvent;
-use App\Shared\Config;
 use App\Shared\Dispatcher;
 use SWF\AbstractShared;
 use SWF\Interface\DatabaserInterface;
@@ -16,12 +15,12 @@ class Mysql extends AbstractShared
 {
     protected function getInstance(): DatabaserInterface
     {
-        $db = new MysqlDatabaser(...$this->s(Config::class)->get('db', 'mysql'));
+        $db = new MysqlDatabaser(...config('db')->get('mysql'));
 
         $db->setProfiler(
             function (float $timer, array $queries): void {
-                if ($timer > $this->s(Config::class)->get('db', 'slowQueryMin')) {
-                    $this->s(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
+                if ($timer > config('db')->get('slowQueryMin')) {
+                    shared(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
                 }
             }
         );

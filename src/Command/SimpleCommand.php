@@ -2,10 +2,9 @@
 
 namespace App\Command;
 
-use SWF\AbstractBase;
 use SWF\Attribute\AsCommand;
 
-class SimpleCommand extends AbstractBase
+class SimpleCommand
 {
     /**
      * For run this command use: php bin/run say:hello:world

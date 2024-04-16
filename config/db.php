@@ -1,20 +1,17 @@
 <?php
 
-use App\Shared\Db\Mysql;
-use App\Shared\Db\Pgsql;
-
 return [
     /**
      * Default database.
      *
      * string
      */
-    'default' => Mysql::class,
+    'default' => App\Shared\Db\Mysql::class,
 
     /**
      * Mysql settings.
      *
-     * mixed[] {@see Mysql}
+     * mixed[] {@see App\Shared\Db\Mysql}
      */
     'mysql' => [
         'host' => env('APP_MYSQL_HOST', 'localhost'),
@@ -27,7 +24,7 @@ return [
     /**
      * Pgsql settings.
      *
-     * mixed[] {@see Pgsql}
+     * mixed[] {@see App\Shared\Db\Pgsql}
      */
     'pgsql' => [
         'host' => env('APP_PGSQL_HOST', 'localhost'),
