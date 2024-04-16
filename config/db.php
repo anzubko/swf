@@ -9,6 +9,20 @@ return [
     'default' => App\Shared\Db\Mysql::class,
 
     /**
+     * Log slow queries.
+     *
+     * string|null
+     */
+    'slowQueryLog' => APP_DIR . '/var/log/slow.queries.log',
+
+    /**
+     * Log slow queries with minimal time in seconds.
+     *
+     * float
+     */
+    'slowQueryMin' => 0.5,
+
+    /**
      * Mysql settings.
      *
      * mixed[] {@see App\Shared\Db\Mysql}
@@ -33,18 +47,4 @@ return [
         'user' => env('APP_PGSQL_USER'),
         'pass' => env('APP_PGSQL_PASS'),
     ],
-
-    /**
-     * Log slow queries.
-     *
-     * string|null
-     */
-    'slowQueryLog' => APP_DIR . '/var/log/slow.queries.log',
-
-    /**
-     * Log slow queries with minimal time in seconds.
-     *
-     * float
-     */
-    'slowQueryMin' => 0.5,
 ];

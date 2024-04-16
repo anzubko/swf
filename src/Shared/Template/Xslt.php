@@ -16,7 +16,9 @@ class Xslt extends AbstractShared
     {
         $parameters = config('template')->get('xslt');
 
-        $parameters['globals']['registry'] = shared(Registry::class);
+        $parameters['globals'] = [
+            'registry' => shared(Registry::class),
+        ];
 
         return new XsltTemplater(...$parameters);
     }

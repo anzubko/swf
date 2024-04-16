@@ -20,33 +20,37 @@ class Native extends AbstractShared
 
         $parameters['debug'] = config('system')->get('debug');
 
-        $parameters['globals']['registry'] = shared(Registry::class);
+        $parameters['globals'] = [
+            'registry' => shared(Registry::class),
+        ];
 
-        $parameters['functions']['genUrl'] = shared(Router::class)->genUrl(...);
+        $parameters['functions'] = [
+            'genUrl' => shared(Router::class)->genUrl(...),
 
-        $parameters['functions']['genAbsoluteUrl'] = shared(Router::class)->genAbsoluteUrl(...);
+            'genAbsoluteUrl' => shared(Router::class)->genAbsoluteUrl(...),
 
-        $parameters['functions']['lc'] = shared(Text::class)->lc(...);
+            'lc' => shared(Text::class)->lc(...),
 
-        $parameters['functions']['lcFirst'] = shared(Text::class)->lcFirst(...);
+            'lcFirst' => shared(Text::class)->lcFirst(...),
 
-        $parameters['functions']['uc'] = shared(Text::class)->uc(...);
+            'uc' => shared(Text::class)->uc(...),
 
-        $parameters['functions']['ucFirst'] = shared(Text::class)->ucFirst(...);
+            'ucFirst' => shared(Text::class)->ucFirst(...),
 
-        $parameters['functions']['trim'] = shared(Text::class)->trim(...);
+            'trim' => shared(Text::class)->trim(...),
 
-        $parameters['functions']['rTrim'] = shared(Text::class)->rTrim(...);
+            'rTrim' => shared(Text::class)->rTrim(...),
 
-        $parameters['functions']['lTrim'] = shared(Text::class)->lTrim(...);
+            'lTrim' => shared(Text::class)->lTrim(...),
 
-        $parameters['functions']['fTrim'] = shared(Text::class)->fTrim(...);
+            'fTrim' => shared(Text::class)->fTrim(...),
 
-        $parameters['functions']['mTrim'] = shared(Text::class)->mTrim(...);
+            'mTrim' => shared(Text::class)->mTrim(...),
 
-        $parameters['functions']['cut'] = shared(Text::class)->cut(...);
+            'cut' => shared(Text::class)->cut(...),
 
-        $parameters['functions']['random'] = shared(Text::class)->random(...);
+            'random' => shared(Text::class)->random(...),
+        ];
 
         return new NativeTemplater(...$parameters);
     }

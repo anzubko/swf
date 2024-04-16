@@ -6,7 +6,7 @@ return [
      *
      * int
      */
-    'retries' => 7,
+    'retries' => 3,
 
     /**
      * Log transactions fails.
