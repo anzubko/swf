@@ -7,7 +7,6 @@ use App\Shared\Template\Twig;
 use App\Shared\Template\Xslt;
 use JsonException;
 use SWF\AbstractShared;
-use SWF\InstanceHolder;
 use SWF\Interface\TemplaterInterface;
 use SWF\ResponseManager;
 use SWF\Exception\TemplaterException;
@@ -154,7 +153,7 @@ class Response extends AbstractShared
         ?string $filename = null,
         bool $exit = true,
     ): void {
-        InstanceHolder::get(ResponseManager::class)->output(
+        ResponseManager::output(
             'inline',
             $contents,
             $mime,
@@ -178,7 +177,7 @@ class Response extends AbstractShared
         ?string $filename = null,
         bool $exit = true,
     ): void {
-        InstanceHolder::get(ResponseManager::class)->output(
+        ResponseManager::output(
             'attachment',
             $contents,
             $mime,
@@ -196,7 +195,7 @@ class Response extends AbstractShared
      */
     public function redirect(string $uri, int $code = 302, bool $exit = true): void
     {
-        InstanceHolder::get(ResponseManager::class)->redirect($uri, $code, $exit);
+        ResponseManager::redirect($uri, $code, $exit);
     }
 
     /**
@@ -204,6 +203,6 @@ class Response extends AbstractShared
      */
     public function error(int $code): never
     {
-        InstanceHolder::get(ResponseManager::class)->error($code);
+        ResponseManager::error($code);
     }
 }
