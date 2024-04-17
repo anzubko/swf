@@ -18,7 +18,7 @@ class Twig extends AbstractShared
     /**
      * @throws TemplaterException
      */
-    protected function getInstance(): TemplaterInterface
+    protected static function getInstance(): TemplaterInterface
     {
         $parameters = config('template')->get('twig');
 

@@ -13,7 +13,7 @@ use SWF\MysqlDatabaser;
  */
 class Mysql extends AbstractShared
 {
-    protected function getInstance(): DatabaserInterface
+    protected static function getInstance(): DatabaserInterface
     {
         $db = new MysqlDatabaser(...config('db')->get('mysql'));
 

@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Serializer as SymfonySerializer;
  */
 class Serializer extends AbstractShared
 {
-    protected function getInstance(): SymfonySerializer
+    protected static function getInstance(): SymfonySerializer
     {
         return new SymfonySerializer([
             new DateTimeNormalizer(),

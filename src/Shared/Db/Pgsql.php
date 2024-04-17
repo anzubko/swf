@@ -13,7 +13,7 @@ use SWF\PgsqlDatabaser;
  */
 class Pgsql extends AbstractShared
 {
-    protected function getInstance(): DatabaserInterface
+    protected static function getInstance(): DatabaserInterface
     {
         $db = new PgsqlDatabaser(...config('db')->get('pgsql'));
 

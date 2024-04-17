@@ -10,7 +10,7 @@ use SWF\AssetsMerger;
  */
 class Merger extends AbstractShared
 {
-    protected function getInstance(): AssetsMerger
+    protected static function getInstance(): AssetsMerger
     {
         return new AssetsMerger(...config('common')->get('merger'));
     }

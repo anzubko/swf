@@ -15,7 +15,7 @@ class Redis extends AbstractShared
     /**
      * @throws CacherException
      */
-    protected function getInstance(): CacherInterface
+    protected static function getInstance(): CacherInterface
     {
         return  new RedisCacher(...config('cache')->get('redis'));
     }

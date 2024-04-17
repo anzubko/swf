@@ -10,7 +10,7 @@ use SWF\DelayedNotifier;
  */
 class Notifier extends AbstractShared
 {
-    protected function getInstance(): DelayedNotifier
+    protected static function getInstance(): DelayedNotifier
     {
         return new DelayedNotifier();
     }

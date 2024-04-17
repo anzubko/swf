@@ -11,7 +11,7 @@ use SWF\MemCacher;
  */
 class Memcached extends AbstractShared
 {
-    protected function getInstance(): CacherInterface
+    protected static function getInstance(): CacherInterface
     {
         return new MemCacher(...config('cache')->get('memcached'));
     }

@@ -10,7 +10,7 @@ use SWF\ListenerProvider;
  */
 class Provider extends AbstractShared
 {
-    protected function getInstance(): ListenerProvider
+    protected static function getInstance(): ListenerProvider
     {
         return ListenerProvider::getInstance();
     }

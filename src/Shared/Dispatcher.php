@@ -10,7 +10,7 @@ use SWF\EventDispatcher;
  */
 class Dispatcher extends AbstractShared
 {
-    protected function getInstance(): EventDispatcher
+    protected static function getInstance(): EventDispatcher
     {
         return EventDispatcher::getInstance();
     }

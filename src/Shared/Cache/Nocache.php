@@ -11,7 +11,7 @@ use SWF\NoCacher;
  */
 class Nocache extends AbstractShared
 {
-    protected function getInstance(): CacherInterface
+    protected static function getInstance(): CacherInterface
     {
         return new NoCacher();
     }

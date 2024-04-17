@@ -10,7 +10,7 @@ use SWF\Interface\DatabaserInterface;
  */
 class Db extends AbstractShared
 {
-    protected function getInstance(): DatabaserInterface
+    protected static function getInstance(): DatabaserInterface
     {
         return shared(config('db')->get('default'));
     }

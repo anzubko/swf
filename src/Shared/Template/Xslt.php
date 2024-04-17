@@ -12,7 +12,7 @@ use SWF\XsltTemplater;
  */
 class Xslt extends AbstractShared
 {
-    protected function getInstance(): TemplaterInterface
+    protected static function getInstance(): TemplaterInterface
     {
         $parameters = config('template')->get('xslt');
 

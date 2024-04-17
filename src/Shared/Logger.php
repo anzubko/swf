@@ -10,7 +10,7 @@ use SWF\CommonLogger;
  */
 class Logger extends AbstractShared
 {
-    protected function getInstance(): CommonLogger
+    protected static function getInstance(): CommonLogger
     {
         return CommonLogger::getInstance();
     }

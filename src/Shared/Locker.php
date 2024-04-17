@@ -10,7 +10,7 @@ use SWF\ProcessLocker;
  */
 class Locker extends AbstractShared
 {
-    protected function getInstance(): ProcessLocker
+    protected static function getInstance(): ProcessLocker
     {
         return ProcessLocker::getInstance();
     }

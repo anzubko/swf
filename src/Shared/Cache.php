@@ -10,7 +10,7 @@ use SWF\Interface\CacherInterface;
  */
 class Cache extends AbstractShared
 {
-    protected function getInstance(): CacherInterface
+    protected static function getInstance(): CacherInterface
     {
         return shared(config('cache')->get('default'));
     }

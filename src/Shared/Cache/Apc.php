@@ -11,7 +11,7 @@ use SWF\Interface\CacherInterface;
  */
 class Apc extends AbstractShared
 {
-    protected function getInstance(): CacherInterface
+    protected static function getInstance(): CacherInterface
     {
         return new ApcCacher(...config('cache')->get('apc'));
     }

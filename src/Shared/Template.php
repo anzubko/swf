@@ -10,7 +10,7 @@ use SWF\Interface\TemplaterInterface;
  */
 class Template extends AbstractShared
 {
-    protected function getInstance(): TemplaterInterface
+    protected static function getInstance(): TemplaterInterface
     {
         return shared(config('template')->get('default'));
     }
