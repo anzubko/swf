@@ -16,20 +16,6 @@ return [
     'name' => 'Simplest framework',
 
     /**
-     * Compress output if size more this value in bytes.
-     *
-     * int
-     */
-    'compressMin' => 32 * 1024,
-
-    /**
-     * Compress output with only these mime types.
-     *
-     * string[]
-     */
-    'compressMimes' => ['text/html', 'text/plain', 'application/json'],
-
-    /**
      * Optional error document file.
      *
      * string|null

@@ -2,204 +2,79 @@
 
 namespace App\Shared;
 
-use App\Shared\Template\Native;
-use App\Shared\Template\Twig;
-use App\Shared\Template\Xslt;
 use JsonException;
 use SWF\AbstractShared;
-use SWF\Interface\TemplaterInterface;
+use SWF\HeaderRegistry;
 use SWF\ResponseManager;
 use SWF\Exception\TemplaterException;
+use Throwable;
 
 class Response extends AbstractShared
 {
     /**
-     * Process and output native template.
+     * Sends response as transformed template.
      *
      * @param mixed[]|null $data
      *
      * @throws TemplaterException
+     * @throws Throwable
      */
-    public function native(
-        string $filename,
-        ?array $data = null,
-        ?string $mime = null,
-        int $code = 200,
-        int $expire = 0,
-        bool $exit = true,
-    ): void {
-        $this->transform(shared(Native::class), $filename, $data, $mime, $code, $expire, $exit);
+    public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8', bool $exit = true): void
+    {
+        $body = shared(Template::class)->transform($filename, $data);
+
+        $type = shared(Template::class)->getType();
+
+        $this->send($body, $code, $type, $charset, $exit);
     }
 
     /**
-     * Process and output twig template.
-     *
-     * @param mixed[]|null $data
-     *
-     * @throws TemplaterException
-     */
-    public function twig(
-        string $filename,
-        ?array $data = null,
-        ?string $mime = null,
-        int $code = 200,
-        int $expire = 0,
-        bool $exit = true,
-    ): void {
-        $this->transform(shared(Twig::class), $filename, $data, $mime, $code, $expire, $exit);
-    }
-
-    /**
-     * Process and output xslt template.
-     *
-     * @param mixed[]|null $data
-     *
-     * @throws TemplaterException
-     */
-    public function xslt(
-        string $filename,
-        ?array $data = null,
-        ?string $mime = null,
-        int $code = 200,
-        int $expire = 0,
-        bool $exit = true,
-    ): void {
-        $this->transform(shared(Xslt::class), $filename, $data, $mime, $code, $expire, $exit);
-    }
-
-    /**
-     * Process and output template.
-     *
-     * @param mixed[]|null $data
-     *
-     * @throws TemplaterException
-     */
-    public function template(
-        string $filename,
-        ?array $data = null,
-        ?string $mime = null,
-        int $code = 200,
-        int $expire = 0,
-        bool $exit = true,
-    ): void {
-        $this->transform(shared(Template::class), $filename, $data, $mime, $code, $expire, $exit);
-    }
-
-    /**
-     * Base method for template transformation.
-     *
-     * @param mixed[]|null $data
-     *
-     * @throws TemplaterException
-     */
-    private function transform(
-        TemplaterInterface $processor,
-        string $filename,
-        ?array $data,
-        ?string $mime,
-        int $code,
-        int $expire,
-        bool $exit = true,
-    ): void {
-        $contents = $processor->transform($filename, $data);
-
-        $mime ??= $processor->getMime();
-        if ('text/html' === $mime) {
-            $timer = gettimeofday(true) - APP_STARTED;
-
-            $contents .= sprintf(
-                '<!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->',
-                $timer - shared(Db::class)->getTimer() - $processor->getTimer(),
-                shared(Db::class)->getCounter(),
-                shared(Db::class)->getTimer(),
-                $processor->getCounter(),
-                $processor->getTimer(),
-                $timer,
-            );
-        }
-
-        $this->inline($contents, $mime, $code, $expire, null, $exit);
-    }
-
-    /**
-     * Output json as inline.
+     * Sends response as json.
      *
      * @throws JsonException
+     * @throws Throwable
      */
-    public function json(
-        mixed $contents,
-        bool $pretty = false,
-        int $code = 200,
-        int $expire = 0,
-        bool $exit = true,
-    ): void {
-        if ($pretty) {
-            $contents = json_encode($contents, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        } else {
-            $contents = json_encode($contents, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
-        }
+    public function json(mixed $body, bool $pretty = false, bool $exit = true): void
+    {
+        $body = json_encode($body, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | ($pretty ? JSON_PRETTY_PRINT : 0));
 
-        $this->inline((string) $contents, 'application/json', $code, $expire, null, $exit);
+        $this->send($body, 200, 'application/json', 'UTF-8', $exit);
     }
 
     /**
-     * Output contents as inline.
+     * Sends response.
+     *
+     * @param string|resource $body
+     *
+     * @throws Throwable
      */
-    public function inline(
-        string $contents,
-        string $mime = 'text/plain',
-        int $code = 200,
-        int $expire = 0,
-        ?string $filename = null,
-        bool $exit = true,
-    ): void {
-        ResponseManager::output(
-            'inline',
-            $contents,
-            $mime,
-            $code,
-            $expire,
-            $filename,
-            config('common')->get('compressMimes'),
-            config('common')->get('compressMin'),
-            $exit,
-        );
+    public function send(mixed $body, int $code = 200, string $type = 'text/plain', ?string $charset = null, bool $exit = true): void
+    {
+        ResponseManager::headers()->setContentType($type, $charset);
+
+        ResponseManager::headers()->set('Cache-Control', 'private, max-age=0', false);
+
+        ResponseManager::send($body, $code, $exit);
     }
 
     /**
-     * Output contents as attachment.
+     * Returns headers registry.
      */
-    public function attachment(
-        string $contents,
-        string $mime = 'text/plain',
-        int $code = 200,
-        int $expire = 0,
-        ?string $filename = null,
-        bool $exit = true,
-    ): void {
-        ResponseManager::output(
-            'attachment',
-            $contents,
-            $mime,
-            $code,
-            $expire,
-            $filename,
-            config('common')->get('compressMimes'),
-            config('common')->get('compressMin'),
-            $exit,
-        );
+    public function headers(): HeaderRegistry
+    {
+        return ResponseManager::headers();
     }
 
     /**
      * Redirects to specified url.
      */
-    public function redirect(string $uri, int $code = 302, bool $exit = true): void
+    public function redirect(string $url, int $code = 302, bool $exit = true): void
     {
-        ResponseManager::redirect($uri, $code, $exit);
+        ResponseManager::redirect($url, $code, $exit);
     }
 
     /**
-     * Shows error page.
+     * Shows error page and exit.
      */
     public function error(int $code): never
     {

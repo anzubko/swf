@@ -58,7 +58,7 @@ class File extends AbstractShared
     /**
      * Getting some file statistics.
      *
-     * @return array{name:string, size:int, modified:int, created:int, w:int, h:int, mime:string|null}|null
+     * @return array{name:string, size:int, modified:int, created:int, w:int, h:int, type:string|null}|null
      */
     public function stats(string $file): ?array
     {
