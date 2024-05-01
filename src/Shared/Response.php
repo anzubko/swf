@@ -52,7 +52,7 @@ class Response extends AbstractShared
     {
         ResponseManager::headers()->setContentType($type, $charset);
 
-        ResponseManager::headers()->set('Cache-Control', 'private, max-age=0', false);
+        ResponseManager::headers()->setCacheControl(['private', 'max-age' => 0], false);
 
         ResponseManager::send($body, $code, $exit);
     }
