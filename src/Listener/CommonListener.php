@@ -11,9 +11,9 @@ use App\Shared\Template;
 use App\Shared\Text;
 use SWF\Attribute\AsListener;
 use SWF\Event\BeforeControllerEvent;
-use SWF\Event\BeforeResponseSendEvent;
-use SWF\Event\LoggerEvent;
-use SWF\Event\ResponseErrorEvent;
+use SWF\Event\ResponseEvent;
+use SWF\Event\LogEvent;
+use SWF\Event\HttpErrorEvent;
 use SWF\Event\TransactionFailEvent;
 use function is_string;
 
@@ -26,7 +26,7 @@ class CommonListener
     }
 
     #[AsListener(persistent: true)]
-    public function customErrorLog(LoggerEvent $event): void
+    public function customErrorLog(LogEvent $event): void
     {
         if (null === config('common')->get('errorLog')) {
             return;
@@ -36,7 +36,7 @@ class CommonListener
     }
 
     #[AsListener(persistent: true)]
-    public function customErrorDocument(ResponseErrorEvent $event): void
+    public function customErrorDocument(HttpErrorEvent $event): void
     {
         $errorDocument = config('common')->get('errorDocument');
         if (null === $errorDocument) {
@@ -83,7 +83,7 @@ class CommonListener
     }
 
     #[AsListener(persistent: true)]
-    public function addStatsToHtmlResponse(BeforeResponseSendEvent $event): void
+    public function addStatsToHtmlResponse(ResponseEvent $event): void
     {
         $body = $event->getBody();
         if (!is_string($body) || !$event->getHeaders()->contains('Content-Type', 'text/html')) {
