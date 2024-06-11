@@ -3,7 +3,7 @@
 namespace App\Shared;
 
 use SWF\AbstractShared;
-use SWF\Router\ControllerRouter;
+use SWF\ControllerProvider;
 
 class Router extends AbstractShared
 {
@@ -12,7 +12,7 @@ class Router extends AbstractShared
      */
     public function genUrl(string $action, string|int|float|null ...$params): string
     {
-        return ControllerRouter::getInstance()->genUrl($action, ...$params);
+        return ControllerProvider::getInstance()->genUrl($action, ...$params);
     }
 
     /**
@@ -20,6 +20,6 @@ class Router extends AbstractShared
      */
     public function genAbsoluteUrl(string $action, string|int|float|null ...$params): string
     {
-        return shared(Registry::class)->url . ControllerRouter::getInstance()->genUrl($action, ...$params);
+        return shared(Registry::class)->url . ControllerProvider::getInstance()->genUrl($action, ...$params);
     }
 }

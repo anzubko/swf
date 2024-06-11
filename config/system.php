@@ -37,6 +37,13 @@ return [
     'timezone' => 'UTC',
 
     /**
+     * Namespaces where can be classes with controllers, commands, listeners, etc...
+     *
+     * array
+     */
+    'namespaces' => ['App\\'],
+
+    /**
      * Default mode for created directories.
      *
      * int
