@@ -2,16 +2,20 @@
 
 namespace App\Shared;
 
+use RuntimeException;
 use SWF\AbstractShared;
-use SWF\ProcessLocker;
+use SWF\LocalLocker;
 
 /**
- * @mixin ProcessLocker
+ * @mixin LocalLocker
  */
 class Locker extends AbstractShared
 {
-    protected static function getInstance(): ProcessLocker
+    /**
+     * @throws RuntimeException
+     */
+    protected static function getInstance(): LocalLocker
     {
-        return ProcessLocker::getInstance();
+        return LocalLocker::getInstance();
     }
 }

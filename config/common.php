@@ -50,7 +50,7 @@ return [
         'location' => '/.merged',
         'dir' => APP_DIR . '/var/cache/merged',
         'docRoot' => APP_DIR . '/public',
-        'cacheFile' => APP_DIR . '/var/cache/merger.php',
+        'cacheFile' => APP_DIR . '/var/cache/merged.metrics.php',
         'assets' => [
             'all.css' => APP_DIR . '/assets/css/*.css',
             'all.js' => APP_DIR . '/assets/js/*.js',
