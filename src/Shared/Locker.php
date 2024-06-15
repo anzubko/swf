@@ -2,7 +2,6 @@
 
 namespace App\Shared;
 
-use RuntimeException;
 use SWF\AbstractShared;
 use SWF\LocalLocker;
 
@@ -11,9 +10,6 @@ use SWF\LocalLocker;
  */
 class Locker extends AbstractShared
 {
-    /**
-     * @throws RuntimeException
-     */
     protected static function getInstance(): LocalLocker
     {
         return LocalLocker::getInstance();

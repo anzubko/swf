@@ -4,9 +4,13 @@ namespace App\Controller;
 
 use App\Shared\Response;
 use SWF\Attribute\AsController;
+use Throwable;
 
 class IndexController
 {
+    /**
+     * @throws Throwable
+     */
     #[AsController('/')]
     public function index(): void
     {
