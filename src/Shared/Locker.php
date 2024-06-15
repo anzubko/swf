@@ -3,15 +3,15 @@
 namespace App\Shared;
 
 use SWF\AbstractShared;
-use SWF\LocalLocker;
+use SWF\FileLocker;
 
 /**
- * @mixin LocalLocker
+ * @mixin FileLocker
  */
 class Locker extends AbstractShared
 {
-    protected static function getInstance(): LocalLocker
+    protected static function getInstance(): FileLocker
     {
-        return LocalLocker::getInstance();
+        return FileLocker::getInstance();
     }
 }
