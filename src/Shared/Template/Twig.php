@@ -7,18 +7,17 @@ use App\Shared\Router;
 use App\Shared\Text;
 use SWF\AbstractShared;
 use SWF\Exception\TemplaterException;
-use SWF\Interface\TemplaterInterface;
 use SWF\TwigTemplater;
 
 /**
- * @mixin TemplaterInterface
+ * @mixin TwigTemplater
  */
 class Twig extends AbstractShared
 {
     /**
      * @throws TemplaterException
      */
-    protected static function getInstance(): TemplaterInterface
+    protected static function getInstance(): TwigTemplater
     {
         $parameters = config('template')->get('twig');
 

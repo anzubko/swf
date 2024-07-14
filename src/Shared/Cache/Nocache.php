@@ -3,15 +3,14 @@
 namespace App\Shared\Cache;
 
 use SWF\AbstractShared;
-use SWF\Interface\CacherInterface;
 use SWF\NoCacher;
 
 /**
- * @mixin CacherInterface
+ * @mixin NoCacher
  */
 class Nocache extends AbstractShared
 {
-    protected static function getInstance(): CacherInterface
+    protected static function getInstance(): NoCacher
     {
         return new NoCacher();
     }

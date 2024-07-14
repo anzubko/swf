@@ -4,15 +4,14 @@ namespace App\Shared\Template;
 
 use App\Shared\Registry;
 use SWF\AbstractShared;
-use SWF\Interface\TemplaterInterface;
 use SWF\XsltTemplater;
 
 /**
- * @mixin TemplaterInterface
+ * @mixin XsltTemplater
  */
 class Xslt extends AbstractShared
 {
-    protected static function getInstance(): TemplaterInterface
+    protected static function getInstance(): XsltTemplater
     {
         $parameters = config('template')->get('xslt');
 

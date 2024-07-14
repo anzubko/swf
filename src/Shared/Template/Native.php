@@ -6,15 +6,14 @@ use App\Shared\Registry;
 use App\Shared\Router;
 use App\Shared\Text;
 use SWF\AbstractShared;
-use SWF\Interface\TemplaterInterface;
 use SWF\NativeTemplater;
 
 /**
- * @mixin TemplaterInterface
+ * @mixin NativeTemplater
  */
 class Native extends AbstractShared
 {
-    protected static function getInstance(): TemplaterInterface
+    protected static function getInstance(): NativeTemplater
     {
         $parameters = config('template')->get('native');
 

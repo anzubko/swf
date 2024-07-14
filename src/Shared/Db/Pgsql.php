@@ -5,15 +5,14 @@ namespace App\Shared\Db;
 use App\Event\DbSlowQueryEvent;
 use App\Shared\Dispatcher;
 use SWF\AbstractShared;
-use SWF\Interface\DatabaserInterface;
 use SWF\PgsqlDatabaser;
 
 /**
- * @mixin DatabaserInterface
+ * @mixin PgsqlDatabaser
  */
 class Pgsql extends AbstractShared
 {
-    protected static function getInstance(): DatabaserInterface
+    protected static function getInstance(): PgsqlDatabaser
     {
         $db = new PgsqlDatabaser(...config('db')->get('pgsql'));
 

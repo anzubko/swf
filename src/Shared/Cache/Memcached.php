@@ -3,15 +3,14 @@
 namespace App\Shared\Cache;
 
 use SWF\AbstractShared;
-use SWF\Interface\CacherInterface;
 use SWF\MemCacher;
 
 /**
- * @mixin CacherInterface
+ * @mixin MemCacher
  */
 class Memcached extends AbstractShared
 {
-    protected static function getInstance(): CacherInterface
+    protected static function getInstance(): MemCacher
     {
         return new MemCacher(...config('cache')->get('memcached'));
     }

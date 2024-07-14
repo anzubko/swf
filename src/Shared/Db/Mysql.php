@@ -5,15 +5,14 @@ namespace App\Shared\Db;
 use App\Event\DbSlowQueryEvent;
 use App\Shared\Dispatcher;
 use SWF\AbstractShared;
-use SWF\Interface\DatabaserInterface;
 use SWF\MysqlDatabaser;
 
 /**
- * @mixin DatabaserInterface
+ * @mixin MysqlDatabaser
  */
 class Mysql extends AbstractShared
 {
-    protected static function getInstance(): DatabaserInterface
+    protected static function getInstance(): MysqlDatabaser
     {
         $db = new MysqlDatabaser(...config('db')->get('mysql'));
 
