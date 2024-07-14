@@ -6,7 +6,7 @@ return [
      *
      * string
      */
-    'default' => env('APP_DEFAULT_CACHE', App\Shared\Cache\Apc::class),
+    'default' => env('APP_DEFAULT_CACHE', App\Shared\Cache\Nocache::class),
 
     /**
      * Apc settings.
