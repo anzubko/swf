@@ -28,8 +28,8 @@ return [
      * mixed[] {@see App\Shared\Db\Mysql}
      */
     'mysql' => [
-        'host' => env('APP_MYSQL_HOST', 'localhost'),
-        'port' => env('APP_MYSQL_PORT', 3306),
+        'host' => env('APP_MYSQL_HOST'),
+        'port' => env('APP_MYSQL_PORT'),
         'db' => env('APP_MYSQL_DB'),
         'user' => env('APP_MYSQL_USER'),
         'pass' => env('APP_MYSQL_PASS'),
@@ -41,8 +41,8 @@ return [
      * mixed[] {@see App\Shared\Db\Pgsql}
      */
     'pgsql' => [
-        'host' => env('APP_PGSQL_HOST', 'localhost'),
-        'port' => env('APP_PGSQL_PORT', 5432),
+        'host' => env('APP_PGSQL_HOST'),
+        'port' => env('APP_PGSQL_PORT'),
         'db' => env('APP_PGSQL_DB'),
         'user' => env('APP_PGSQL_USER'),
         'pass' => env('APP_PGSQL_PASS'),
