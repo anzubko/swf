@@ -7,14 +7,14 @@ return [
     'APP_URL' => null,
     'APP_ROBOTS' => false,
 
-    'APP_MYSQL_HOST' => 'localhost',
-    'APP_MYSQL_PORT' => 3306,
+    'APP_MYSQL_HOST' => null,
+    'APP_MYSQL_PORT' => null,
     'APP_MYSQL_DB' => null,
     'APP_MYSQL_USER' => null,
     'APP_MYSQL_PASS' => null,
 
-    'APP_PGSQL_HOST' => 'localhost',
-    'APP_PGSQL_PORT' => 5432,
+    'APP_PGSQL_HOST' => null,
+    'APP_PGSQL_PORT' => null,
     'APP_PGSQL_DB' => null,
     'APP_PGSQL_USER' => null,
     'APP_PGSQL_PASS' => null,
