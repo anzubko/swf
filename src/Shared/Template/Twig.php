@@ -21,8 +21,6 @@ class Twig extends AbstractShared
     {
         $parameters = config('template')->get('twig');
 
-        $parameters['strict'] = config('system')->get('strict');
-
         $parameters['debug'] = config('system')->get('debug');
 
         $parameters['reload'] = 'prod' !== config('system')->get('env');

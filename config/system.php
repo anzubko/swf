@@ -16,13 +16,6 @@ return [
     'debug' => env('APP_DEBUG', false),
 
     /**
-     * Treats errors except deprecations and notices as fatal and sets Twig to strict mode.
-     *
-     * bool
-     */
-    'strict' => env('APP_STRICT', true),
-
-    /**
      * Basic url (autodetect if null).
      *
      * string|null
