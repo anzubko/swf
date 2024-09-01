@@ -11,29 +11,17 @@ use App\Shared\Template;
 use App\Shared\Text;
 use SWF\Attribute\AsListener;
 use SWF\Event\BeforeControllerEvent;
-use SWF\Event\ResponseEvent;
-use SWF\Event\LogEvent;
 use SWF\Event\HttpErrorEvent;
+use SWF\Event\ResponseEvent;
 use SWF\Event\TransactionFailEvent;
 use function is_string;
 
 class CommonListener
 {
     #[AsListener(persistent: true)]
-    public function mergingAssets(BeforeControllerEvent $event): void
+    public function mergeAssets(BeforeControllerEvent $event): void
     {
         shared(Registry::class)->merged = shared(Merger::class)->merge();
-    }
-
-    #[AsListener(persistent: true)]
-    public function customErrorLog(LogEvent $event): void
-    {
-        $errorLog = config('common')->get('errorLog');
-        if (null === $errorLog) {
-            return;
-        }
-
-        shared(Logger::class)->customLog($errorLog, $event->getComplexMessage());
     }
 
     #[AsListener(persistent: true)]
@@ -44,7 +32,7 @@ class CommonListener
             return;
         }
 
-        $errorDocument = str_replace('{CODE}', (string) $event->getCode(), $errorDocument);
+        $errorDocument = strtr($errorDocument, ['{CODE}' => (string) $event->getCode()]);
         if (is_file($errorDocument)) {
             include $errorDocument;
         }
@@ -95,7 +83,9 @@ class CommonListener
 
         $timer = gettimeofday(true) - APP_STARTED;
         $body .= sprintf(
-            '<!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->',
+            <<<HTML
+            <!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->
+            HTML,
             $timer - shared(Db::class)->getTimer() - shared(Template::class)->getTimer(),
             shared(Db::class)->getCounter(),
             shared(Db::class)->getTimer(),

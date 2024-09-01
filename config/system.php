@@ -49,4 +49,11 @@ return [
      * int
      */
     'fileMode' => 0666,
+
+    /**
+     * Custom log file.
+     *
+     * string|null
+     */
+    'customLog' => APP_DIR . '/var/log/{ENV}.log',
 ];

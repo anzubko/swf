@@ -23,13 +23,6 @@ return [
     'errorDocument' => APP_DIR . '/public/.bin/errors/{CODE}.html.php',
 
     /**
-     * Additional errors log file.
-     *
-     * string|null
-     */
-    'errorLog' => APP_DIR . '/var/log/errors.log',
-
-    /**
      * Mailer settings.
      *
      * mixed[] {@see App\Shared\Mailer}
