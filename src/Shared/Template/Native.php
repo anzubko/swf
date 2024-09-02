@@ -18,33 +18,33 @@ class Native
 
         $parameters['debug'] = config('system')->get('debug');
 
-        $parameters['globals']['registry'] = instance(Registry::class);
+        $parameters['globals']['registry'] = i(Registry::class);
 
-        $parameters['functions']['genUrl'] = instance(Router::class)->genUrl(...);
+        $parameters['functions']['genUrl'] = i(Router::class)->genUrl(...);
 
-        $parameters['functions']['genAbsoluteUrl'] = instance(Router::class)->genAbsoluteUrl(...);
+        $parameters['functions']['genAbsoluteUrl'] = i(Router::class)->genAbsoluteUrl(...);
 
-        $parameters['functions']['lc'] = instance(Text::class)->lc(...);
+        $parameters['functions']['lc'] = i(Text::class)->lc(...);
 
-        $parameters['functions']['lcFirst'] = instance(Text::class)->lcFirst(...);
+        $parameters['functions']['lcFirst'] = i(Text::class)->lcFirst(...);
 
-        $parameters['functions']['uc'] = instance(Text::class)->uc(...);
+        $parameters['functions']['uc'] = i(Text::class)->uc(...);
 
-        $parameters['functions']['ucFirst'] = instance(Text::class)->ucFirst(...);
+        $parameters['functions']['ucFirst'] = i(Text::class)->ucFirst(...);
 
-        $parameters['functions']['trim'] = instance(Text::class)->trim(...);
+        $parameters['functions']['trim'] = i(Text::class)->trim(...);
 
-        $parameters['functions']['rTrim'] = instance(Text::class)->rTrim(...);
+        $parameters['functions']['rTrim'] = i(Text::class)->rTrim(...);
 
-        $parameters['functions']['lTrim'] = instance(Text::class)->lTrim(...);
+        $parameters['functions']['lTrim'] = i(Text::class)->lTrim(...);
 
-        $parameters['functions']['fTrim'] = instance(Text::class)->fTrim(...);
+        $parameters['functions']['fTrim'] = i(Text::class)->fTrim(...);
 
-        $parameters['functions']['mTrim'] = instance(Text::class)->mTrim(...);
+        $parameters['functions']['mTrim'] = i(Text::class)->mTrim(...);
 
-        $parameters['functions']['cut'] = instance(Text::class)->cut(...);
+        $parameters['functions']['cut'] = i(Text::class)->cut(...);
 
-        $parameters['functions']['random'] = instance(Text::class)->random(...);
+        $parameters['functions']['random'] = i(Text::class)->random(...);
 
         return new NativeTemplater(...$parameters);
     }

@@ -21,7 +21,7 @@ class Transaction
     public function mysql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
         TransactionRunner::run(
-            db: instance(Mysql::class),
+            db: i(Mysql::class),
             body: $body,
             isolation: $isolation,
             retryAt: $retryAt,
@@ -42,7 +42,7 @@ class Transaction
     public function pgsql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
         TransactionRunner::run(
-            db: instance(Pgsql::class),
+            db: i(Pgsql::class),
             body: $body,
             isolation: $isolation,
             retryAt: $retryAt,
@@ -63,7 +63,7 @@ class Transaction
     public function run(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
         TransactionRunner::run(
-            db: instance(Db::class),
+            db: i(Db::class),
             body: $body,
             isolation: $isolation,
             retryAt: $retryAt,

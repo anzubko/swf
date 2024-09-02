@@ -27,6 +27,6 @@ class Router
      */
     public function genAbsoluteUrl(string $action, string|int|float|null ...$params): string
     {
-        return instance(Registry::class)->url . ControllerProvider::getInstance()->genUrl($action, ...$params);
+        return i(Registry::class)->url . ControllerProvider::getInstance()->genUrl($action, ...$params);
     }
 }

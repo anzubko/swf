@@ -20,9 +20,9 @@ class Response
      */
     public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8', bool $exit = true): void
     {
-        $body = instance(Template::class)->transform($filename, $data);
+        $body = i(Template::class)->transform($filename, $data);
 
-        $type = instance(Template::class)->getType();
+        $type = i(Template::class)->getType();
 
         $this->send($body, $code, $type, $charset, $exit);
     }

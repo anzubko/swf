@@ -14,8 +14,8 @@ class IndexController
     #[AsController('/')]
     public function index(): void
     {
-        $phrase = 'Hello! This is Simplest framework :)';
-
-        instance(Response::class)->template('regular.index.html', ['phrase' => $phrase]);
+        i(Response::class)->template('regular.index.html', [
+            'phrase' => 'Hello! This is Simplest framework :)',
+        ]);
     }
 }

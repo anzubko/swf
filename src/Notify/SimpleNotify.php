@@ -25,11 +25,11 @@ class SimpleNotify extends AbstractNotify
      */
     public function send(): void
     {
-        instance(Mailer::class)
+        i(Mailer::class)
             ->create()
             ->addRecipient($this->email)
             ->setSubject('Simple message')
-            ->setBody(instance(Template::class)->transform('notify.send.message.html', ['message' => $this->message]))
+            ->setBody(i(Template::class)->transform('notify.send.message.html', ['message' => $this->message]))
             ->send()
         ;
     }

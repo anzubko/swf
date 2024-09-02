@@ -21,7 +21,7 @@ class CommonListener
     #[AsListener(persistent: true)]
     public function mergeAssets(BeforeControllerEvent $event): void
     {
-        instance(Registry::class)->merged = instance(Merger::class)->merge();
+        i(Registry::class)->merged = i(Merger::class)->merge();
     }
 
     #[AsListener(persistent: true)]
@@ -50,7 +50,7 @@ class CommonListener
 
         $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetries(), $host);
 
-        instance(Logger::class)->customLog($failLog, $message);
+        i(Logger::class)->customLog($failLog, $message);
     }
 
     #[AsListener(persistent: true)]
@@ -63,14 +63,14 @@ class CommonListener
 
         $queries = [];
         foreach ($event->getQueries() as $query) {
-            $queries[] = instance(Text::class)->fTrim($query);
+            $queries[] = i(Text::class)->fTrim($query);
         }
 
         $host = idn_to_utf8($_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
 
         $message = sprintf("[%.2f] %s\n\t%s\n", $event->getTimer(), $host, implode("\n\t", $queries));
 
-        instance(Logger::class)->customLog($slowQueryLog, $message);
+        i(Logger::class)->customLog($slowQueryLog, $message);
     }
 
     #[AsListener(persistent: true)]
@@ -88,11 +88,11 @@ class CommonListener
             <!-- script {SRC_T} + sql({SQL_C}) {SQL_T} + tpl({TPL_C}) {TPL_T} = {ALL_T} -->
             STATS,
             [
-                '{SRC_T}' => round($timer - instance(Db::class)->getTimer() - instance(Template::class)->getTimer(), 3),
-                '{SQL_C}' => instance(Db::class)->getCounter(),
-                '{SQL_T}' => round(instance(Db::class)->getTimer(), 3),
-                '{TPL_C}' => instance(Template::class)->getCounter(),
-                '{TPL_T}' => round(instance(Template::class)->getTimer(), 3),
+                '{SRC_T}' => round($timer - i(Db::class)->getTimer() - i(Template::class)->getTimer(), 3),
+                '{SQL_C}' => i(Db::class)->getCounter(),
+                '{SQL_T}' => round(i(Db::class)->getTimer(), 3),
+                '{TPL_C}' => i(Template::class)->getCounter(),
+                '{TPL_T}' => round(i(Template::class)->getTimer(), 3),
                 '{ALL_T}' => round($timer, 3),
             ],
         );

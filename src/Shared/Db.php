@@ -11,6 +11,6 @@ class Db
 {
     public static function getInstance(): DatabaserInterface
     {
-        return instance(config('db')->get('default'));
+        return i(config('db')->get('default'));
     }
 }

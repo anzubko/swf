@@ -11,6 +11,6 @@ class Cache
 {
     public static function getInstance(): CacherInterface
     {
-        return instance(config('cache')->get('default'));
+        return i(config('cache')->get('default'));
     }
 }

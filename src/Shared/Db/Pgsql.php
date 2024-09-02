@@ -18,7 +18,7 @@ class Pgsql
         $db->setProfiler(
             function (float $timer, array $queries): void {
                 if ($timer > config('db')->get('slowQueryMin')) {
-                    instance(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
+                    i(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
                 }
             },
         );

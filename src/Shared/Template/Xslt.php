@@ -14,7 +14,7 @@ class Xslt
     {
         $parameters = config('template')->get('xslt');
 
-        $parameters['globals']['registry'] = instance(Registry::class);
+        $parameters['globals']['registry'] = i(Registry::class);
 
         return new XsltTemplater(...$parameters);
     }
