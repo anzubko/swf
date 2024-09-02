@@ -74,7 +74,7 @@ class CommonListener
     }
 
     #[AsListener(persistent: true)]
-    public function addStatsToHtmlResponse(ResponseEvent $event): void
+    public function statsToHtmlResponse(ResponseEvent $event): void
     {
         $body = $event->getBody();
         if (!is_string($body) || !$event->getHeaders()->contains('Content-Type', 'text/html')) {
@@ -82,18 +82,21 @@ class CommonListener
         }
 
         $timer = gettimeofday(true) - APP_STARTED;
-        $body .= sprintf(
-            <<<HTML
-            <!-- script %.3f + sql(%d) %.3f + tpl(%d) %.3f = %.3f -->
-            HTML,
-            $timer - shared(Db::class)->getTimer() - shared(Template::class)->getTimer(),
-            shared(Db::class)->getCounter(),
-            shared(Db::class)->getTimer(),
-            shared(Template::class)->getCounter(),
-            shared(Template::class)->getTimer(),
-            $timer,
+
+        $stats = strtr(
+            <<<STATS
+            <!-- script {SRC_T} + sql({SQL_C}) {SQL_T} + tpl({TPL_C}) {TPL_T} = {ALL_T} -->
+            STATS,
+            [
+                '{SRC_T}' => round($timer - shared(Db::class)->getTimer() - shared(Template::class)->getTimer(), 3),
+                '{SQL_C}' => shared(Db::class)->getCounter(),
+                '{SQL_T}' => round(shared(Db::class)->getTimer(), 3),
+                '{TPL_C}' => shared(Template::class)->getCounter(),
+                '{TPL_T}' => round(shared(Template::class)->getTimer(), 3),
+                '{ALL_T}' => round($timer, 3),
+            ],
         );
 
-        $event->setBody($body);
+        $event->setBody($body . $stats);
     }
 }
