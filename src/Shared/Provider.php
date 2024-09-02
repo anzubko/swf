@@ -4,19 +4,18 @@ namespace App\Shared;
 
 use LogicException;
 use RuntimeException;
-use SWF\AbstractShared;
 use SWF\ListenerProvider;
 
 /**
  * @mixin ListenerProvider
  */
-class Provider extends AbstractShared
+class Provider
 {
     /**
      * @throws LogicException
      * @throws RuntimeException
      */
-    protected static function getInstance(): ListenerProvider
+    public static function getInstance(): ListenerProvider
     {
         return ListenerProvider::getInstance();
     }

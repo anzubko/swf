@@ -3,13 +3,12 @@
 namespace App\Shared;
 
 use JsonException;
-use SWF\AbstractShared;
 use SWF\HeaderRegistry;
 use SWF\ResponseManager;
 use SWF\Exception\TemplaterException;
 use Throwable;
 
-class Response extends AbstractShared
+class Response
 {
     /**
      * Sends response as transformed template.
@@ -21,9 +20,9 @@ class Response extends AbstractShared
      */
     public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8', bool $exit = true): void
     {
-        $body = shared(Template::class)->transform($filename, $data);
+        $body = instance(Template::class)->transform($filename, $data);
 
-        $type = shared(Template::class)->getType();
+        $type = instance(Template::class)->getType();
 
         $this->send($body, $code, $type, $charset, $exit);
     }

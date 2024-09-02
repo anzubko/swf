@@ -2,15 +2,14 @@
 
 namespace App\Shared\Cache;
 
-use SWF\AbstractShared;
 use SWF\NoCacher;
 
 /**
  * @mixin NoCacher
  */
-class Nocache extends AbstractShared
+class Nocache
 {
-    protected static function getInstance(): NoCacher
+    public static function getInstance(): NoCacher
     {
         return new NoCacher();
     }

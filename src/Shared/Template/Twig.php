@@ -5,19 +5,18 @@ namespace App\Shared\Template;
 use App\Shared\Registry;
 use App\Shared\Router;
 use App\Shared\Text;
-use SWF\AbstractShared;
 use SWF\Exception\TemplaterException;
 use SWF\TwigTemplater;
 
 /**
  * @mixin TwigTemplater
  */
-class Twig extends AbstractShared
+class Twig
 {
     /**
      * @throws TemplaterException
      */
-    protected static function getInstance(): TwigTemplater
+    public static function getInstance(): TwigTemplater
     {
         $parameters = config('template')->get('twig');
 
@@ -25,37 +24,33 @@ class Twig extends AbstractShared
 
         $parameters['reload'] = 'prod' !== config('system')->get('env');
 
-        $parameters['globals'] = [
-            'registry' => shared(Registry::class),
-        ];
+        $parameters['globals']['registry'] = instance(Registry::class);
 
-        $parameters['functions'] = [
-            'lc' => shared(Text::class)->lc(...),
+        $parameters['functions']['genAbsoluteUrl'] = instance(Router::class)->genAbsoluteUrl(...);
 
-            'lcFirst' => shared(Text::class)->lcFirst(...),
+        $parameters['functions']['genUrl'] = instance(Router::class)->genUrl(...);
 
-            'uc' => shared(Text::class)->uc(...),
+        $parameters['functions']['lcFirst'] = instance(Text::class)->lcFirst(...);
 
-            'ucFirst' => shared(Text::class)->ucFirst(...),
+        $parameters['functions']['lc'] = instance(Text::class)->lc(...);
 
-            'trim' => shared(Text::class)->trim(...),
+        $parameters['functions']['ucFirst'] = instance(Text::class)->ucFirst(...);
 
-            'rTrim' => shared(Text::class)->rTrim(...),
+        $parameters['functions']['uc'] = instance(Text::class)->uc(...);
 
-            'lTrim' => shared(Text::class)->lTrim(...),
+        $parameters['functions']['trim'] = instance(Text::class)->trim(...);
 
-            'fTrim' => shared(Text::class)->fTrim(...),
+        $parameters['functions']['lTrim'] = instance(Text::class)->lTrim(...);
 
-            'mTrim' => shared(Text::class)->mTrim(...),
+        $parameters['functions']['rTrim'] = instance(Text::class)->rTrim(...);
 
-            'cut' => shared(Text::class)->cut(...),
+        $parameters['functions']['fTrim'] = instance(Text::class)->fTrim(...);
 
-            'random' => shared(Text::class)->random(...),
+        $parameters['functions']['mTrim'] = instance(Text::class)->mTrim(...);
 
-            'genUrl' => shared(Router::class)->genUrl(...),
+        $parameters['functions']['cut'] = instance(Text::class)->cut(...);
 
-            'genAbsoluteUrl' => shared(Router::class)->genAbsoluteUrl(...),
-        ];
+        $parameters['functions']['random'] = instance(Text::class)->random(...);
 
         return new TwigTemplater(...$parameters);
     }

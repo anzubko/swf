@@ -3,21 +3,18 @@
 namespace App\Shared\Template;
 
 use App\Shared\Registry;
-use SWF\AbstractShared;
 use SWF\XsltTemplater;
 
 /**
  * @mixin XsltTemplater
  */
-class Xslt extends AbstractShared
+class Xslt
 {
-    protected static function getInstance(): XsltTemplater
+    public static function getInstance(): XsltTemplater
     {
         $parameters = config('template')->get('xslt');
 
-        $parameters['globals'] = [
-            'registry' => shared(Registry::class),
-        ];
+        $parameters['globals']['registry'] = instance(Registry::class);
 
         return new XsltTemplater(...$parameters);
     }

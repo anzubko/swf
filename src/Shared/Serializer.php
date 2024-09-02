@@ -2,7 +2,6 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -14,9 +13,9 @@ use Symfony\Component\Serializer\Serializer as SymfonySerializer;
 /**
  * @mixin SymfonySerializer
  */
-class Serializer extends AbstractShared
+class Serializer
 {
-    protected static function getInstance(): SymfonySerializer
+    public static function getInstance(): SymfonySerializer
     {
         return new SymfonySerializer([
             new DateTimeNormalizer(),

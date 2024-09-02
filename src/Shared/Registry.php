@@ -3,10 +3,9 @@
 namespace App\Shared;
 
 use AllowDynamicProperties;
-use SWF\AbstractShared;
 
 #[AllowDynamicProperties]
-class Registry extends AbstractShared
+class Registry
 {
     public function __construct()
     {

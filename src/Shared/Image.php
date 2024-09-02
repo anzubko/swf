@@ -3,10 +3,9 @@
 namespace App\Shared;
 
 use GdImage;
-use SWF\AbstractShared;
 use SWF\ImageHandler;
 
-class Image extends AbstractShared
+class Image
 {
     /**
      * Reading image from string.

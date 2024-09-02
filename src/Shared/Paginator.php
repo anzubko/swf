@@ -2,10 +2,9 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\Paginator as SWFPaginator;
 
-class Paginator extends AbstractShared
+class Paginator
 {
     /**
      * Calculates page-by-page navigation.

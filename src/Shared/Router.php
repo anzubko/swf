@@ -4,10 +4,9 @@ namespace App\Shared;
 
 use LogicException;
 use RuntimeException;
-use SWF\AbstractShared;
 use SWF\ControllerProvider;
 
-class Router extends AbstractShared
+class Router
 {
     /**
      * Generates URL by action and optional parameters.
@@ -28,6 +27,6 @@ class Router extends AbstractShared
      */
     public function genAbsoluteUrl(string $action, string|int|float|null ...$params): string
     {
-        return shared(Registry::class)->url . ControllerProvider::getInstance()->genUrl($action, ...$params);
+        return instance(Registry::class)->url . ControllerProvider::getInstance()->genUrl($action, ...$params);
     }
 }

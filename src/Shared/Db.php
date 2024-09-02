@@ -2,16 +2,15 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\Interface\DatabaserInterface;
 
 /**
  * @mixin DatabaserInterface
  */
-class Db extends AbstractShared
+class Db
 {
-    protected static function getInstance(): DatabaserInterface
+    public static function getInstance(): DatabaserInterface
     {
-        return shared(config('db')->get('default'));
+        return instance(config('db')->get('default'));
     }
 }

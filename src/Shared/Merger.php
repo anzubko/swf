@@ -2,15 +2,14 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\AssetsMerger;
 
 /**
  * @mixin AssetsMerger
  */
-class Merger extends AbstractShared
+class Merger
 {
-    protected static function getInstance(): AssetsMerger
+    public static function getInstance(): AssetsMerger
     {
         return new AssetsMerger(...config('common')->get('merger'));
     }

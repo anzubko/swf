@@ -3,10 +3,9 @@
 namespace App\Shared;
 
 use InvalidArgumentException;
-use SWF\AbstractShared;
 use SWF\SimpleMailer;
 
-class Mailer extends AbstractShared
+class Mailer
 {
     /**
      * Creates new email.

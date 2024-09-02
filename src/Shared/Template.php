@@ -2,16 +2,15 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\Interface\TemplaterInterface;
 
 /**
  * @mixin TemplaterInterface
  */
-class Template extends AbstractShared
+class Template
 {
-    protected static function getInstance(): TemplaterInterface
+    public static function getInstance(): TemplaterInterface
     {
-        return shared(config('template')->get('default'));
+        return instance(config('template')->get('default'));
     }
 }

@@ -18,7 +18,7 @@ class BasicTest extends TestCase
     {
         $dir = APP_DIR . '/src';
 
-        foreach (shared(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (instance(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.php')) {
                 continue;
             }
@@ -36,7 +36,7 @@ class BasicTest extends TestCase
     {
         $dir = config('template')->get('native')['dir'];
 
-        foreach (shared(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (instance(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.php')) {
                 continue;
             }
@@ -64,7 +64,7 @@ class BasicTest extends TestCase
 
         $twig = new TwigEnvironment($loader);
 
-        foreach (shared(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (instance(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.twig')) {
                 continue;
             }
@@ -72,7 +72,7 @@ class BasicTest extends TestCase
             try {
                 $twig->parse(
                     $twig->tokenize(
-                        new TwigSource((string) shared(File::class)->get($file), basename($file), $file),
+                        new TwigSource((string) instance(File::class)->get($file), basename($file), $file),
                     ),
                 );
             } catch (Throwable $e) {
@@ -96,7 +96,7 @@ class BasicTest extends TestCase
 
         $dir = config('template')->get('xslt')['dir'];
 
-        foreach (shared(Dir::class)->scan($dir, true, true) as $file) {
+        foreach (instance(Dir::class)->scan($dir, true, true) as $file) {
             if (!is_file($file) || !str_ends_with($file, '.xsl')) {
                 continue;
             }

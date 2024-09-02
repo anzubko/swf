@@ -5,51 +5,46 @@ namespace App\Shared\Template;
 use App\Shared\Registry;
 use App\Shared\Router;
 use App\Shared\Text;
-use SWF\AbstractShared;
 use SWF\NativeTemplater;
 
 /**
  * @mixin NativeTemplater
  */
-class Native extends AbstractShared
+class Native
 {
-    protected static function getInstance(): NativeTemplater
+    public static function getInstance(): NativeTemplater
     {
         $parameters = config('template')->get('native');
 
         $parameters['debug'] = config('system')->get('debug');
 
-        $parameters['globals'] = [
-            'registry' => shared(Registry::class),
-        ];
+        $parameters['globals']['registry'] = instance(Registry::class);
 
-        $parameters['functions'] = [
-            'genUrl' => shared(Router::class)->genUrl(...),
+        $parameters['functions']['genUrl'] = instance(Router::class)->genUrl(...);
 
-            'genAbsoluteUrl' => shared(Router::class)->genAbsoluteUrl(...),
+        $parameters['functions']['genAbsoluteUrl'] = instance(Router::class)->genAbsoluteUrl(...);
 
-            'lc' => shared(Text::class)->lc(...),
+        $parameters['functions']['lc'] = instance(Text::class)->lc(...);
 
-            'lcFirst' => shared(Text::class)->lcFirst(...),
+        $parameters['functions']['lcFirst'] = instance(Text::class)->lcFirst(...);
 
-            'uc' => shared(Text::class)->uc(...),
+        $parameters['functions']['uc'] = instance(Text::class)->uc(...);
 
-            'ucFirst' => shared(Text::class)->ucFirst(...),
+        $parameters['functions']['ucFirst'] = instance(Text::class)->ucFirst(...);
 
-            'trim' => shared(Text::class)->trim(...),
+        $parameters['functions']['trim'] = instance(Text::class)->trim(...);
 
-            'rTrim' => shared(Text::class)->rTrim(...),
+        $parameters['functions']['rTrim'] = instance(Text::class)->rTrim(...);
 
-            'lTrim' => shared(Text::class)->lTrim(...),
+        $parameters['functions']['lTrim'] = instance(Text::class)->lTrim(...);
 
-            'fTrim' => shared(Text::class)->fTrim(...),
+        $parameters['functions']['fTrim'] = instance(Text::class)->fTrim(...);
 
-            'mTrim' => shared(Text::class)->mTrim(...),
+        $parameters['functions']['mTrim'] = instance(Text::class)->mTrim(...);
 
-            'cut' => shared(Text::class)->cut(...),
+        $parameters['functions']['cut'] = instance(Text::class)->cut(...);
 
-            'random' => shared(Text::class)->random(...),
-        ];
+        $parameters['functions']['random'] = instance(Text::class)->random(...);
 
         return new NativeTemplater(...$parameters);
     }

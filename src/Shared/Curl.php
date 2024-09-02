@@ -2,10 +2,9 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\ImprovedCurl;
 
-class Curl extends AbstractShared
+class Curl
 {
     /**
      * @param mixed[] $options

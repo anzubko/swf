@@ -2,10 +2,9 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\TextHandler;
 
-class Text extends AbstractShared
+class Text
 {
     /**
      * To lower case.

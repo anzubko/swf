@@ -2,15 +2,14 @@
 
 namespace App\Shared\Cache;
 
-use SWF\AbstractShared;
 use SWF\ApcCacher;
 
 /**
  * @mixin ApcCacher
  */
-class Apc extends AbstractShared
+class Apc
 {
-    protected static function getInstance(): ApcCacher
+    public static function getInstance(): ApcCacher
     {
         return new ApcCacher(...config('cache')->get('apc'));
     }

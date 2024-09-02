@@ -2,15 +2,14 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\DelayedNotifier;
 
 /**
  * @mixin DelayedNotifier
  */
-class Notifier extends AbstractShared
+class Notifier
 {
-    protected static function getInstance(): DelayedNotifier
+    public static function getInstance(): DelayedNotifier
     {
         return new DelayedNotifier();
     }

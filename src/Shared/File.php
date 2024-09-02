@@ -2,10 +2,9 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\FileHandler;
 
-class File extends AbstractShared
+class File
 {
     /**
      * Getting file contents into string.

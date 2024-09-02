@@ -4,12 +4,11 @@ namespace App\Shared;
 
 use App\Shared\Db\Mysql;
 use App\Shared\Db\Pgsql;
-use SWF\AbstractShared;
 use SWF\Exception\DatabaserException;
 use SWF\TransactionRunner;
 use Throwable;
 
-class Transaction extends AbstractShared
+class Transaction
 {
     /**
      * Processes Mysql transaction with retries at expected errors.
@@ -22,7 +21,7 @@ class Transaction extends AbstractShared
     public function mysql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
         TransactionRunner::run(
-            db: shared(Mysql::class),
+            db: instance(Mysql::class),
             body: $body,
             isolation: $isolation,
             retryAt: $retryAt,
@@ -43,7 +42,7 @@ class Transaction extends AbstractShared
     public function pgsql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
         TransactionRunner::run(
-            db: shared(Pgsql::class),
+            db: instance(Pgsql::class),
             body: $body,
             isolation: $isolation,
             retryAt: $retryAt,
@@ -64,7 +63,7 @@ class Transaction extends AbstractShared
     public function run(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
         TransactionRunner::run(
-            db: shared(Db::class),
+            db: instance(Db::class),
             body: $body,
             isolation: $isolation,
             retryAt: $retryAt,

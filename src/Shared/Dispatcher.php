@@ -2,15 +2,14 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\EventDispatcher;
 
 /**
  * @mixin EventDispatcher
  */
-class Dispatcher extends AbstractShared
+class Dispatcher
 {
-    protected static function getInstance(): EventDispatcher
+    public static function getInstance(): EventDispatcher
     {
         return EventDispatcher::getInstance();
     }

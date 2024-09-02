@@ -16,6 +16,6 @@ class IndexController
     {
         $phrase = 'Hello! This is Simplest framework :)';
 
-        shared(Response::class)->template('regular.index.html', ['phrase' => $phrase]);
+        instance(Response::class)->template('regular.index.html', ['phrase' => $phrase]);
     }
 }

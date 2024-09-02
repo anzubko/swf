@@ -2,16 +2,15 @@
 
 namespace App\Shared;
 
-use SWF\AbstractShared;
 use SWF\Interface\CacherInterface;
 
 /**
  * @mixin CacherInterface
  */
-class Cache extends AbstractShared
+class Cache
 {
-    protected static function getInstance(): CacherInterface
+    public static function getInstance(): CacherInterface
     {
-        return shared(config('cache')->get('default'));
+        return instance(config('cache')->get('default'));
     }
 }

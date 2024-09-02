@@ -3,10 +3,9 @@
 namespace App\Shared;
 
 use RuntimeException;
-use SWF\AbstractShared;
 use SWF\DirHandler;
 
-class Dir extends AbstractShared
+class Dir
 {
     /**
      * Directory scanning.
