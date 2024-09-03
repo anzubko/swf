@@ -5,7 +5,7 @@ namespace App\Notify;
 use App\Shared\Mailer;
 use App\Shared\Template;
 use SWF\AbstractNotify;
-use Exception;
+use SWF\Exception\TemplaterException;
 
 class SimpleNotify extends AbstractNotify
 {
@@ -13,15 +13,15 @@ class SimpleNotify extends AbstractNotify
      * Just get some data from database for example. All heavy work can be done at send() method.
      */
     public function __construct(
-        protected string $email,
-        protected string $message,
+        private readonly string $email,
+        private readonly string $message,
     ) {
     }
 
     /**
      * @inheritDoc
      *
-     * @throws Exception
+     * @throws TemplaterException
      */
     public function send(): void
     {
