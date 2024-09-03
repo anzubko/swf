@@ -8,7 +8,7 @@ use SWF\DirHandler;
 class Dir
 {
     /**
-     * Directory scanning.
+     * Scans directory.
      *
      * @return string[]
      */
@@ -18,7 +18,7 @@ class Dir
     }
 
     /**
-     * Directory creation.
+     * Creates directory.
      */
     public function create(string $dir): bool
     {
@@ -26,7 +26,7 @@ class Dir
     }
 
     /**
-     * Directory removing.
+     * Removes directory.
      */
     public function remove(string $dir, bool $recursive = true): bool
     {
@@ -34,7 +34,7 @@ class Dir
     }
 
     /**
-     * Directory clearing.
+     * Clears directory.
      */
     public function clear(string $dir, bool $recursive = true): bool
     {
@@ -42,7 +42,7 @@ class Dir
     }
 
     /**
-     * Directory coping.
+     * Copies directory.
      */
     public function copy(string $source, string $target): bool
     {
@@ -50,7 +50,7 @@ class Dir
     }
 
     /**
-     * Directory moving.
+     * Moves directory.
      */
     public function move(string $source, string $target): bool
     {

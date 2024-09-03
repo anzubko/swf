@@ -8,7 +8,7 @@ use SWF\ImageHandler;
 class Image
 {
     /**
-     * Reading image from string.
+     * Reads image from string.
      */
     public function fromString(string|false|null $string): ?GdImage
     {
@@ -16,7 +16,7 @@ class Image
     }
 
     /**
-     * Reading image from file.
+     * Reads image from file.
      */
     public function fromFile(string $file): ?GdImage
     {
@@ -24,7 +24,7 @@ class Image
     }
 
     /**
-     * Saving as PNG to file or returning as string.
+     * Saves as PNG to file or returns as string.
      */
     public function savePng(GdImage $image, ?string $file = null, int $quality = 0): string|bool
     {
@@ -32,7 +32,7 @@ class Image
     }
 
     /**
-     * Saving as JPEG to file or returning as string.
+     * Saves as JPEG to file or returns as string.
      */
     public function saveJpeg(GdImage $image, ?string $file = null, int $quality = 80): string|bool
     {
@@ -40,7 +40,7 @@ class Image
     }
 
     /**
-     * Resizing image.
+     * Resizes image.
      */
     public function resize(GdImage $image, int $nW, int $nH, bool $crop = false, bool $fit = false): GdImage
     {

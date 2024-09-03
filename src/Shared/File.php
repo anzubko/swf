@@ -7,7 +7,7 @@ use SWF\FileHandler;
 class File
 {
     /**
-     * Getting file contents into string.
+     * Gets file contents as string.
      */
     public function get(string $file): ?string
     {
@@ -15,7 +15,7 @@ class File
     }
 
     /**
-     * Putting contents to file.
+     * Puts contents to file.
      */
     public function put(string $file, mixed $contents, int $flags = 0, bool $createDir = true): bool
     {
@@ -23,7 +23,7 @@ class File
     }
 
     /**
-     * Putting variable to some PHP file.
+     * Puts variable to some PHP file.
      */
     public function putVar(string $file, mixed $variable, int $flags = 0, bool $createDir = true): bool
     {
@@ -31,7 +31,7 @@ class File
     }
 
     /**
-     * File removing.
+     * Removes file.
      */
     public function remove(string $file): bool
     {
@@ -39,7 +39,7 @@ class File
     }
 
     /**
-     * File coping.
+     * Copies file.
      */
     public function copy(string $source, string $target, bool $createDir = true): bool
     {
@@ -47,7 +47,7 @@ class File
     }
 
     /**
-     * File moving.
+     * Moves file.
      */
     public function move(string $source, string $target, bool $createDir = true): bool
     {
@@ -55,7 +55,7 @@ class File
     }
 
     /**
-     * Getting some file statistics.
+     * Gets some file statistics.
      *
      * @return array{name:string, size:int, modified:int, created:int, w:int, h:int, type:string|null}|null
      */
