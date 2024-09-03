@@ -10,7 +10,7 @@ class Image
     /**
      * Reading image from string.
      */
-    public function fromString(string|false|null $string): GdImage|false
+    public function fromString(string|false|null $string): ?GdImage
     {
         return ImageHandler::fromString($string);
     }
@@ -18,7 +18,7 @@ class Image
     /**
      * Reading image from file.
      */
-    public function fromFile(string $file): GdImage|false
+    public function fromFile(string $file): ?GdImage
     {
         return ImageHandler::fromFile($file);
     }

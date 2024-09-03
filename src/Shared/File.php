@@ -9,7 +9,7 @@ class File
     /**
      * Getting file contents into string.
      */
-    public function get(string $file): string|false
+    public function get(string $file): ?string
     {
         return FileHandler::get($file);
     }
