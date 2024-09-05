@@ -6,6 +6,7 @@ use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer as SymfonySerializer;
@@ -20,6 +21,7 @@ class Serializer
         return new SymfonySerializer([
             new DateTimeNormalizer(),
             new ArrayDenormalizer(),
+            new BackedEnumNormalizer(),
             new ObjectNormalizer(
                 propertyTypeExtractor: new PropertyInfoExtractor(
                     typeExtractors: [

@@ -3,9 +3,10 @@
 namespace App\Shared;
 
 use AllowDynamicProperties;
+use stdClass;
 
 #[AllowDynamicProperties]
-class Registry
+class Registry extends stdClass
 {
     public function __construct()
     {
