@@ -15,12 +15,12 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": ">=8.2",
         "ext-curl": "*",
         "ext-gd": "*",
         "ext-intl": "*",
-        "ext-mbstring": "*",
         "ext-zlib": "*",
+        "ext-mbstring": "*",
         "anzubko/swf-core": "^0"
     },
     "require-dev": {
