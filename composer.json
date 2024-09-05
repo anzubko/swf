@@ -15,12 +15,13 @@
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.2",
         "ext-curl": "*",
         "ext-gd": "*",
         "ext-intl": "*",
         "ext-mbstring": "*",
-        "ext-zlib": "*"
+        "ext-zlib": "*",
+        "anzubko/swf-core": "^0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10",
