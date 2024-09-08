@@ -13,7 +13,7 @@ class UtilityCommand
         name: 'list:commands',
         description: 'List all commands',
     )]
-    public function listAllCommands(): void
+    public function listAllCommands(): never
     {
         CommandProvider::getInstance()->showAll();
     }
@@ -22,7 +22,7 @@ class UtilityCommand
         name: 'list:controllers',
         description: 'List all controllers',
     )]
-    public function listAllControllers(): void
+    public function listAllControllers(): never
     {
         ControllerProvider::getInstance()->showAll();
     }
@@ -31,7 +31,7 @@ class UtilityCommand
         name: 'list:listeners',
         description: 'List all listeners',
     )]
-    public function listAllListeners(): void
+    public function listAllListeners(): never
     {
         ListenerProvider::getInstance()->showAll();
     }
