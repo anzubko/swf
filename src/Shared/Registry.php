@@ -3,6 +3,7 @@
 namespace App\Shared;
 
 use AllowDynamicProperties;
+use App\Config\CommonConfig;
 use stdClass;
 
 #[AllowDynamicProperties]
@@ -22,9 +23,9 @@ class Registry extends stdClass
 
         $this->routerAlias = $_SERVER['ROUTER_ALIAS'] ?? null;
 
-        $this->robots = config('common')->get('robots');
+        $this->robots = i(CommonConfig::class)->robots;
 
-        $this->name = config('common')->get('name');
+        $this->name = i(CommonConfig::class)->name;
 
         $this->merged = [];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Shared;
 
+use App\Config\CommonConfig;
 use SWF\AssetsMerger;
 
 /**
@@ -11,6 +12,6 @@ class Merger
 {
     public static function getInstance(): AssetsMerger
     {
-        return new AssetsMerger(...config('common')->get('merger'));
+        return new AssetsMerger(...i(CommonConfig::class)->merger);
     }
 }

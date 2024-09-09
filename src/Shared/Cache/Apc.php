@@ -2,6 +2,7 @@
 
 namespace App\Shared\Cache;
 
+use App\Config\CacheConfig;
 use SWF\ApcCacher;
 
 /**
@@ -11,6 +12,6 @@ class Apc
 {
     public static function getInstance(): ApcCacher
     {
-        return new ApcCacher(...config('cache')->get('apc'));
+        return new ApcCacher(...i(CacheConfig::class)->apc);
     }
 }

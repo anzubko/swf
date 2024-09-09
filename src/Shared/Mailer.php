@@ -2,6 +2,7 @@
 
 namespace App\Shared;
 
+use App\Config\CommonConfig;
 use InvalidArgumentException;
 use SWF\SimpleMailer;
 
@@ -14,10 +15,6 @@ class Mailer
      */
     public function create(bool $strict = false): SimpleMailer
     {
-        $parameters = config('common')->get('mailer');
-
-        $parameters['strict'] = $strict;
-
-        return new SimpleMailer(...$parameters);
+        return new SimpleMailer(...['strict' => $strict] + i(CommonConfig::class)->mailer);
     }
 }

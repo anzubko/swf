@@ -2,6 +2,8 @@
 
 namespace App\Shared\Template;
 
+use App\Config\SystemConfig;
+use App\Config\TemplateConfig;
 use App\Shared\Registry;
 use App\Shared\Router;
 use App\Shared\Text;
@@ -14,9 +16,9 @@ class Native
 {
     public static function getInstance(): NativeTemplater
     {
-        $parameters = config('template')->get('native');
+        $parameters = i(TemplateConfig::class)->native;
 
-        $parameters['debug'] = config('system')->get('debug');
+        $parameters['debug'] = i(SystemConfig::class)->debug;
 
         $parameters['globals']['registry'] = i(Registry::class);
 

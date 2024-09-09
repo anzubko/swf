@@ -2,6 +2,7 @@
 
 namespace App\Shared;
 
+use App\Config\CacheConfig;
 use SWF\Interface\CacherInterface;
 
 /**
@@ -11,6 +12,6 @@ class Cache
 {
     public static function getInstance(): CacherInterface
     {
-        return i(config('cache')->get('default'));
+        return i(i(CacheConfig::class)->default);
     }
 }

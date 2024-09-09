@@ -2,6 +2,7 @@
 
 namespace App\Shared\Cache;
 
+use App\Config\CacheConfig;
 use SWF\Exception\CacherException;
 use SWF\RedisCacher;
 
@@ -15,6 +16,6 @@ class Redis
      */
     public static function getInstance(): RedisCacher
     {
-        return new RedisCacher(...config('cache')->get('redis'));
+        return new RedisCacher(...i(CacheConfig::class)->redis);
     }
 }

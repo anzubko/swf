@@ -2,6 +2,7 @@
 
 namespace App\Shared;
 
+use App\Config\DbConfig;
 use SWF\Interface\DatabaserInterface;
 
 /**
@@ -11,6 +12,6 @@ class Db
 {
     public static function getInstance(): DatabaserInterface
     {
-        return i(config('db')->get('default'));
+        return i(i(DbConfig::class)->default);
     }
 }

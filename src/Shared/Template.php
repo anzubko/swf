@@ -2,6 +2,7 @@
 
 namespace App\Shared;
 
+use App\Config\TemplateConfig;
 use SWF\Interface\TemplaterInterface;
 
 /**
@@ -11,6 +12,6 @@ class Template
 {
     public static function getInstance(): TemplaterInterface
     {
-        return i(config('template')->get('default'));
+        return i(i(TemplateConfig::class)->default);
     }
 }

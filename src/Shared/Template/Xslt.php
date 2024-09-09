@@ -2,6 +2,7 @@
 
 namespace App\Shared\Template;
 
+use App\Config\TemplateConfig;
 use App\Shared\Registry;
 use SWF\XsltTemplater;
 
@@ -12,7 +13,7 @@ class Xslt
 {
     public static function getInstance(): XsltTemplater
     {
-        $parameters = config('template')->get('xslt');
+        $parameters = i(TemplateConfig::class)->xslt;
 
         $parameters['globals']['registry'] = i(Registry::class);
 

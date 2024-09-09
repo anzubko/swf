@@ -2,6 +2,9 @@
 
 namespace App\Listener;
 
+use App\Config\CommonConfig;
+use App\Config\DbConfig;
+use App\Config\TransactionConfig;
 use App\Event\DbSlowQueryEvent;
 use App\Shared\Db;
 use App\Shared\Logger;
@@ -27,12 +30,11 @@ class CommonListener
     #[AsListener(persistent: true)]
     public function customErrorDocument(HttpErrorEvent $event): void
     {
-        $errorDocument = config('common')->get('errorDocument');
-        if (null === $errorDocument) {
+        if (null === i(CommonConfig::class)->errorDocument) {
             return;
         }
 
-        $errorDocument = strtr($errorDocument, ['{CODE}' => (string) $event->getCode()]);
+        $errorDocument = strtr(i(CommonConfig::class)->errorDocument, ['{CODE}' => (string) $event->getCode()]);
         if (is_file($errorDocument)) {
             include $errorDocument;
         }
@@ -41,8 +43,7 @@ class CommonListener
     #[AsListener(persistent: true)]
     public function logTransactionFail(TransactionFailEvent $event): void
     {
-        $failLog = config('transaction')->get('failLog');
-        if (null === $failLog) {
+        if (null === i(TransactionConfig::class)->failLog) {
             return;
         }
 
@@ -50,14 +51,13 @@ class CommonListener
 
         $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetries(), $host);
 
-        i(Logger::class)->customLog($failLog, $message);
+        i(Logger::class)->customLog(i(TransactionConfig::class)->failLog, $message);
     }
 
     #[AsListener(persistent: true)]
     public function logDbSlowQuery(DbSlowQueryEvent $event): void
     {
-        $slowQueryLog = config('db')->get('slowQueryLog');
-        if (null === $slowQueryLog) {
+        if (null === i(DbConfig::class)->slowQueryLog) {
             return;
         }
 
@@ -70,7 +70,7 @@ class CommonListener
 
         $message = sprintf("[%.2f] %s\n\t%s\n", $event->getTimer(), $host, implode("\n\t", $queries));
 
-        i(Logger::class)->customLog($slowQueryLog, $message);
+        i(Logger::class)->customLog(i(DbConfig::class)->slowQueryLog, $message);
     }
 
     #[AsListener(persistent: true)]

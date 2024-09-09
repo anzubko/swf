@@ -2,6 +2,7 @@
 
 namespace App\Shared;
 
+use App\Config\TransactionConfig;
 use App\Shared\Db\Mysql;
 use App\Shared\Db\Pgsql;
 use SWF\Exception\DatabaserException;
@@ -20,7 +21,7 @@ class Transaction
      */
     public function mysql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
-        TransactionRunner::run(i(Mysql::class), $body, $isolation, $retryAt, config('transaction')->get('retries'));
+        TransactionRunner::run(i(Mysql::class), $body, $isolation, $retryAt, i(TransactionConfig::class)->retries);
 
         return $this;
     }
@@ -35,7 +36,7 @@ class Transaction
      */
     public function pgsql(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
-        TransactionRunner::run(i(Pgsql::class), $body, $isolation, $retryAt, config('transaction')->get('retries'));
+        TransactionRunner::run(i(Pgsql::class), $body, $isolation, $retryAt, i(TransactionConfig::class)->retries);
 
         return $this;
     }
@@ -50,7 +51,7 @@ class Transaction
      */
     public function run(callable $body, ?string $isolation = null, array $retryAt = []): self
     {
-        TransactionRunner::run(i(Db::class), $body, $isolation, $retryAt, config('transaction')->get('retries'));
+        TransactionRunner::run(i(Db::class), $body, $isolation, $retryAt, i(TransactionConfig::class)->retries);
 
         return $this;
     }
