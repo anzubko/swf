@@ -3,6 +3,7 @@
 namespace App\Shared;
 
 use SWF\FileHandler;
+use SWF\FileStats;
 
 class File
 {
@@ -56,10 +57,8 @@ class File
 
     /**
      * Gets some file statistics.
-     *
-     * @return array{name:string, size:int, modified:int, created:int, w:int, h:int, type:string|null}|null
      */
-    public function stats(string $file): ?array
+    public function stats(string $file): ?FileStats
     {
         return FileHandler::stats($file);
     }
