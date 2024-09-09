@@ -16,7 +16,8 @@ class CacheConfig extends AbstractConfig
      *
      * @var class-string
      */
-    #[Env('APP_DEFAULT_CACHE')] public string $default = Nocache::class;
+    #[Env('APP_DEFAULT_CACHE')]
+    public string $default = Nocache::class;
 
     /**
      * Apc settings.

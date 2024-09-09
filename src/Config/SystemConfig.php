@@ -10,17 +10,20 @@ class SystemConfig extends AbstractSystemConfig
     /**
      * Environment mode ('dev', 'test', 'prod', etc..).
      */
-    #[Env('APP_ENV')] public string $env = 'dev';
+    #[Env('APP_ENV')]
+    public string $env = 'dev';
 
     /**
      * Debug mode (not minify HTML/CSS/JS if true).
      */
-    #[Env('APP_DEBUG')] public bool $debug = false;
+    #[Env('APP_DEBUG')]
+    public bool $debug = false;
 
     /**
      * Basic url (autodetect if null).
      */
-    #[Env('APP_URL')] public ?string $url = null;
+    #[Env('APP_URL')]
+    public ?string $url = null;
 
     /**
      * Default timezone.

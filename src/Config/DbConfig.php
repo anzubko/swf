@@ -33,7 +33,8 @@ class DbConfig extends AbstractConfig
      *
      * @var mixed[]
      */
-    #[Env('APP_MYSQL')] public array $mysql = [
+    #[Env('APP_MYSQL')]
+    public array $mysql = [
         'host' => null,
         'port' => null,
         'db' => null,
@@ -48,7 +49,8 @@ class DbConfig extends AbstractConfig
      *
      * @var mixed[]
      */
-    #[Env('APP_PGSQL')] public array $pgsql = [
+    #[Env('APP_PGSQL')]
+    public array $pgsql = [
         'host' => null,
         'port' => null,
         'db' => null,

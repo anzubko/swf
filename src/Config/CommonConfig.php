@@ -12,7 +12,8 @@ class CommonConfig extends AbstractConfig
     /**
      * Allow robots.
      */
-    #[Env('APP_ROBOTS')] public bool $robots = false;
+    #[Env('APP_ROBOTS')]
+    public bool $robots = false;
 
     /**
      * Application name.
@@ -31,7 +32,8 @@ class CommonConfig extends AbstractConfig
      *
      * @var mixed[]
      */
-    #[Env('APP_MAILER')] public array $mailer = [
+    #[Env('APP_MAILER')]
+    public array $mailer = [
         'enabled' => true,
         'sender' => null,
         'recipients' => null,
