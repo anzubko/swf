@@ -18,9 +18,11 @@ class Mysql
 
         $db->setProfiler(
             function (float $timer, array $queries): void {
-                if ($timer > i(DbConfig::class)->slowQueryMin) {
-                    i(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
+                if ($timer < i(DbConfig::class)->slowQueryMin) {
+                    return;
                 }
+
+                i(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
             },
         );
 

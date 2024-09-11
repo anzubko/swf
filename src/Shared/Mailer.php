@@ -15,6 +15,10 @@ class Mailer
      */
     public function create(bool $strict = false): SimpleMailer
     {
-        return new SimpleMailer(...['strict' => $strict] + i(CommonConfig::class)->mailer);
+        $parameters = i(CommonConfig::class)->mailer;
+
+        $parameters['strict'] = $strict;
+
+        return new SimpleMailer(...$parameters);
     }
 }
