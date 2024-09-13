@@ -11,6 +11,6 @@ class Logger
 {
     public static function getInstance(): CommonLogger
     {
-        return CommonLogger::getInstance();
+        return i(CommonLogger::class);
     }
 }

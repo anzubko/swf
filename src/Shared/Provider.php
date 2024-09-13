@@ -17,6 +17,6 @@ class Provider
      */
     public static function getInstance(): ListenerProvider
     {
-        return ListenerProvider::getInstance();
+        return i(ListenerProvider::class);
     }
 }

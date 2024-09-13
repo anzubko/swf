@@ -22,7 +22,7 @@ class Children
      */
     public function get(string $className): iterable
     {
-        foreach (RelationProvider::getInstance()->getChildren($className) as $child) {
+        foreach (i(RelationProvider::class)->getChildren($className) as $child) {
             yield i($child);
         }
     }

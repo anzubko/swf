@@ -10,29 +10,29 @@ use SWF\ListenerProvider;
 class UtilityCommand
 {
     #[AsCommand(
-        name: 'list:commands',
+        alias: 'list:commands',
         description: 'List all commands',
     )]
-    public function listAllCommands(): never
+    public function listAllCommands(): void
     {
-        CommandProvider::getInstance()->showAll();
+        i(CommandProvider::class)->showAll();
     }
 
     #[AsCommand(
-        name: 'list:controllers',
+        alias: 'list:controllers',
         description: 'List all controllers',
     )]
-    public function listAllControllers(): never
+    public function listAllControllers(): void
     {
-        ControllerProvider::getInstance()->showAll();
+        i(ControllerProvider::class)->showAll();
     }
 
     #[AsCommand(
-        name: 'list:listeners',
+        alias: 'list:listeners',
         description: 'List all listeners',
     )]
-    public function listAllListeners(): never
+    public function listAllListeners(): void
     {
-        ListenerProvider::getInstance()->showAll();
+        i(ListenerProvider::class)->showAll();
     }
 }

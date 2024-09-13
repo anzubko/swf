@@ -11,6 +11,6 @@ class Dispatcher
 {
     public static function getInstance(): EventDispatcher
     {
-        return EventDispatcher::getInstance();
+        return i(EventDispatcher::class);
     }
 }

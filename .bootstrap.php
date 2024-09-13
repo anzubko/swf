@@ -13,4 +13,4 @@ mb_internal_encoding('UTF-8');
 
 require APP_DIR . '/vendor/autoload.php';
 
-return new SWF\Runner();
+return SWF\Runner::getInstance();

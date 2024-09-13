@@ -17,11 +17,11 @@ class Registry extends stdClass
 
         $this->remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 
-        $this->routerType = $_SERVER['ROUTER_TYPE'] ?? null;
+        $this->actionType = $_SERVER['ACTION_TYPE'] ?? null;
 
-        $this->routerAction = $_SERVER['ROUTER_ACTION'] ?? null;
+        $this->actionMethod = $_SERVER['ACTION_METHOD'] ?? null;
 
-        $this->routerAlias = $_SERVER['ROUTER_ALIAS'] ?? null;
+        $this->actionAlias = $_SERVER['ACTION_ALIAS'] ?? null;
 
         $this->robots = i(CommonConfig::class)->robots;
 

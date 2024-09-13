@@ -11,6 +11,6 @@ class Locker
 {
     public static function getInstance(): FileLocker
     {
-        return FileLocker::getInstance();
+        return i(FileLocker::class);
     }
 }
