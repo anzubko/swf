@@ -6,3 +6,5 @@ parameters:
         - .bootstrap.php
     reportUnmatchedIgnoredErrors: false
     treatPhpDocTypesAsCertain: false
+includes:
+    - vendor/anzubko/swf-stan/swf.neon

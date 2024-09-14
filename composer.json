@@ -23,9 +23,6 @@
         "ext-zlib": "*",
         "anzubko/swf-core": "*"
     },
-    "require-dev": {
-        "phpstan/phpstan": "^1.10"
-    },
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true

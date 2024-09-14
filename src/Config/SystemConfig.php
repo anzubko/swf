@@ -41,13 +41,11 @@ class SystemConfig extends AbstractSystemConfig
     public int $fileMode = 0666;
 
     /**
-     * Namespaces where can be classes with controllers, commands, listeners or child classes for iterations.
+     * Namespaces prefixes where can be classes with controllers, commands, listeners or child classes for iterations.
      *
      * @var string[]
      */
-    public array $namespaces = [
-        'App\\',
-    ];
+    public array $allowedNsPrefixes = ['SWF\\', 'App\\'];
 
     /**
      * Custom log file.

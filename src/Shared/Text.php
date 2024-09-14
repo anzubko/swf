@@ -87,6 +87,36 @@ class Text
     }
 
     /**
+     * Returns true if string starts from one of the needle strings or false otherwise.
+     *
+     * @param string[] $needles
+     */
+    public function startsWith(string $string, array $needles): bool
+    {
+        return TextHandler::startsWith($string, $needles);
+    }
+
+    /**
+     * Returns true if string ends with one of the needle strings or false otherwise.
+     *
+     * @param string[] $needles
+     */
+    public function endsWith(string $string, array $needles): bool
+    {
+        return TextHandler::endsWith($string, $needles);
+    }
+
+    /**
+     * Returns true if string contains one of the needle strings or false otherwise.
+     *
+     * @param string[] $needles
+     */
+    public function contains(string $string, array $needles): bool
+    {
+        return TextHandler::contains($string, $needles);
+    }
+
+    /**
      * Generates random string.
      */
     public function random(int $size = 32, string $chars = '[alpha][digit]'): string

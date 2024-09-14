@@ -3,9 +3,9 @@
 namespace App\Shared;
 
 use JsonException;
+use SWF\Exception\TemplaterException;
 use SWF\HeaderRegistry;
 use SWF\ResponseManager;
-use SWF\Exception\TemplaterException;
 use Throwable;
 
 class Response
@@ -49,11 +49,11 @@ class Response
      */
     public function send(mixed $body, int $code = 200, string $type = 'text/plain', ?string $charset = null, bool $exit = true): void
     {
-        ResponseManager::headers()->setContentType($type, $charset);
+        $this->headers()->setContentType($type, $charset);
 
-        ResponseManager::headers()->setCacheControl(['private', 'max-age' => 0], false);
+        $this->headers()->setCacheControl(['private', 'max-age' => 0], false);
 
-        ResponseManager::send($body, $code, $exit);
+        i(ResponseManager::class)->send($body, $code, $exit);
     }
 
     /**
@@ -61,7 +61,7 @@ class Response
      */
     public function headers(): HeaderRegistry
     {
-        return ResponseManager::headers();
+        return i(ResponseManager::class)->headers();
     }
 
     /**
@@ -69,7 +69,7 @@ class Response
      */
     public function redirect(string $url, int $code = 302, bool $exit = true): void
     {
-        ResponseManager::redirect($url, $code, $exit);
+        i(ResponseManager::class)->redirect($url, $code, $exit);
     }
 
     /**
@@ -77,6 +77,6 @@ class Response
      */
     public function error(int $code): never
     {
-        ResponseManager::error($code);
+        i(ResponseManager::class)->error($code);
     }
 }
