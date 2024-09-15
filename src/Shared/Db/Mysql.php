@@ -16,15 +16,13 @@ class Mysql
     {
         $db = new MysqlDatabaser(...i(DbConfig::class)->mysql);
 
-        $db->setProfiler(
-            function (float $timer, array $queries): void {
-                if ($timer < i(DbConfig::class)->slowQueryMin) {
-                    return;
-                }
+        $db->setProfiler(function (float $timer, array $queries): void {
+            if ($timer < i(DbConfig::class)->slowQueryMin) {
+                return;
+            }
 
-                i(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
-            },
-        );
+            i(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
+        });
 
         return $db;
     }

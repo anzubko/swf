@@ -15,7 +15,9 @@ class Xslt
     {
         $parameters = i(TemplateConfig::class)->xslt;
 
-        $parameters['globals']['registry'] = i(Registry::class);
+        $parameters['globals'] = [
+            'registry' => i(Registry::class),
+        ];
 
         return new XsltTemplater(...$parameters);
     }
