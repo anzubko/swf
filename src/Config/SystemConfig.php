@@ -5,6 +5,9 @@ namespace App\Config;
 use SWF\AbstractSystemConfig;
 use SWF\Attribute\Env;
 
+/**
+ * Please, do not add you own custom properties to this class!
+ */
 class SystemConfig extends AbstractSystemConfig
 {
     /**
@@ -46,6 +49,16 @@ class SystemConfig extends AbstractSystemConfig
      * @var string[]
      */
     public array $allowedNsPrefixes = ['SWF\\', 'App\\'];
+
+    /**
+     * Directory for cache.
+     */
+    public string $cacheDir = APP_DIR . '/var/cache';
+
+    /**
+     * Directory for file based locks.
+     */
+    public string $locksDir = APP_DIR . '/var/locks';
 
     /**
      * Custom log file.
