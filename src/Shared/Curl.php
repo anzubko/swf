@@ -2,15 +2,15 @@
 
 namespace App\Shared;
 
-use SWF\ImprovedCurl;
+use SWF\WrappedCurl;
 
 class Curl
 {
     /**
      * @param mixed[] $options
      */
-    public function request(array $options, bool $toUtf8 = false): ImprovedCurl
+    public function request(array $options, bool $toUtf8 = false): WrappedCurl
     {
-        return new ImprovedCurl($options, $toUtf8);
+        return new WrappedCurl($options, $toUtf8);
     }
 }
