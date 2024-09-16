@@ -25,13 +25,13 @@ class Registry extends stdClass
 
         $this->httpUrl = (string) $_SERVER['HTTP_URL'];
 
-        $this->requestUri = (string) $_SERVER['REQUEST_URI'];
-
         $this->requestTime = (float) $_SERVER['REQUEST_TIME_FLOAT'];
 
-        $this->queryString = (string) $_SERVER['QUERY_STRING'];
-
         $this->requestMethod = (string) ($_SERVER['REQUEST_METHOD'] ?? 'GET');
+
+        $this->requestUri = (string) $_SERVER['REQUEST_URI'];
+
+        $this->queryString = (string) $_SERVER['QUERY_STRING'];
 
         $this->remoteAddr = (string) ($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
 
