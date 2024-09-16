@@ -3,10 +3,10 @@
 namespace App\Shared;
 
 use JsonException;
+use ReflectionException;
 use SWF\Exception\TemplaterException;
 use SWF\HeaderRegistry;
 use SWF\ResponseManager;
-use Throwable;
 
 class Response
 {
@@ -16,28 +16,28 @@ class Response
      * @param mixed[]|null $data
      *
      * @throws TemplaterException
-     * @throws Throwable
+     * @throws ReflectionException
      */
-    public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8', bool $exit = true): void
+    public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8'): self
     {
         $body = i(Template::class)->transform($filename, $data);
 
         $type = i(Template::class)->getType();
 
-        $this->send($body, $code, $type, $charset, $exit);
+        return $this->send($body, $code, $type, $charset);
     }
 
     /**
      * Sends response as json.
      *
      * @throws JsonException
-     * @throws Throwable
+     * @throws ReflectionException
      */
-    public function json(mixed $body, bool $pretty = false, bool $exit = true): void
+    public function json(mixed $body, bool $pretty = false): self
     {
         $body = json_encode($body, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | ($pretty ? JSON_PRETTY_PRINT : 0));
 
-        $this->send($body, 200, 'application/json', 'UTF-8', $exit);
+        return $this->send($body, 200, 'application/json', 'UTF-8');
     }
 
     /**
@@ -45,15 +45,17 @@ class Response
      *
      * @param string|resource $body
      *
-     * @throws Throwable
+     * @throws ReflectionException
      */
-    public function send(mixed $body, int $code = 200, string $type = 'text/plain', ?string $charset = null, bool $exit = true): void
+    public function send(mixed $body, int $code = 200, string $type = 'text/plain', ?string $charset = null): self
     {
         $this->headers()->setContentType($type, $charset);
 
         $this->headers()->setCacheControl(['private', 'max-age' => 0], false);
 
-        i(ResponseManager::class)->send($body, $code, $exit);
+        i(ResponseManager::class)->send($body, $code);
+
+        return $this;
     }
 
     /**
@@ -67,9 +69,11 @@ class Response
     /**
      * Redirects to specified url.
      */
-    public function redirect(string $url, int $code = 302, bool $exit = true): void
+    public function redirect(string $url, int $code = 302): self
     {
-        i(ResponseManager::class)->redirect($url, $code, $exit);
+        i(ResponseManager::class)->redirect($url, $code);
+
+        return $this;
     }
 
     /**
@@ -78,5 +82,13 @@ class Response
     public function error(int $code): never
     {
         i(ResponseManager::class)->error($code);
+    }
+
+    /**
+     * Just exit via fluent interface.
+     */
+    public function exit(): never
+    {
+        exit(0);
     }
 }

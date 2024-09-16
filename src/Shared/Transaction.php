@@ -5,6 +5,7 @@ namespace App\Shared;
 use App\Config\TransactionConfig;
 use App\Shared\Db\Mysql;
 use App\Shared\Db\Pgsql;
+use ReflectionException;
 use SWF\Exception\DatabaserException;
 use SWF\TransactionRunner;
 use Throwable;
@@ -17,6 +18,7 @@ class Transaction
      * @param string[] $retryAt
      *
      * @throws DatabaserException
+     * @throws ReflectionException
      * @throws Throwable
      */
     public function mysql(callable $body, ?string $isolation = null, array $retryAt = []): self
@@ -32,6 +34,7 @@ class Transaction
      * @param string[] $retryAt
      *
      * @throws DatabaserException
+     * @throws ReflectionException
      * @throws Throwable
      */
     public function pgsql(callable $body, ?string $isolation = null, array $retryAt = []): self
@@ -47,6 +50,7 @@ class Transaction
      * @param string[] $retryAt
      *
      * @throws DatabaserException
+     * @throws ReflectionException
      * @throws Throwable
      */
     public function run(callable $body, ?string $isolation = null, array $retryAt = []): self
