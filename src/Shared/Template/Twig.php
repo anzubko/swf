@@ -26,25 +26,33 @@ class Twig
 
         $parameters['reload'] = 'prod' !== i(SystemConfig::class)->env;
 
-        $parameters['globals'] = [
-            'registry' => i(Registry::class),
-        ];
+        $parameters['globals']['registry'] = i(Registry::class);
 
-        $parameters['functions'] = [
-            'genAbsoluteUrl' => i(Router::class)->genAbsoluteUrl(...),
-            'genUrl' => i(Router::class)->genUrl(...),
-            'lcFirst' => i(Text::class)->lcFirst(...),
-            'lc' => i(Text::class)->lc(...),
-            'ucFirst' => i(Text::class)->ucFirst(...),
-            'uc' => i(Text::class)->uc(...),
-            'trim' => i(Text::class)->trim(...),
-            'lTrim' => i(Text::class)->lTrim(...),
-            'rTrim' => i(Text::class)->rTrim(...),
-            'fTrim' => i(Text::class)->fTrim(...),
-            'mTrim' => i(Text::class)->mTrim(...),
-            'cut' => i(Text::class)->cut(...),
-            'random' => i(Text::class)->random(...),
-        ];
+        $parameters['functions']['genAbsoluteUrl'] = i(Router::class)->genAbsoluteUrl(...);
+
+        $parameters['functions']['genUrl'] = i(Router::class)->genUrl(...);
+
+        $parameters['functions']['lcFirst'] = i(Text::class)->lcFirst(...);
+
+        $parameters['functions']['lc'] = i(Text::class)->lc(...);
+
+        $parameters['functions']['ucFirst'] = i(Text::class)->ucFirst(...);
+
+        $parameters['functions']['uc'] = i(Text::class)->uc(...);
+
+        $parameters['functions']['trim'] = i(Text::class)->trim(...);
+
+        $parameters['functions']['lTrim'] = i(Text::class)->lTrim(...);
+
+        $parameters['functions']['rTrim'] = i(Text::class)->rTrim(...);
+
+        $parameters['functions']['fTrim'] = i(Text::class)->fTrim(...);
+
+        $parameters['functions']['mTrim'] = i(Text::class)->mTrim(...);
+
+        $parameters['functions']['cut'] = i(Text::class)->cut(...);
+
+        $parameters['functions']['random'] = i(Text::class)->random(...);
 
         return new TwigTemplater(...$parameters);
     }

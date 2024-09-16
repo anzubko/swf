@@ -1,10 +1,10 @@
 <?php declare(strict_types = 1);
 
-ini_set('display_errors', 'cli' === PHP_SAPI);
+ini_set('display_errors', PHP_SAPI === 'cli');
 
 error_reporting(E_ALL);
 
-ignore_user_abort('cli' === PHP_SAPI);
+ignore_user_abort(PHP_SAPI === 'cli');
 
 setlocale(LC_ALL, 'C');
 
