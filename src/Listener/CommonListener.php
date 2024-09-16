@@ -47,7 +47,7 @@ class CommonListener
             return;
         }
 
-        $host = idn_to_utf8($_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
+        $host = idn_to_utf8(i(Registry::class)->httpHost) . i(Registry::class)->requestUri;
 
         $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetries(), $host);
 
@@ -66,7 +66,7 @@ class CommonListener
             $queries[] = i(Text::class)->fTrim($query);
         }
 
-        $host = idn_to_utf8($_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
+        $host = idn_to_utf8(i(Registry::class)->httpHost) . i(Registry::class)->requestUri;
 
         $message = sprintf("[%.2f] %s\n\t%s\n", $event->getTimer(), $host, implode("\n\t", $queries));
 
@@ -81,7 +81,7 @@ class CommonListener
             return;
         }
 
-        $timer = gettimeofday(true) - APP_STARTED;
+        $timer = gettimeofday(true) - i(Registry::class)->requestTime;
 
         $stats = strtr(
             <<<STATS

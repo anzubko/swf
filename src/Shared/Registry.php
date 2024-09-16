@@ -11,17 +11,35 @@ class Registry extends stdClass
 {
     public function __construct()
     {
-        $this->url = $_SERVER['USER_URL'];
+        $this->url = (string) ($_SERVER['USER_URL'] ?? $_SERVER['HTTP_URL']);
 
-        $this->requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+        $this->userScheme = isset($_SERVER['USER_SCHEME']) ? (string) $_SERVER['USER_SCHEME'] : null;
 
-        $this->remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+        $this->userHost = isset($_SERVER['USER_HOST']) ? (string) $_SERVER['USER_HOST'] : null;
 
-        $this->actionType = $_SERVER['ACTION_TYPE'] ?? null;
+        $this->userUrl = isset($_SERVER['USER_URL']) ? (string) $_SERVER['USER_URL'] : null;
 
-        $this->actionMethod = $_SERVER['ACTION_METHOD'] ?? null;
+        $this->httpScheme = (string) $_SERVER['HTTP_SCHEME'];
 
-        $this->actionAlias = $_SERVER['ACTION_ALIAS'] ?? null;
+        $this->httpHost = (string) $_SERVER['HTTP_HOST'];
+
+        $this->httpUrl = (string) $_SERVER['HTTP_URL'];
+
+        $this->requestUri = (string) $_SERVER['REQUEST_URI'];
+
+        $this->requestTime = (float) $_SERVER['REQUEST_TIME_FLOAT'];
+
+        $this->queryString = (string) $_SERVER['QUERY_STRING'];
+
+        $this->requestMethod = (string) ($_SERVER['REQUEST_METHOD'] ?? 'GET');
+
+        $this->remoteAddr = (string) ($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+
+        $this->actionType = isset($_SERVER['ACTION_TYPE']) ? (string) $_SERVER['ACTION_TYPE'] : null;
+
+        $this->actionMethod = isset($_SERVER['ACTION_METHOD']) ? (string) $_SERVER['ACTION_METHOD'] : null;
+
+        $this->actionAlias = isset($_SERVER['ACTION_ALIAS']) ? (string) $_SERVER['ACTION_ALIAS'] : null;
 
         $this->robots = i(CommonConfig::class)->robots;
 

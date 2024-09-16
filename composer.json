@@ -33,7 +33,7 @@
     },
     "scripts": {
         "cleanup": [
-            "rm -rf var/cache"
+            "@php bin/run system:cache:clear"
         ],
         "post-create-project-cmd": [
             "@php fixes.php"
