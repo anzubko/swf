@@ -87,8 +87,8 @@ class Response
     /**
      * Just exit via fluent interface.
      */
-    public function exit(): never
+    public function exit(int $code = 0): never
     {
-        exit(0);
+        exit($code);
     }
 }
