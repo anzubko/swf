@@ -4,6 +4,7 @@ namespace App\Shared;
 
 use JsonException;
 use ReflectionException;
+use SWF\Exception\SilentException;
 use SWF\Exception\TemplaterException;
 use SWF\HeaderRegistry;
 use SWF\ResponseManager;
@@ -77,7 +78,9 @@ class Response
     }
 
     /**
-     * Shows error page and exit.
+     * Shows error page and throws silent exception.
+     *
+     * @throws SilentException
      */
     public function error(int $code): never
     {
@@ -85,10 +88,12 @@ class Response
     }
 
     /**
-     * Just exit via fluent interface.
+     * Just throws silent exception.
+     *
+     * @throws SilentException
      */
-    public function exit(int $code = 0): never
+    public function end(): never
     {
-        exit($code);
+        i(ResponseManager::class)->end();
     }
 }
