@@ -3,17 +3,17 @@
 namespace App\Shared;
 
 use Exception;
-use SWF\CmdManager;
+use SWF\CommandLineManager;
 use SWF\Exception\ExitSimulationException;
 
-class Cmd
+class Cli
 {
     /**
      * Wrapped echo.
      */
     public function write(string $string = ''): self
     {
-        i(CmdManager::class)->write($string);
+        i(CommandLineManager::class)->write($string);
 
         return $this;
     }
@@ -23,7 +23,7 @@ class Cmd
      */
     public function writeLn(string $string = ''): self
     {
-        i(CmdManager::class)->writeLn($string);
+        i(CommandLineManager::class)->writeLn($string);
 
         return $this;
     }
@@ -35,7 +35,7 @@ class Cmd
      */
     public function error(string $message, int $code = 1): never
     {
-        i(CmdManager::class)->error($message, $code);
+        i(CommandLineManager::class)->error($message, $code);
     }
 
     /**
@@ -45,6 +45,6 @@ class Cmd
      */
     public function exit(): never
     {
-        i(CmdManager::class)->exit();
+        i(CommandLineManager::class)->exit();
     }
 }

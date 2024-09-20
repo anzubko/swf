@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Shared\Cmd;
+use App\Shared\Cli;
 use SWF\Attribute\AsCommand;
 use SWF\CommandArgument;
 
@@ -24,6 +24,6 @@ class SimpleCommand
     {
         $greeting = sprintf('Hello, %s!', $_REQUEST['name'] ?? 'World');
 
-        i(Cmd::class)->writeLn($greeting);
+        i(Cli::class)->writeLn($greeting);
     }
 }
