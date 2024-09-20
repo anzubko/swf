@@ -2,8 +2,10 @@
 
 namespace App\Shared;
 
+use Exception;
 use JsonException;
 use ReflectionException;
+use SWF\Exception\ExitSimulationException;
 use SWF\Exception\TemplaterException;
 use SWF\HeaderRegistry;
 use SWF\ResponseManager;
@@ -77,10 +79,22 @@ class Response
     }
 
     /**
-     * Just exit call.
+     * Shows error page through regular exception.
+     *
+     * @throws Exception
+     */
+    public function error(int $code): never
+    {
+        i(ResponseManager::class)->error($code);
+    }
+
+    /**
+     * Exit call simulation through special exception.
+     *
+     * @throws ExitSimulationException
      */
     public function exit(): never
     {
-        exit(0);
+        i(ResponseManager::class)->exit();
     }
 }
