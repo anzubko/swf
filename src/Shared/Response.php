@@ -89,7 +89,7 @@ class Response
     }
 
     /**
-     * Exit call simulation through special exception.
+     * Exit(0) call simulation through special exception.
      *
      * @throws ExitSimulationException
      */
