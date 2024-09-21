@@ -83,9 +83,9 @@ class Response
      *
      * @throws Exception
      */
-    public function error(int $code): never
+    public function error(int $code = 500, string $message = ''): never
     {
-        i(ResponseManager::class)->error($code);
+        i(ResponseManager::class)->error($code, $message);
     }
 
     /**
