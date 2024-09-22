@@ -36,7 +36,7 @@
             "@php bin/run system:cache:clear"
         ],
         "post-create-project-cmd": [
-            "chmod -R a+rwX var && git init -q && git add . && git commit -qm Installed"
+            "chmod -R a+rwX var"
         ],
         "post-install-cmd": [
             "@cleanup"
