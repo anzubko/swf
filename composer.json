@@ -24,8 +24,8 @@
         "anzubko/swf-core": "*"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1",
-        "anzubko/swf-phpstan": "*"
+        "phpstan/phpstan": "^1.12.4",
+        "anzubko/swf-phpstan": "^1.0"
     },
     "config": {
         "optimize-autoloader": true,
