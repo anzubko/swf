@@ -12,6 +12,6 @@ mb_internal_encoding('UTF-8');
 
 const APP_DIR = __DIR__;
 
-require APP_DIR . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-return App\Runner::getInstance();
+return new SWF\Runner(App\Config\SystemConfig::class);
