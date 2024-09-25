@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 ini_set('display_errors', PHP_SAPI === 'cli');
 
