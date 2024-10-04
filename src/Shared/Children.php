@@ -13,16 +13,16 @@ class Children
      *
      * @template T
      *
-     * @param class-string<T> $className
+     * @param class-string<T> $class
      *
      * @return iterable<T>
      *
      * @throws LogicException
      * @throws RuntimeException
      */
-    public function get(string $className): iterable
+    public function get(string $class): iterable
     {
-        foreach (i(RelationProvider::class)->getChildren($className) as $child) {
+        foreach (i(RelationProvider::class)->getChildren($class) as $child) {
             yield i($child);
         }
     }
