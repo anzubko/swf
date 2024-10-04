@@ -4,11 +4,11 @@ namespace App\Shared;
 
 use Exception;
 use JsonException;
-use ReflectionException;
 use SWF\Exception\ExitSimulationException;
 use SWF\Exception\TemplaterException;
 use SWF\HeaderRegistry;
 use SWF\ResponseManager;
+use Throwable;
 
 class Response
 {
@@ -18,7 +18,7 @@ class Response
      * @param mixed[]|null $data
      *
      * @throws TemplaterException
-     * @throws ReflectionException
+     * @throws Throwable
      */
     public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8'): self
     {
@@ -33,7 +33,7 @@ class Response
      * Sends response as json.
      *
      * @throws JsonException
-     * @throws ReflectionException
+     * @throws Throwable
      */
     public function json(mixed $body, bool $pretty = false): self
     {
@@ -47,7 +47,7 @@ class Response
      *
      * @param string|resource $body
      *
-     * @throws ReflectionException
+     * @throws Throwable
      */
     public function send(mixed $body, int $code = 200, string $type = 'text/plain', ?string $charset = null): self
     {
