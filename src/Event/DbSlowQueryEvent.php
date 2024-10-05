@@ -10,8 +10,21 @@ class DbSlowQueryEvent extends AbstractEvent
      * @param string[] $queries
      */
     public function __construct(
-        public readonly float $timer,
-        public readonly array $queries,
+        private readonly float $timer,
+        private readonly array $queries,
     ) {
+    }
+
+    public function getTimer(): float
+    {
+        return $this->timer;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getQueries(): array
+    {
+        return $this->queries;
     }
 }

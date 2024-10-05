@@ -34,7 +34,7 @@ class CommonListener
             return;
         }
 
-        $errorDocument = strtr(i(CommonConfig::class)->errorDocument, ['{CODE}' => (string) $event->code]);
+        $errorDocument = strtr(i(CommonConfig::class)->errorDocument, ['{CODE}' => (string) $event->getCode()]);
         if (is_file($errorDocument)) {
             include $errorDocument;
         }
@@ -49,7 +49,7 @@ class CommonListener
 
         $host = idn_to_utf8(i(Registry::class)->httpHost) . i(Registry::class)->requestUri;
 
-        $message = sprintf('[%s] [%d] %s', $event->exception->getSqlState(), $event->retries, $host);
+        $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetries(), $host);
 
         i(Logger::class)->customLog(i(TransactionConfig::class)->failLog, $message);
     }
@@ -62,13 +62,13 @@ class CommonListener
         }
 
         $queries = [];
-        foreach ($event->queries as $query) {
+        foreach ($event->getQueries() as $query) {
             $queries[] = i(Text::class)->fTrim($query);
         }
 
         $host = idn_to_utf8(i(Registry::class)->httpHost) . i(Registry::class)->requestUri;
 
-        $message = sprintf("[%.2f] %s\n\t%s\n", $event->timer, $host, implode("\n\t", $queries));
+        $message = sprintf("[%.2f] %s\n\t%s\n", $event->getTimer(), $host, implode("\n\t", $queries));
 
         i(Logger::class)->customLog(i(DbConfig::class)->slowQueryLog, $message);
     }
@@ -76,7 +76,8 @@ class CommonListener
     #[AsListener(persistent: true)]
     public function statsToHtmlResponse(ResponseEvent $event): void
     {
-        if (!is_string($event->body) || !$event->headers->contains('Content-Type', 'text/html')) {
+        $body = $event->getBody();
+        if (!is_string($body) || !$event->getHeaders()->contains('Content-Type', 'text/html')) {
             return;
         }
 
@@ -96,6 +97,6 @@ class CommonListener
             ],
         );
 
-        $event->body .= $stats;
+        $event->setBody($body . $stats);
     }
 }
