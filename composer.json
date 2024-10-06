@@ -37,7 +37,7 @@
     },
     "scripts": {
         "cleanup": [
-            "@php bin/run system:cache:clear"
+            "@php bin/run system:cache:clear -q"
         ],
         "post-install-cmd": [
             "@cleanup"
