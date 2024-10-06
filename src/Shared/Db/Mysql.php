@@ -15,15 +15,16 @@ class Mysql
 {
     public static function getInstance(): MysqlDatabaser
     {
-        return (new MysqlDatabaser(...i(DbConfig::class)->mysql))
-            ->setDenormalizer(function (mixed $data, string $class): object {
-                return i(Serializer::class)->denormalize($data, $class);
-            })
-            ->setProfiler(function (float $timer, array $queries): void {
-                if ($timer >= i(DbConfig::class)->slowQueryMin) {
-                    i(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
-                }
-            })
-        ;
+        $db = new MysqlDatabaser(...i(DbConfig::class)->mysql);
+
+        $db->setDenormalizer(i(Serializer::class)->denormalize(...));
+
+        $db->setProfiler(function (float $timer, array $queries): void {
+            if ($timer >= i(DbConfig::class)->slowQueryMin) {
+                i(Dispatcher::class)->dispatch(new DbSlowQueryEvent($timer, $queries));
+            }
+        });
+
+        return $db;
     }
 }
