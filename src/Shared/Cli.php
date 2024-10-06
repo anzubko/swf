@@ -11,7 +11,7 @@ class Cli
     /**
      * Wrapped echo.
      */
-    public function write(string $string = ''): self
+    public function write(string $string = ''): static
     {
         i(CommandLineManager::class)->write($string);
 
@@ -21,7 +21,7 @@ class Cli
     /**
      * Wrapped echo with new line.
      */
-    public function writeLn(string $string = ''): self
+    public function writeLn(string $string = ''): static
     {
         i(CommandLineManager::class)->writeLn($string);
 

@@ -20,7 +20,7 @@ class Response
      * @throws TemplaterException
      * @throws Throwable
      */
-    public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8'): self
+    public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8'): static
     {
         $body = i(Template::class)->transform($filename, $data);
 
@@ -35,7 +35,7 @@ class Response
      * @throws JsonException
      * @throws Throwable
      */
-    public function json(mixed $body, bool $pretty = false): self
+    public function json(mixed $body, bool $pretty = false): static
     {
         $body = json_encode($body, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | ($pretty ? JSON_PRETTY_PRINT : 0));
 
@@ -49,7 +49,7 @@ class Response
      *
      * @throws Throwable
      */
-    public function send(mixed $body, int $code = 200, string $type = 'text/plain', ?string $charset = null): self
+    public function send(mixed $body, int $code = 200, string $type = 'text/plain', ?string $charset = null): static
     {
         $this->headers()->setContentType($type, $charset);
 
@@ -71,7 +71,7 @@ class Response
     /**
      * Redirects to specified url.
      */
-    public function redirect(string $url, int $code = 302): self
+    public function redirect(string $url, int $code = 302): static
     {
         i(ResponseManager::class)->redirect($url, $code);
 

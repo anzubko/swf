@@ -19,7 +19,7 @@ class Transaction
      * @throws DatabaserException
      * @throws Throwable
      */
-    public function mysql(callable $body, ?string $isolation = null, array $retryAt = []): self
+    public function mysql(callable $body, ?string $isolation = null, array $retryAt = []): static
     {
         i(TransactionRunner::class)->run(i(Mysql::class), $body, $isolation, $retryAt, i(TransactionConfig::class)->retries);
 
@@ -34,7 +34,7 @@ class Transaction
      * @throws DatabaserException
      * @throws Throwable
      */
-    public function pgsql(callable $body, ?string $isolation = null, array $retryAt = []): self
+    public function pgsql(callable $body, ?string $isolation = null, array $retryAt = []): static
     {
         i(TransactionRunner::class)->run(i(Pgsql::class), $body, $isolation, $retryAt, i(TransactionConfig::class)->retries);
 
@@ -49,7 +49,7 @@ class Transaction
      * @throws DatabaserException
      * @throws Throwable
      */
-    public function run(callable $body, ?string $isolation = null, array $retryAt = []): self
+    public function run(callable $body, ?string $isolation = null, array $retryAt = []): static
     {
         i(TransactionRunner::class)->run(i(Db::class), $body, $isolation, $retryAt, i(TransactionConfig::class)->retries);
 
