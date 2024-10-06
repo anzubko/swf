@@ -30,11 +30,12 @@ class CommonListener
     #[AsListener(persistent: true)]
     public function customErrorDocument(HttpErrorEvent $event): void
     {
-        if (null === i(CommonConfig::class)->errorDocument) {
+        $errorDocument = i(CommonConfig::class)->errorDocument;
+        if (null === $errorDocument) {
             return;
         }
 
-        $errorDocument = strtr(i(CommonConfig::class)->errorDocument, ['{CODE}' => (string) $event->getCode()]);
+        $errorDocument = strtr($errorDocument, ['{CODE}' => (string) $event->getCode()]);
         if (is_file($errorDocument)) {
             include $errorDocument;
         }
@@ -43,7 +44,8 @@ class CommonListener
     #[AsListener(persistent: true)]
     public function logTransactionFail(TransactionFailEvent $event): void
     {
-        if (null === i(TransactionConfig::class)->failLog) {
+        $failLog = i(TransactionConfig::class)->failLog;
+        if (null === $failLog) {
             return;
         }
 
@@ -51,13 +53,14 @@ class CommonListener
 
         $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetries(), $host);
 
-        i(Logger::class)->customLog(i(TransactionConfig::class)->failLog, $message);
+        i(Logger::class)->customLog($failLog, $message);
     }
 
     #[AsListener(persistent: true)]
     public function logDbSlowQuery(DbSlowQueryEvent $event): void
     {
-        if (null === i(DbConfig::class)->slowQueryLog) {
+        $slowQueryLog = i(DbConfig::class)->slowQueryLog;
+        if (null === $slowQueryLog) {
             return;
         }
 
@@ -70,7 +73,7 @@ class CommonListener
 
         $message = sprintf("[%.2f] %s\n\t%s\n", $event->getTimer(), $host, implode("\n\t", $queries));
 
-        i(Logger::class)->customLog(i(DbConfig::class)->slowQueryLog, $message);
+        i(Logger::class)->customLog($slowQueryLog, $message);
     }
 
     #[AsListener(persistent: true)]
