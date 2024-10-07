@@ -51,7 +51,7 @@ class CommonListener
 
         $host = idn_to_utf8(i(Registry::class)->httpHost) . i(Registry::class)->requestUri;
 
-        $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetries(), $host);
+        $message = sprintf('[%s] [%d] %s', $event->getException()->getSqlState(), $event->getRetriesLeft(), $host);
 
         i(Logger::class)->customLog($failLog, $message);
     }
