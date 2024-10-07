@@ -89,12 +89,12 @@ class Response
     }
 
     /**
-     * Exit(0) call simulation through special exception.
+     * Finish current command or any listener through special exception.
      *
      * @throws ExitSimulationException
      */
-    public function exit(): never
+    public function end(): never
     {
-        i(ResponseManager::class)->exit();
+        i(ResponseManager::class)->end();
     }
 }
