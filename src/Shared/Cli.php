@@ -39,7 +39,7 @@ class Cli
     }
 
     /**
-     * Finish current command or any listener through special exception.
+     * Exit from current command through special exception.
      *
      * @throws ExitSimulationException
      */
