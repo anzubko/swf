@@ -22,11 +22,9 @@ class Response
      */
     public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8'): static
     {
-        $body = i(Template::class)->transform($filename, $data);
+        $processedTemplate = i(Template::class)->transform($filename, $data);
 
-        $type = i(Template::class)->getType();
-
-        return $this->send($body, $code, $type, $charset);
+        return $this->send($processedTemplate->getBody(), $code, $processedTemplate->getType(), $charset);
     }
 
     /**

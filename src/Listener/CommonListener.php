@@ -5,12 +5,10 @@ namespace App\Listener;
 use App\Config\CommonConfig;
 use App\Config\DbConfig;
 use App\Config\TransactionConfig;
-use App\Shared\Db;
 use App\Shared\Logger;
 use App\Shared\Merger;
 use App\Shared\Registry;
 use App\Shared\Serializer;
-use App\Shared\Template;
 use App\Shared\Text;
 use SWF\Attribute\AsListener;
 use SWF\Databaser;
@@ -20,6 +18,7 @@ use SWF\Event\HttpErrorEvent;
 use SWF\Event\ResponseEvent;
 use SWF\Event\TransactionRetryEvent;
 use SWF\Interface\DatabaserInterface;
+use SWF\Templater;
 use function is_string;
 
 class CommonListener
@@ -100,11 +99,11 @@ class CommonListener
             <!-- script {SRC_T} + sql({SQL_C}) {SQL_T} + tpl({TPL_C}) {TPL_T} = {ALL_T} -->
             STATS,
             [
-                '{SRC_T}' => round($timer - i(Db::class)->getTimer() - i(Template::class)->getTimer(), 3),
+                '{SRC_T}' => round($timer - Databaser::getTimer() - Templater::getTimer(), 3),
                 '{SQL_C}' => Databaser::getCounter(),
                 '{SQL_T}' => round(Databaser::getTimer(), 3),
-                '{TPL_C}' => i(Template::class)->getCounter(),
-                '{TPL_T}' => round(i(Template::class)->getTimer(), 3),
+                '{TPL_C}' => Templater::getCounter(),
+                '{TPL_T}' => round(Templater::getTimer(), 3),
                 '{ALL_T}' => round($timer, 3),
             ],
         );
