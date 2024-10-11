@@ -8,6 +8,8 @@ return [
 
     'APP_DEFAULT_CACHE' => App\Shared\Cache\Nocache::class,
 
+    'APP_SLOW_QUERY_MIN' => 0.5,
+
     'APP_MYSQL' => [
         'host' => null,
         'port' => null,

@@ -3,56 +3,39 @@
 namespace App\Shared;
 
 use App\Config\TransactionConfig;
-use App\Shared\Db\Mysql;
-use App\Shared\Db\Pgsql;
 use SWF\Exception\DatabaserException;
+use SWF\Interface\DatabaserInterface;
+use SWF\TransactionDeclaration;
 use SWF\TransactionRunner;
 use Throwable;
+use function count;
 
 class Transaction
 {
     /**
-     * Processes Mysql transaction with retries at expected errors.
-     *
-     * @param string[] $retryAt
-     *
-     * @throws DatabaserException
-     * @throws Throwable
+     * @var TransactionDeclaration[] $declarations
      */
-    public function mysql(callable $body, ?string $isolation = null, array $retryAt = []): static
+    private array $declarations = [];
+
+    public function with(DatabaserInterface $db, ?string $isolation = null, string ...$states): static
     {
-        i(TransactionRunner::class)->run(i(Mysql::class), $body, $isolation, $retryAt, i(TransactionConfig::class)->retries);
+        $this->declarations[] = new TransactionDeclaration($db, $isolation, $states);
 
         return $this;
     }
 
     /**
-     * Processes Pgsql transaction with retries at expected errors.
-     *
-     * @param string[] $retryAt
-     *
      * @throws DatabaserException
      * @throws Throwable
      */
-    public function pgsql(callable $body, ?string $isolation = null, array $retryAt = []): static
+    public function run(callable $body, ?int $retries = null): void
     {
-        i(TransactionRunner::class)->run(i(Pgsql::class), $body, $isolation, $retryAt, i(TransactionConfig::class)->retries);
+        if (count($this->declarations) === 0) {
+            $this->declarations[] = new TransactionDeclaration(i(Db::class));
+        }
 
-        return $this;
-    }
+        i(TransactionRunner::class)->run($body, $this->declarations, $retries ?? i(TransactionConfig::class)->retries);
 
-    /**
-     * Processes transaction with retries at expected errors.
-     *
-     * @param string[] $retryAt
-     *
-     * @throws DatabaserException
-     * @throws Throwable
-     */
-    public function run(callable $body, ?string $isolation = null, array $retryAt = []): static
-    {
-        i(TransactionRunner::class)->run(i(Db::class), $body, $isolation, $retryAt, i(TransactionConfig::class)->retries);
-
-        return $this;
+        $this->declarations = [];
     }
 }

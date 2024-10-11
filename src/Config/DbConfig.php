@@ -24,6 +24,7 @@ class DbConfig extends AbstractConfig
     /**
      * Log slow queries with minimal time in seconds.
      */
+    #[Env('APP_SLOW_QUERY_MIN')]
     public float $slowQueryMin = 0.5;
 
     /**
@@ -35,11 +36,7 @@ class DbConfig extends AbstractConfig
      */
     #[Env('APP_MYSQL')]
     public array $mysql = [
-        'host' => null,
-        'port' => null,
-        'db' => null,
-        'user' => null,
-        'pass' => null,
+        'name' => 'Mysql',
     ];
 
     /**
@@ -51,10 +48,6 @@ class DbConfig extends AbstractConfig
      */
     #[Env('APP_PGSQL')]
     public array $pgsql = [
-        'host' => null,
-        'port' => null,
-        'db' => null,
-        'user' => null,
-        'pass' => null,
+        'name' => 'Pgsql',
     ];
 }

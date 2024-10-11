@@ -12,7 +12,7 @@ class TransactionConfig extends AbstractConfig
     public int $retries = 3;
 
     /**
-     * Log transactions fails.
+     * Log transactions retries.
      */
-    public ?string $failLog = APP_DIR . '/var/log/transaction.fails.log';
+    public ?string $retriesLog = APP_DIR . '/var/log/transaction.retries.log';
 }
