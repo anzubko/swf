@@ -38,6 +38,7 @@ class CommonConfig extends AbstractConfig
         'sender' => null,
         'recipients' => null,
         'replies' => null,
+        'strict' => false,
     ];
 
     /**

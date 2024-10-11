@@ -13,12 +13,8 @@ class Mailer
      *
      * @throws InvalidArgumentException
      */
-    public function create(bool $strict = false): SimpleMailer
+    public function create(): SimpleMailer
     {
-        $parameters = i(CommonConfig::class)->mailer;
-
-        $parameters['strict'] = $strict;
-
-        return new SimpleMailer(...$parameters);
+        return new SimpleMailer(...i(CommonConfig::class)->mailer);
     }
 }
