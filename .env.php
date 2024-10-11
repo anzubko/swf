@@ -26,6 +26,7 @@ return [
     ],
     'APP_MAILER' => [
         'enabled' => true,
+        'strict' => false,
         'sender' => 'sender@domain.com',
         'recipients' => null,
         'replies' => null,

@@ -35,10 +35,10 @@ class CommonConfig extends AbstractConfig
     #[Env('APP_MAILER')]
     public array $mailer = [
         'enabled' => true,
+        'strict' => false,
         'sender' => null,
         'recipients' => null,
         'replies' => null,
-        'strict' => false,
     ];
 
     /**
