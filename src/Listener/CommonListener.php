@@ -30,7 +30,7 @@ class CommonListener
         i(Registry::class)->merged = i(Merger::class)->merge();
     }
 
-    #[AsListener(persistent: true)]
+    #[AsListener(priority: PHP_FLOAT_MAX, persistent: true)]
     public function initDatabaser(BeforeControllerEvent | BeforeCommandEvent $event): void
     {
         Databaser::setDenormalizer(function (mixed $data, string $class): object {
@@ -86,7 +86,7 @@ class CommonListener
         i(Logger::class)->customLog(i(TransactionConfig::class)->retriesLog, $message);
     }
 
-    #[AsListener(persistent: true)]
+    #[AsListener(priority: PHP_FLOAT_MIN, persistent: true)]
     public function statsToHtmlResponse(ResponseEvent $event): void
     {
         if (!is_string($event->getBody()) || !$event->getHeaders()->contains('Content-Type', 'text/html')) {
