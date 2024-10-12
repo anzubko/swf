@@ -12,6 +12,6 @@ class Notifier
 {
     public static function getInstance(): DelayedNotifier
     {
-        return new DelayedNotifier();
+        return i(DelayedNotifier::class);
     }
 }
