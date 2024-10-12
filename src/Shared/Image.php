@@ -11,7 +11,7 @@ class Image
     /**
      * Reads image from string.
      */
-    public function fromString(string|false|null $string): ?GdImage
+    public function fromString(string $string): ?GdImage
     {
         return ImageHandler::fromString($string);
     }
@@ -25,17 +25,37 @@ class Image
     }
 
     /**
-     * Saves as PNG to file or returns as string.
+     * Transform image to PNG.
      */
-    public function savePng(GdImage $image, ?string $file = null, int $quality = 0): string|bool
+    public function toPng(GdImage $image, int $quality = 0): ?string
+    {
+        return ImageHandler::toPng($image, $quality);
+    }
+
+    /**
+     * Saves as PNG.
+     *
+     * @param resource|string $file
+     */
+    public function savePng(GdImage $image, mixed $file, int $quality = 0): bool
     {
         return ImageHandler::savePng($image, $file, $quality);
     }
 
     /**
-     * Saves as JPEG to file or returns as string.
+     * Transform image to JPEG.
      */
-    public function saveJpeg(GdImage $image, ?string $file = null, int $quality = 80): string|bool
+    public function toJpg(GdImage $image, int $quality = 100): ?string
+    {
+        return ImageHandler::toJpg($image, $quality);
+    }
+
+    /**
+     * Saves as JPEG.
+     *
+     * @param resource|string $file
+     */
+    public function saveJpeg(GdImage $image, mixed $file, int $quality = 100): bool
     {
         return ImageHandler::saveJpeg($image, $file, $quality);
     }
