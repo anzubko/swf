@@ -23,9 +23,9 @@ class Response
      */
     public function template(string $filename, ?array $data = null, int $code = 200, string $charset = 'UTF-8'): static
     {
-        $processedTemplate = i(Template::class)->transform($filename, $data);
+        $transformed = i(Template::class)->transform($filename, $data);
 
-        return $this->send($processedTemplate->getBody(), $code, $processedTemplate->getType(), $charset);
+        return $this->send($transformed->getBody(), $code, $transformed->getType(), $charset);
     }
 
     /**
@@ -88,7 +88,7 @@ class Response
     }
 
     /**
-     * Exit from current controller through special exception.
+     * Exits from current controller through special exception.
      *
      * @throws ExitSimulationException
      */

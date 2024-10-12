@@ -25,7 +25,7 @@ class Image
     }
 
     /**
-     * Transform image to PNG.
+     * Transforms image to PNG.
      */
     public function toPng(GdImage $image, int $quality = 0): ?string
     {
@@ -43,7 +43,7 @@ class Image
     }
 
     /**
-     * Transform image to JPEG.
+     * Transforms image to JPEG.
      */
     public function toJpg(GdImage $image, int $quality = 100): ?string
     {

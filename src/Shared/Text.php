@@ -40,7 +40,7 @@ class Text
     }
 
     /**
-     * Trim both sides.
+     * Trims both sides.
      */
     public function trim(?string $string): string
     {
@@ -48,7 +48,7 @@ class Text
     }
 
     /**
-     * Trim right side.
+     * Trims right side.
      */
     public function rTrim(?string $string): string
     {
@@ -56,7 +56,7 @@ class Text
     }
 
     /**
-     * Trim left side.
+     * Trims left side.
      */
     public function lTrim(?string $string): string
     {
@@ -64,7 +64,7 @@ class Text
     }
 
     /**
-     * Trim both sides and convert all sequential spaces to one.
+     * Trims both sides and converts all sequential spaces to one.
      */
     public function fTrim(?string $string, int $limit = 0): string
     {
@@ -72,7 +72,7 @@ class Text
     }
 
     /**
-     * Trim both sides and convert all sequential spaces to one, but leave new lines.
+     * Trims both sides and converts all sequential spaces to one, but leave new lines.
      */
     public function mTrim(?string $string, int $limit = 0): string
     {
