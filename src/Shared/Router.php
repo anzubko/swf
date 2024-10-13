@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Shared;
 
 use LogicException;
-use SWF\ControllerProvider;
+use SWF\ControllerRouter;
 
 class Router
 {
@@ -15,7 +15,7 @@ class Router
      */
     public function genUrl(string $action, string|int|float|null ...$params): string
     {
-        return i(ControllerProvider::class)->genUrl($action, ...$params);
+        return ControllerRouter::genUrl($action, ...$params);
     }
 
     /**
@@ -25,6 +25,6 @@ class Router
      */
     public function genAbsoluteUrl(string $action, string|int|float|null ...$params): string
     {
-        return i(Registry::class)->url . i(ControllerProvider::class)->genUrl($action, ...$params);
+        return i(Registry::class)->url . ControllerRouter::genUrl($action, ...$params);
     }
 }

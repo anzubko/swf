@@ -54,7 +54,7 @@ class Response
 
         $this->headers()->setCacheControl(['private', 'max-age' => 0], false);
 
-        i(ResponseManager::class)->send($body, $code);
+        ResponseManager::send($body, $code);
 
         return $this;
     }
@@ -64,7 +64,7 @@ class Response
      */
     public function headers(): HeaderRegistry
     {
-        return i(ResponseManager::class)->headers();
+        return ResponseManager::headers();
     }
 
     /**
@@ -72,7 +72,7 @@ class Response
      */
     public function redirect(string $url, int $code = 302): static
     {
-        i(ResponseManager::class)->redirect($url, $code);
+        ResponseManager::redirect($url, $code);
 
         return $this;
     }
@@ -84,7 +84,7 @@ class Response
      */
     public function error(int $code = 500, string $message = ''): never
     {
-        i(ResponseManager::class)->error($code, $message);
+        ResponseManager::error($code, $message);
     }
 
     /**
@@ -94,6 +94,6 @@ class Response
      */
     public function end(): never
     {
-        i(ResponseManager::class)->end();
+        ResponseManager::end();
     }
 }
