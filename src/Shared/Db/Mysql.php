@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Db;
 
-use App\Config\DbConfig;
+use App\Config\DatabaseConfig;
 use SWF\MysqlDatabaser;
 
 /**
@@ -13,6 +13,6 @@ class Mysql
 {
     public static function getInstance(): MysqlDatabaser
     {
-        return new MysqlDatabaser(...i(DbConfig::class)->mysql);
+        return new MysqlDatabaser(...i(DatabaseConfig::class)->mysql);
     }
 }

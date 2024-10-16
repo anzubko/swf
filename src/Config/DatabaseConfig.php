@@ -8,7 +8,7 @@ use App\Shared\Db\Pgsql;
 use SWF\AbstractConfig;
 use SWF\Attribute\Env;
 
-class DbConfig extends AbstractConfig
+class DatabaseConfig extends AbstractConfig
 {
     /**
      * Default database.

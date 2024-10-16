@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Listener;
 
 use App\Config\CommonConfig;
-use App\Config\DbConfig;
+use App\Config\DatabaseConfig;
 use App\Config\TransactionConfig;
 use App\Shared\Logger;
 use App\Shared\Merger;
@@ -38,7 +38,7 @@ class CommonListener
         });
 
         Databaser::setProfiler(function (DatabaserInterface $db, float $timer, array $queries): void {
-            if (null === i(DbConfig::class)->slowQueryLog || $timer < i(DbConfig::class)->slowQueryMin) {
+            if (null === i(DatabaseConfig::class)->slowQueryLog || $timer < i(DatabaseConfig::class)->slowQueryMin) {
                 return;
             }
 
@@ -50,7 +50,7 @@ class CommonListener
 
             $message = sprintf("[%.2f] %s, %s\n\t%s\n", $timer, $db->getName(), $host, implode("\n\t", $queries));
 
-            i(Logger::class)->customLog(i(DbConfig::class)->slowQueryLog, $message);
+            i(Logger::class)->customLog(i(DatabaseConfig::class)->slowQueryLog, $message);
         });
     }
 

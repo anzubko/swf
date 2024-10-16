@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Db;
 
-use App\Config\DbConfig;
+use App\Config\DatabaseConfig;
 use SWF\PgsqlDatabaser;
 
 /**
@@ -13,6 +13,6 @@ class Pgsql
 {
     public static function getInstance(): PgsqlDatabaser
     {
-        return new PgsqlDatabaser(...i(DbConfig::class)->pgsql);
+        return new PgsqlDatabaser(...i(DatabaseConfig::class)->pgsql);
     }
 }
