@@ -38,8 +38,7 @@ class CommonListener
         });
 
         Databaser::setProfiler(function (DatabaserInterface $db, float $timer, array $queries): void {
-            $slowQueryLog = i(DatabaseConfig::class)->slowQueryLog;
-            if (null === $slowQueryLog || $timer < i(DatabaseConfig::class)->slowQueryMin) {
+            if (null === i(DatabaseConfig::class)->slowQueryLog || $timer < i(DatabaseConfig::class)->slowQueryMin) {
                 return;
             }
 
@@ -51,19 +50,18 @@ class CommonListener
 
             $message = sprintf("[%.2f] %s, %s\n\t%s\n", $timer, $db->getName(), $host, implode("\n\t", $queries));
 
-            i(Logger::class)->customLog($slowQueryLog, $message);
+            i(Logger::class)->customLog(i(DatabaseConfig::class)->slowQueryLog, $message);
         });
     }
 
     #[AsListener(persistent: true)]
     public function customErrorDocument(HttpErrorEvent $event): void
     {
-        $errorDocument = i(CommonConfig::class)->errorDocument;
-        if (null === $errorDocument) {
+        if (null === i(CommonConfig::class)->errorDocument) {
             return;
         }
 
-        $errorDocument = strtr($errorDocument, ['{CODE}' => (string) $event->getCode()]);
+        $errorDocument = strtr(i(CommonConfig::class)->errorDocument, ['{CODE}' => (string) $event->getCode()]);
         if (is_file($errorDocument)) {
             include $errorDocument;
         }
@@ -72,8 +70,7 @@ class CommonListener
     #[AsListener(persistent: true)]
     public function logTransactionRetry(TransactionRetryEvent $event): void
     {
-        $retriesLog = i(TransactionConfig::class)->retriesLog;
-        if (null === $retriesLog) {
+        if (null === i(TransactionConfig::class)->retriesLog) {
             return;
         }
 
@@ -86,14 +83,13 @@ class CommonListener
 
         $message = sprintf('%s [%d] %s, %s', $event->getException()->getState(), $event->getRetry(), implode(' + ', $names), $host);
 
-        i(Logger::class)->customLog($retriesLog, $message);
+        i(Logger::class)->customLog(i(TransactionConfig::class)->retriesLog, $message);
     }
 
     #[AsListener(priority: PHP_FLOAT_MIN, persistent: true)]
     public function statsToHtmlResponse(ResponseEvent $event): void
     {
-        $body = $event->getBody();
-        if (!is_string($body) || !$event->getHeaders()->contains('Content-Type', 'text/html')) {
+        if (!is_string($event->getBody()) || !$event->getHeaders()->contains('Content-Type', 'text/html')) {
             return;
         }
 
@@ -113,6 +109,6 @@ class CommonListener
             ],
         );
 
-        $event->setBody($body . $stats);
+        $event->setBody($event->getBody() . $stats);
     }
 }
