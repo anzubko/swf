@@ -6,7 +6,7 @@ namespace App\Config;
 use SWF\AbstractConfig;
 use SWF\Attribute\Env;
 
-class MessageConfig extends AbstractConfig
+class BrokerConfig extends AbstractConfig
 {
     /**
      * RabbitMQ settings.
