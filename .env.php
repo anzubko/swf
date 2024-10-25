@@ -6,7 +6,22 @@ return [
     'APP_URL' => null,
     'APP_ROBOTS' => false,
 
+    'APP_MAILER' => [
+        'enabled' => true,
+        'strict' => false,
+        'sender' => 'sender@domain.com',
+        'recipients' => null,
+        'replies' => null,
+    ],
+
     'APP_DEFAULT_CACHE' => App\Shared\Cache\Nocache::class,
+
+    'APP_MEMCACHED' => [
+        'servers' => [['127.0.0.1', 11211]],
+    ],
+    'APP_REDIS' => [
+        'connect' => ['127.0.0.1', 6379, 2.5],
+    ],
 
     'APP_SLOW_QUERY_MIN' => 0.5,
 
@@ -24,11 +39,11 @@ return [
         'user' => null,
         'pass' => null,
     ],
-    'APP_MAILER' => [
-        'enabled' => true,
-        'strict' => false,
-        'sender' => 'sender@domain.com',
-        'recipients' => null,
-        'replies' => null,
+
+    'APP_RABBIT_MQ' => [
+        'host' => 'localhost',
+        'port' => 5672,
+        'user' => 'quest',
+        'pass' => 'guest',
     ],
 ];

@@ -38,6 +38,11 @@ class DatabaseConfig extends AbstractConfig
     #[Env('APP_MYSQL')]
     public array $mysql = [
         'name' => 'Mysql',
+        'host' => null,
+        'port' => null,
+        'db' => null,
+        'user' => null,
+        'pass' => null,
     ];
 
     /**
@@ -50,5 +55,10 @@ class DatabaseConfig extends AbstractConfig
     #[Env('APP_PGSQL')]
     public array $pgsql = [
         'name' => 'Pgsql',
+        'host' => null,
+        'port' => null,
+        'db' => null,
+        'user' => null,
+        'pass' => null,
     ];
 }

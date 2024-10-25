@@ -39,6 +39,7 @@ class CacheConfig extends AbstractConfig
      *
      * @var mixed[]
      */
+    #[Env('APP_MEMCACHED')]
     public array $memcached = [
         'ns' => null,
         'ttl' => 3600,
@@ -52,6 +53,7 @@ class CacheConfig extends AbstractConfig
      *
      * @var mixed[]
      */
+    #[Env('APP_REDIS')]
     public array $redis = [
         'ns' => null,
         'ttl' => 3600,
