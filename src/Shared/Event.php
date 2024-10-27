@@ -8,7 +8,7 @@ use SWF\EventDispatcher;
 /**
  * @mixin EventDispatcher
  */
-class Dispatcher
+class Event
 {
     public static function getInstance(): EventDispatcher
     {
