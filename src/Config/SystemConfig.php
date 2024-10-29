@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Config;
 
 use SWF\AbstractSystemConfig;
-use SWF\Attribute\Env;
+use SWF\Attribute\GetEnv;
 
 /**
  * Please, do not add you own custom properties to this class!
@@ -14,19 +14,19 @@ class SystemConfig extends AbstractSystemConfig
     /**
      * Environment mode ('dev', 'test', 'prod', etc..).
      */
-    #[Env('APP_ENV')]
+    #[GetEnv('APP_ENV')]
     public string $env = 'dev';
 
     /**
      * Debug mode (not minify HTML/CSS/JS if true).
      */
-    #[Env('APP_DEBUG')]
+    #[GetEnv('APP_DEBUG')]
     public bool $debug = false;
 
     /**
      * Basic url (autodetect if null).
      */
-    #[Env('APP_URL')]
+    #[GetEnv('APP_URL')]
     public ?string $url = null;
 
     /**

@@ -6,14 +6,14 @@ namespace App\Config;
 use App\Shared\Mailer;
 use App\Shared\Merger;
 use SWF\AbstractConfig;
-use SWF\Attribute\Env;
+use SWF\Attribute\GetEnv;
 
 class CommonConfig extends AbstractConfig
 {
     /**
      * Allow robots.
      */
-    #[Env('APP_ROBOTS')]
+    #[GetEnv('APP_ROBOTS')]
     public bool $robots = false;
 
     /**
@@ -33,7 +33,7 @@ class CommonConfig extends AbstractConfig
      *
      * @var mixed[]
      */
-    #[Env('APP_MAILER')]
+    #[GetEnv('APP_MAILER')]
     public array $mailer = [
         'enabled' => true,
         'strict' => false,

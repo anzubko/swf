@@ -8,7 +8,7 @@ use App\Shared\Cache\Memcached;
 use App\Shared\Cache\Nocache;
 use App\Shared\Cache\Redis;
 use SWF\AbstractConfig;
-use SWF\Attribute\Env;
+use SWF\Attribute\GetEnv;
 
 class CacheConfig extends AbstractConfig
 {
@@ -17,7 +17,7 @@ class CacheConfig extends AbstractConfig
      *
      * @var class-string
      */
-    #[Env('APP_DEFAULT_CACHE')]
+    #[GetEnv('APP_DEFAULT_CACHE')]
     public string $default = Nocache::class;
 
     /**
@@ -39,7 +39,7 @@ class CacheConfig extends AbstractConfig
      *
      * @var mixed[]
      */
-    #[Env('APP_MEMCACHED')]
+    #[GetEnv('APP_MEMCACHED')]
     public array $memcached = [
         'ns' => null,
         'ttl' => 3600,
@@ -53,7 +53,7 @@ class CacheConfig extends AbstractConfig
      *
      * @var mixed[]
      */
-    #[Env('APP_REDIS')]
+    #[GetEnv('APP_REDIS')]
     public array $redis = [
         'ns' => null,
         'ttl' => 3600,

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Config;
 
 use SWF\AbstractConfig;
-use SWF\Attribute\Env;
+use SWF\Attribute\GetEnv;
 
 class BrokerConfig extends AbstractConfig
 {
@@ -13,7 +13,7 @@ class BrokerConfig extends AbstractConfig
      *
      * @var mixed[]
      */
-    #[Env('APP_RABBIT_MQ')]
+    #[GetEnv('APP_RABBIT_MQ')]
     public array $rabbitMQ = [
         'host' => 'localhost',
         'port' => 5672,

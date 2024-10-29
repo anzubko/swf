@@ -6,7 +6,7 @@ namespace App\Config;
 use App\Shared\Db\Mysql;
 use App\Shared\Db\Pgsql;
 use SWF\AbstractConfig;
-use SWF\Attribute\Env;
+use SWF\Attribute\GetEnv;
 
 class DatabaseConfig extends AbstractConfig
 {
@@ -25,7 +25,7 @@ class DatabaseConfig extends AbstractConfig
     /**
      * Log slow queries with minimal time in seconds.
      */
-    #[Env('APP_SLOW_QUERY_MIN')]
+    #[GetEnv('APP_SLOW_QUERY_MIN')]
     public float $slowQueryMin = 0.5;
 
     /**
@@ -35,7 +35,7 @@ class DatabaseConfig extends AbstractConfig
      *
      * @var mixed[]
      */
-    #[Env('APP_MYSQL')]
+    #[GetEnv('APP_MYSQL')]
     public array $mysql = [
         'name' => 'Mysql',
         'host' => null,
@@ -52,7 +52,7 @@ class DatabaseConfig extends AbstractConfig
      *
      * @var mixed[]
      */
-    #[Env('APP_PGSQL')]
+    #[GetEnv('APP_PGSQL')]
     public array $pgsql = [
         'name' => 'Pgsql',
         'host' => null,
