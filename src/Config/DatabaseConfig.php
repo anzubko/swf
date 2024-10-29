@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Config;
 
 use App\Shared\Db\Mysql;
-use App\Shared\Db\Pgsql;
 use SWF\AbstractConfig;
 use SWF\Attribute\GetEnv;
 
@@ -31,8 +30,6 @@ class DatabaseConfig extends AbstractConfig
     /**
      * Mysql settings.
      *
-     * @see Mysql
-     *
      * @var mixed[]
      */
     #[GetEnv('APP_MYSQL')]
@@ -47,8 +44,6 @@ class DatabaseConfig extends AbstractConfig
 
     /**
      * Pgsql settings.
-     *
-     * @see Pgsql
      *
      * @var mixed[]
      */

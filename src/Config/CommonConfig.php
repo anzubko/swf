@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Config;
 
-use App\Shared\Mailer;
-use App\Shared\Merger;
 use SWF\AbstractConfig;
 use SWF\Attribute\GetEnv;
 
@@ -29,8 +27,6 @@ class CommonConfig extends AbstractConfig
     /**
      * Mailer settings.
      *
-     * @see Mailer
-     *
      * @var mixed[]
      */
     #[GetEnv('APP_MAILER')]
@@ -44,8 +40,6 @@ class CommonConfig extends AbstractConfig
 
     /**
      * Assets merger settings.
-     *
-     * @see Merger
      *
      * @var mixed[]
      */

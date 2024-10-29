@@ -3,10 +3,7 @@ declare(strict_types=1);
 
 namespace App\Config;
 
-use App\Shared\Cache\Apc;
-use App\Shared\Cache\Memcached;
 use App\Shared\Cache\Nocache;
-use App\Shared\Cache\Redis;
 use SWF\AbstractConfig;
 use SWF\Attribute\GetEnv;
 
@@ -23,8 +20,6 @@ class CacheConfig extends AbstractConfig
     /**
      * Apc settings.
      *
-     * @see Apc
-     *
      * @var mixed[]
      */
     public array $apc = [
@@ -34,8 +29,6 @@ class CacheConfig extends AbstractConfig
 
     /**
      * Memcached settings.
-     *
-     * @see Memcached
      *
      * @var mixed[]
      */
@@ -48,8 +41,6 @@ class CacheConfig extends AbstractConfig
 
     /**
      * Redis settings.
-     *
-     * @see Redis
      *
      * @var mixed[]
      */

@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Config;
 
 use App\Shared\Template\Native;
-use App\Shared\Template\Twig;
-use App\Shared\Template\Xslt;
 use SWF\AbstractConfig;
 
 class TemplateConfig extends AbstractConfig
@@ -20,8 +18,6 @@ class TemplateConfig extends AbstractConfig
     /**
      * Native settings.
      *
-     * @see Native
-     *
      * @var mixed[]
      */
     public array $native = [
@@ -32,8 +28,6 @@ class TemplateConfig extends AbstractConfig
     /**
      * Twig settings.
      *
-     * @see Twig
-     *
      * @var mixed[]
      */
     public array $twig = [
@@ -43,8 +37,6 @@ class TemplateConfig extends AbstractConfig
 
     /**
      * Xslt settings.
-     *
-     * @see Xslt
      *
      * @var mixed[]
      */
