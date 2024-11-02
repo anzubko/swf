@@ -61,7 +61,7 @@ class CommonListener
             return;
         }
 
-        $errorDocument = strtr(i(CommonConfig::class)->errorDocument, ['{CODE}' => (string) $event->getCode()]);
+        $errorDocument = strtr(i(CommonConfig::class)->errorDocument, ['{CODE}' => (string) $event->code]);
         if (is_file($errorDocument)) {
             include $errorDocument;
         }
@@ -75,13 +75,13 @@ class CommonListener
         }
 
         $names = [];
-        foreach ($event->getDeclarations() as $declaration) {
-            $names[] = $declaration->getDb()->getName();
+        foreach ($event->declarations as $declaration) {
+            $names[] = $declaration->db->getName();
         }
 
         $host = idn_to_utf8(i(Registry::class)->httpHost) . i(Registry::class)->requestUri;
 
-        $message = sprintf('%s [%d] %s, %s', $event->getException()->getState(), $event->getRetry(), implode(' + ', $names), $host);
+        $message = sprintf('%s [%d] %s, %s', $event->exception->getState(), $event->retry, implode(' + ', $names), $host);
 
         i(Logger::class)->customLog(i(TransactionConfig::class)->retriesLog, $message);
     }
@@ -89,7 +89,7 @@ class CommonListener
     #[AsListener(priority: PHP_FLOAT_MIN, persistent: true)]
     public function statsToHtmlResponse(ResponseEvent $event): void
     {
-        if (!is_string($event->getBody()) || !$event->getHeaders()->contains('Content-Type', 'text/html')) {
+        if (!is_string($event->body) || !$event->headers->contains('Content-Type', 'text/html')) {
             return;
         }
 
@@ -109,6 +109,6 @@ class CommonListener
             ],
         );
 
-        $event->setBody($event->getBody() . $stats);
+        $event->body = $event->body . $stats;
     }
 }

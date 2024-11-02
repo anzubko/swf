@@ -25,7 +25,7 @@ class Response
     {
         $transformed = i(Template::class)->transform($filename, $data);
 
-        return $this->send($transformed->getBody(), $code, $transformed->getType(), $charset);
+        return $this->send($transformed->body, $code, $transformed->type, $charset);
     }
 
     /**

@@ -28,7 +28,7 @@ class SimpleNotify extends AbstractNotify
     {
         $subject = 'Simple message';
 
-        $body = i(Template::class)->transform('notify.send.message.html', ['message' => $this->message])->getBody();
+        $body = i(Template::class)->transform('notify.send.message.html', ['message' => $this->message])->body;
 
         i(Mailer::class)
             ->create()
