@@ -25,7 +25,7 @@ class Twig
 
         $parameters['debug'] = i(SystemConfig::class)->debug;
 
-        $parameters['reload'] = 'prod' !== i(SystemConfig::class)->env;
+        $parameters['reload'] = i(SystemConfig::class)->env !== 'prod';
 
         $parameters['globals']['registry'] = i(Registry::class);
 
