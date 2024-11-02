@@ -38,7 +38,7 @@ class CommonListener
         });
 
         Databaser::setProfiler(function (DatabaserInterface $db, float $timer, array $queries): void {
-            if (null === i(DatabaseConfig::class)->slowQueryLog || $timer < i(DatabaseConfig::class)->slowQueryMin) {
+            if (i(DatabaseConfig::class)->slowQueryLog === null || $timer < i(DatabaseConfig::class)->slowQueryMin) {
                 return;
             }
 
@@ -57,7 +57,7 @@ class CommonListener
     #[AsListener(persistent: true)]
     public function customErrorDocument(HttpErrorEvent $event): void
     {
-        if (null === i(CommonConfig::class)->errorDocument) {
+        if (i(CommonConfig::class)->errorDocument === null) {
             return;
         }
 
@@ -70,7 +70,7 @@ class CommonListener
     #[AsListener(persistent: true)]
     public function logTransactionRetry(TransactionRetryEvent $event): void
     {
-        if (null === i(TransactionConfig::class)->retriesLog) {
+        if (i(TransactionConfig::class)->retriesLog === null) {
             return;
         }
 
